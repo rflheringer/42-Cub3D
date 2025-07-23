@@ -22,16 +22,17 @@ typedef struct s_player
 	char	*pos;
 	int		pos_x;
 	int		pos_y;
-}t_player;
+}	t_player;
 
 typedef struct s_map
 {
 	char	*file;
+	char	**file_content;
 	char	**map;
 	char	**map_copy;
 	int		width;
 	int		heigth;
-}t_map;
+}	t_map;
 
 typedef struct s_image
 {
@@ -39,7 +40,7 @@ typedef struct s_image
 	mlx_image_t		*south_wall;
 	mlx_image_t		*east_wall;
 	mlx_image_t		*west_wall;
-}t_image;
+}	t_image;
 
 typedef struct s_texture
 {
@@ -51,7 +52,7 @@ typedef struct s_texture
 	mlx_texture_t	*east_wall;
 	char			*west_path;
 	mlx_texture_t	*west_wall;
-}t_texture;
+}	t_texture;
 
 typedef struct s_game
 {
@@ -60,6 +61,9 @@ typedef struct s_game
 	t_map		*map;
 	t_image		*image;
 	t_texture	*texture;
-}t_game;
+}	t_game;
 
-#endif
+// Parser
+void	parser(t_game *game, char *file);
+
+#endif /* cub3D */
