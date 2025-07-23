@@ -1,7 +1,7 @@
 NAME		=	cub3D
 
 CC			=	cc
-FLAGS		=	-Wall -Werror -Wextra -g3
+FLAGS		=	-Wextra
 LIBFT		=	./lib
 LIBMLX		=	./MLX42
 

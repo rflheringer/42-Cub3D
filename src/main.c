@@ -6,7 +6,7 @@
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/23 14:54:08 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/07/23 16:46:02 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ int	main(int argc, char **argv)
 {
 	t_game	*game;
 
-	if (argv)
-	{
-	}
 	if (argc > 2)
 	{
 		error_messages(EXIT_TOO_MANY_ARGUMENTS);
