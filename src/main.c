@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -27,6 +28,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	game = ft_calloc(1, sizeof(t_game));
+	game->map = ft_calloc(1, sizeof(t_map));
+	parser(game, argv[1]);
+	int i = 0;
+	while (game->map->file_content[i])
+	{
+		printf("%s\n", game->map->file_content[i]);
+		i++;
+	}
 	/*parser*/
 	/*init progam = load texture, images, screen*/
 }

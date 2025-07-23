@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../includes/libft.h"
 
 int	ft_strchr_count(char const *str, char c)
 {

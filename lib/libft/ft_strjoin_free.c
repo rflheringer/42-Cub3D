@@ -12,7 +12,7 @@
 
 #include "../includes/libft.h"
 
-char	*ft_strjoin_free(char const *s1, char *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*newstr;
 	int		len;
@@ -30,6 +30,7 @@ char	*ft_strjoin_free(char const *s1, char *s2)
 	while (s2[j] != '\0')
 		newstr[i++] = s2[j++];
 	newstr[i] = '\0';
+	free(s1);
 	free(s2);
 	return (newstr);
 }
