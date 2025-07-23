@@ -6,7 +6,7 @@
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/23 14:45:35 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/07/23 18:46:45 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define EXIT_TOO_MANY_ARGUMENTS 3
 # define EXIT_FEW_ARGUMENTS 4
 # define EXIT_ERROR_MEMORY_ALLOCATION 5
+# define EXIT_INVALID_EXTENSION 6
+# define EXIT_INVALID_FILE 7
 
 typedef struct s_player
 {

@@ -9,8 +9,8 @@ LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)/libft.a
 
 HEADERS		=	-I $(libs)/Includes -I $(LIBMLX)/build
 
-SRCS		=	./src/error_manager.c \
-				./src/inits_manager.c \
+SRCS		=	./src/error.c \
+				./src/initializers.c \
 				./src/main.c
 
 OBJS			=	${SRCS:.c=.o}

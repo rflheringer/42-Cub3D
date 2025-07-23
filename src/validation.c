@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_manager.c                                    :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/23 16:41:50 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/23 18:32:54 by rafaelherin       #+#    #+#             */
+/*   Updated: 2025/07/23 18:55:46 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void    error_messages(short error_code)
+void validate_map(char *file, t_game *game)
 {
-    if (error_code == EXIT_TOO_MANY_ARGUMENTS)
-        ft_printf_fd(STDERR_FILENO, "Error\nToo many arguments\n");
-    if (error_code == EXIT_FEW_ARGUMENTS)
-        ft_printf_fd(STDERR_FILENO, "Error\nToo few arguments\n");
+    int fd;
+    
+    if (!(ft_strnstr(file, ".cub", ft_strlen(file))))
+        message_error(EXIT_INVALID_EXTENSION);
+    fd = open(file, O_RDONLY);
+    if (fd < 0)
+		message_error(EXIT_INVALID_FILE);
+    
 }

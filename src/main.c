@@ -6,7 +6,7 @@
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/23 16:46:02 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/07/23 18:53:59 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ int	main(int argc, char **argv)
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
 		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
+	game->player = ft_calloc(1, sizeof(t_player));
+	game->map = ft_calloc(1, sizeof(t_map));
+	/*validations*/
 	init_cub3d(game);
 }
