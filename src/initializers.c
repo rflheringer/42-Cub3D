@@ -1,36 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/23 14:54:08 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
+/*   Updated: 2025/07/23 14:48:40 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	main(int argc, char **argv)
-{
-	t_game	*game;
-
-	if (argv)
-	{
-	}
-	if (argc > 2)
-	{
-		error_messages(EXIT_TOO_MANY_ARGUMENTS);
-		return (EXIT_TOO_MANY_ARGUMENTS);
-	}
-	if (argc < 2)
-	{
-		error_messages(EXIT_FEW_ARGUMENTS);
-		return (EXIT_FEW_ARGUMENTS);
-	}
-	game = ft_calloc(1, sizeof(t_game));
-	if (!game)
-		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
-	init_cub3d(game);
-}

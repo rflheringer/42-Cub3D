@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/22 18:26:49 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:45:35 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/includes/libft.h"
 # include <fcntl.h>
+
+# define EXIT_TOO_MANY_ARGUMENTS 3
+# define EXIT_FEW_ARGUMENTS 4
+# define EXIT_ERROR_MEMORY_ALLOCATION 5
 
 typedef struct s_player
 {
@@ -61,5 +65,14 @@ typedef struct s_game
 	t_image		*image;
 	t_texture	*texture;
 }t_game;
+
+
+// Function prototypes //
+
+//error_manager
+void	error_messages(short error_code);
+
+//inits_manager
+int32_t	init_cub3d(t_game *game);
 
 #endif

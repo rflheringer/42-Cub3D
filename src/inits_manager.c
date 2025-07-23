@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   inits_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/23 14:54:08 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/23 14:38:28 by rafaelherin       #+#    #+#             */
+/*   Updated: 2025/07/23 14:52:12 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	main(int argc, char **argv)
+int32_t init_cub3d(t_game *game)
 {
-	t_game	*game;
-
-	if (argv)
-	{
-	}
-	if (argc > 2)
-	{
-		error_messages(EXIT_TOO_MANY_ARGUMENTS);
-		return (EXIT_TOO_MANY_ARGUMENTS);
-	}
-	if (argc < 2)
-	{
-		error_messages(EXIT_FEW_ARGUMENTS);
-		return (EXIT_FEW_ARGUMENTS);
-	}
-	game = ft_calloc(1, sizeof(t_game));
-	if (!game)
-		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
-	init_cub3d(game);
+    game->mlx = mlx_init(800, 600, "Cub3D", true);
+    mlx_loop(game->mlx);
+    return (0);
 }

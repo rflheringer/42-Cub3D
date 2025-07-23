@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr_count.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:09:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/06/16 12:09:32 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:19:43 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/minishell.h"
 
 int	ft_strchr_count(char const *str, char c)
 {
