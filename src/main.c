@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/24 12:13:52 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:56:27 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	main(int argc, char **argv)
 	game->image = ft_calloc(1, sizeof(t_image));
 	game->player = ft_calloc(1, sizeof(t_player));
 	parser(game, argv[1]);
+	ft_printf("%s\n", game->texture->north_path);
+	ft_printf("%s\n", game->texture->south_path);
+	ft_printf("%s\n", game->texture->west_path);
+	ft_printf("%s\n", game->texture->east_path);
+	ft_printf("%s\n", game->texture->floor_color);
+	ft_printf("%s\n", game->texture->ceiling_color);
 }
 // int i = 0;
 // while (game->map->file_content[i])
