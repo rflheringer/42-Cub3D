@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/22 18:55:14 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:13:52 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,17 @@ int	main(int argc, char **argv)
 	}
 	game = ft_calloc(1, sizeof(t_game));
 	game->map = ft_calloc(1, sizeof(t_map));
+	game->texture = ft_calloc(1, sizeof(t_texture));
+	game->image = ft_calloc(1, sizeof(t_image));
+	game->player = ft_calloc(1, sizeof(t_player));
 	parser(game, argv[1]);
-	int i = 0;
-	while (game->map->file_content[i])
-	{
-		printf("%s\n", game->map->file_content[i]);
-		i++;
-	}
-	/*parser*/
-	/*init progam = load texture, images, screen*/
 }
+// int i = 0;
+// while (game->map->file_content[i])
+// {
+// 	printf("%s\n", game->map->file_content[i]);
+// 	printf("%d\n", i);
+// 	i++;
+// }
+/*parser*/
+/*init progam = load texture, images, screen*/
