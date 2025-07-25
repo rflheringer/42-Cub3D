@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 16:25:23 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:36:03 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv)
 }
 // for (int i = 0; i < ft_ptrlen(game->map->map); i++)
 // 	ft_printf("%s\n", game->map->map[i]);
+// ft_printf("%c - %d %d", game->player->direction, game->player->pos_y, game->player->pos_x);
 // int i = 0;
 // while (game->map->file_content[i])
 // {

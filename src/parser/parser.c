@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/25 16:24:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:34:42 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,14 @@ bool	check_valid_zero(char **map, int i, int j)
 	return (true);
 }
 
-void	validate_map(t_game *game, char **map)
+void	set_player_position(t_game *game, char **map, int i, int j)
+{
+	game->player->direction = map[i][j];
+	game->player->pos_x = j;
+	game->player->pos_y = i;
+}
+
+void	check_spaces(t_game *game, char **map)
 {
 	int	i;
 	int	j;
@@ -256,6 +263,36 @@ void	validate_map(t_game *game, char **map)
 		}
 		i++;
 	}
+}
+
+void	check_invalid_chars(t_game *game, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (!ft_strchr(" 01NSWE", map[i][j]))
+			{
+				(void)game;
+				ft_printf("Error\nInvalid character\n");
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	validate_map(t_game *game, char **map)
+{
+	check_invalid_chars(game, map);
+	check_spaces(game, map);
+	// check_player();
 }
 
 void	parser(t_game *game, char *file)
