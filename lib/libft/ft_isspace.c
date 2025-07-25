@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr_count.c                                  :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 12:09:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/23 14:19:43 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/24 10:49:54 by rdel-fra          #+#    #+#             */
+/*   Updated: 2025/07/24 11:17:22 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_strchr_count(char const *str, char c)
+int	ft_isspace(int c)
 {
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			count += 1;
-		i++;
-	}
-	if (str[i] == c)
-		count += 1;
-	return (count);
+	if (c == 32)
+		return (1);
+	return (0);
 }

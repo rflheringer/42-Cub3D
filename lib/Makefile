@@ -7,6 +7,7 @@ FLAGS		=	-Wall -Werror -Wextra
 SRCS		=	./libft/ft_isalpha.c \
 				./libft/ft_isdigit.c \
 				./libft/ft_isalnum.c \
+				./libft/ft_isspace.c \
 				./libft/ft_isascii.c \
 				./libft/ft_isprint.c \
 				./libft/ft_strchr.c \
@@ -38,6 +39,7 @@ SRCS		=	./libft/ft_isalpha.c \
 				./libft/ft_strtrim.c \
 				./libft/ft_itoa.c \
 				./libft/ft_split.c \
+				./libft/ft_free_matrix.c \
 				./libft/ft_strmapi.c \
 				./libft/ft_striteri.c \
 				./libft/ft_putchar_fd.c \

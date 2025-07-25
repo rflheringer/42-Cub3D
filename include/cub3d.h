@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/23 18:46:45 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/07/24 11:58:18 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,17 @@ typedef struct s_player
 	char	*pos;
 	int		pos_x;
 	int		pos_y;
-}t_player;
+}	t_player;
 
 typedef struct s_map
 {
 	char	*file;
+	char	**file_content;
 	char	**map;
 	char	**map_copy;
 	int		width;
 	int		heigth;
-}t_map;
+}	t_map;
 
 typedef struct s_image
 {
@@ -45,7 +46,7 @@ typedef struct s_image
 	mlx_image_t		*south_wall;
 	mlx_image_t		*east_wall;
 	mlx_image_t		*west_wall;
-}t_image;
+}	t_image;
 
 typedef struct s_texture
 {
@@ -57,7 +58,9 @@ typedef struct s_texture
 	mlx_texture_t	*east_wall;
 	char			*west_path;
 	mlx_texture_t	*west_wall;
-}t_texture;
+	char			*floor_color;
+	char			*ceiling_color;
+}	t_texture;
 
 typedef struct s_game
 {
@@ -66,8 +69,10 @@ typedef struct s_game
 	t_map		*map;
 	t_image		*image;
 	t_texture	*texture;
-}t_game;
+}	t_game;
 
+// Parser
+void	parser(t_game *game, char *file);
 
 // Function prototypes //
 

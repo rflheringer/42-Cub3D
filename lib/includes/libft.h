@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 11:25:41 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/06/30 14:34:52 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:52:31 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_list
 int		ft_isalpha(int c);
 int		ft_isdigit(int d);
 int		ft_isalnum(int a);
+int		ft_isspace(int c);
 int		ft_isascii(int i);
 int		ft_isprint(int p);
 int		ft_toupper(int u);
@@ -46,7 +47,7 @@ char	ft_findchar(const char *s, char *find);
 int		ft_strchr_count(char const *str, char c);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoin_free(char const *s1, char *s2);
+char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -57,6 +58,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_putstr_fd(char *s, int fd);
 int		ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
+void	ft_free_matrix(char **matrix);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_lstiter(t_list *lst, void (*f)(int));

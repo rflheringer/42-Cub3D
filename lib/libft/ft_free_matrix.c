@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr_count.c                                  :+:      :+:    :+:   */
+/*   ft_free_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 12:09:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/23 14:19:43 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/24 10:45:42 by rdel-fra          #+#    #+#             */
+/*   Updated: 2025/07/24 10:46:04 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_strchr_count(char const *str, char c)
+void	ft_free_matrix(char **matrix)
 {
-	int		i;
-	int		count;
+	int	i;
 
 	i = 0;
-	count = 0;
-	while (str[i])
+	if (!matrix)
+		return ;
+	while (matrix[i] != NULL)
 	{
-		if (str[i] == c)
-			count += 1;
+		free(matrix[i]);
 		i++;
 	}
-	if (str[i] == c)
-		count += 1;
-	return (count);
+	free(matrix);
+	matrix = NULL;
 }
