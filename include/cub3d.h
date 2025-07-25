@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 18:22:34 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:42:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/includes/libft.h"
 # include <fcntl.h>
-
-# define EXIT_TOO_MANY_ARGUMENTS 3
-# define EXIT_FEW_ARGUMENTS 4
-# define EXIT_ERROR_MEMORY_ALLOCATION 5
-# define EXIT_INVALID_EXTENSION 6
-# define EXIT_INVALID_FILE 7
 
 typedef struct s_player
 {
@@ -72,13 +66,5 @@ typedef struct s_game
 
 // Parser
 void	parser(t_game *game, char *file);
-
-// Function prototypes //
-
-//error_manager
-void	error_messages(short error_code);
-
-//inits_manager
-int32_t	init_cub3d(t_game *game);
 
 #endif
