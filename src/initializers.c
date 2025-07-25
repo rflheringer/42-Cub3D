@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr_count.c                                  :+:      :+:    :+:   */
+/*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 12:09:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/23 14:19:43 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
+/*   Updated: 2025/07/23 18:32:27 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../include/cub3d.h"
 
-int	ft_strchr_count(char const *str, char c)
+int32_t init_cub3d(t_game *game)
 {
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			count += 1;
-		i++;
-	}
-	if (str[i] == c)
-		count += 1;
-	return (count);
+    game->mlx = mlx_init(800, 600, "Cub3D", true);
+    mlx_loop(game->mlx);
+    return (0);
 }
