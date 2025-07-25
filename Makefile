@@ -1,7 +1,7 @@
 NAME		=	cub3D
 
 CC			=	cc
-FLAGS		=	-Wall -Werror -Wextra -g3
+FLAGS		=	-Wextra
 LIBFT		=	./lib
 LIBMLX		=	./MLX42
 
@@ -11,6 +11,8 @@ HEADERS		=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 
 SRCS		=	./src/main.c \
 				./src/parser/parser.c
+        ./src/error.c \
+				./src/initializers.c \
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

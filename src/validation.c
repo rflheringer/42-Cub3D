@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr_count.c                                  :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 12:09:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/23 14:19:43 by rafaelherin      ###   ########.fr       */
+/*   Created: 2025/07/23 18:32:54 by rafaelherin       #+#    #+#             */
+/*   Updated: 2025/07/23 18:55:46 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../include/cub3d.h"
 
-int	ft_strchr_count(char const *str, char c)
+void validate_map(char *file, t_game *game)
 {
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			count += 1;
-		i++;
-	}
-	if (str[i] == c)
-		count += 1;
-	return (count);
+    int fd;
+    
+    if (!(ft_strnstr(file, ".cub", ft_strlen(file))))
+        message_error(EXIT_INVALID_EXTENSION);
+    fd = open(file, O_RDONLY);
+    if (fd < 0)
+		message_error(EXIT_INVALID_FILE);
+    
 }
