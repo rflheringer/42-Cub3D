@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:44:12 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 18:20:44 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:40:18 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 static void	render_walls(t_game *game, int i, int j)
 {
-	int tile_size;
-	
+	int	tile_size;
+
 	tile_size = 64;
 	if (game->map->map[i][j] == '1')
-		mlx_image_to_window(game->mlx, game->image->south_wall, j * tile_size, i * tile_size);
+		mlx_image_to_window(game->mlx, game->image->south_wall,
+			j * tile_size, i * tile_size);
 }
 
 void	load_screen(t_game *game)
 {
 	int	i;
 	int	j;
-	
+
 	i = -1;
 	while (i++, game->map->map[i])
 	{
@@ -35,8 +36,5 @@ void	load_screen(t_game *game)
 			if (game->map->map[i][j] == '1')
 				render_walls(game, i, j);
 		}
-		printf("i:%d j: %d\n", i,  j);
 	}
-
 }
-

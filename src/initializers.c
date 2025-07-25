@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/25 18:15:49 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:40:37 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int32_t	init_cub3d(t_game *game)
 	mlx_loop(game->mlx);
 	return (0);
 }
-
