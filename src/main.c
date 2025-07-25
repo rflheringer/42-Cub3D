@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 16:25:23 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:00:20 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	game->player = ft_calloc(1, sizeof(t_player));
 	if (!game)
 		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
-  parser(game, argv[1]);
+	parser(game, argv[1]);
 	init_cub3d(game);
 }
 // for (int i = 0; i < ft_ptrlen(game->map->map); i++)
