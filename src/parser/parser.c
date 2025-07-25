@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/25 16:19:58 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:59:50 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,21 @@ void	read_file(t_game *game, int fd)
 
 void	validate_file(t_game *game, char *file)
 {
-	int	fd;
+	char	*extension;
+	int		fd;
 
-	if (!ft_strnstr(file, ".cub", ft_strlen(file)))
+	extension = ft_strrchr(file, '.');
+	if (ft_strcmp(extension, ".cub") != 0)
 	{
 		(void)game;
+		ft_printf("Error\nInvalid Extension\n");
 		exit(1);
 	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		(void)game;
+		ft_printf("Error\nInvalid file\n");
 		exit(1);
 	}
 	read_file(game, fd);
@@ -184,6 +188,7 @@ void	get_map(t_game *game, char **content, int *i)
 		(*i)++;
 		j++;
 	}
+	game->map->heigth = ft_ptrlen(game->map->map);
 }
 
 void	get_text_color_and_map(t_game *game, char **content)
@@ -210,9 +215,52 @@ void	get_text_color_and_map(t_game *game, char **content)
 	}
 }
 
+bool	check_valid_zero(char **map, int i, int j)
+{
+	if (i == 0)
+		return (false);
+	if (!map[i + 1])
+		return (false);
+	if (j > 0 && map[i][j - 1] == ' ')
+		return (false);
+	if (i > 0 && map[i- 1][j] == ' ')
+		return (false);
+	if (map[i][j + 1] == '\0' || map[i][j + 1] == ' ')
+		return (false);
+	if (map[i + 1] && map[i + 1][j] == ' ')
+		return (false);
+	return (true);
+}
+
+void	validate_map(t_game *game, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '0')
+			{
+				if (!check_valid_zero(map, i, j))
+				{
+					(void)game;
+					ft_printf("Error\nMap not closed\n");
+					exit (1);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	parser(t_game *game, char *file)
 {
 	validate_file(game, file);
 	get_text_color_and_map(game, game->map->file_content);
-	//validate_map(game);
+	validate_map(game, game->map->map);
 }

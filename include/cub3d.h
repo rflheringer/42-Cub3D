@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 16:35:35 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:00:13 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_map
 	char	**file_content;
 	char	**map;
 	char	**map_copy;
-	int		width;
 	int		heigth;
 }	t_map;
 
