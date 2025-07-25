@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/24 11:58:18 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:49:24 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_map
 	char	**file_content;
 	char	**map;
 	char	**map_copy;
-	int		width;
 	int		heigth;
 }	t_map;
 
