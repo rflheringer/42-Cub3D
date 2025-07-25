@@ -10,9 +10,11 @@ LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)/libft.a
 HEADERS		=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 
 SRCS		=	./src/main.c \
-				./src/parser/parser.c
-        ./src/error.c \
-				./src/initializers.c \
+				./src/parser/parser.c \
+        		./src/error.c \
+				./src/renders.c \
+				./src/validation.c \
+				./src/initializers.c 
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

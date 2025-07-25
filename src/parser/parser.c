@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/25 14:08:49 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:19:58 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,5 @@ void	parser(t_game *game, char *file)
 {
 	validate_file(game, file);
 	get_text_color_and_map(game, game->map->file_content);
-	validate_map(game);
+	//validate_map(game);
 }

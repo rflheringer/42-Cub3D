@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/24 11:58:18 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:35:35 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define EXIT_ERROR_MEMORY_ALLOCATION 5
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7
+# define EXIT_FAILED_TO_LOAD_TEXTURE 8
+# define EXIT_FAILED_TO_LOAD_IMAGE 9
 
 typedef struct s_player
 {
@@ -81,5 +83,7 @@ void	error_messages(short error_code);
 
 //inits_manager
 int32_t	init_cub3d(t_game *game);
+
+
 
 #endif
