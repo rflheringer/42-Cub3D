@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/24 17:56:27 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:08:42 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 	ft_printf("%s\n", game->texture->floor_color);
 	ft_printf("%s\n", game->texture->ceiling_color);
 }
+// for (int i = 0; i < ft_ptrlen(game->map->map); i++)
+// 	ft_printf("%s\n", game->map->map[i]);
 // int i = 0;
 // while (game->map->file_content[i])
 // {

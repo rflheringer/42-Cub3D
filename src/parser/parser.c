@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/24 17:52:31 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:08:49 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,40 @@ bool	has_control_char(char *str)
 	return (false);
 }
 
+int	ft_count_map(char **content, int i)
+{
+	int	len;
+
+	len = 0;
+	while (content[i])
+	{
+		if (has_control_char(content[i]))
+		{
+			ft_printf("Error\nControl character found when expected space\n");
+			exit (1);
+		}
+		len++;
+		i++;
+	}
+	return (len);
+}
+
+void	get_map(t_game *game, char **content, int *i)
+{
+	int		len;
+	int		j;
+
+	j = 0;
+	len = ft_count_map(content, *i);
+	game->map->map = ft_calloc(len + 1, sizeof(char *));
+	while (content[*i])
+	{
+		game->map->map[j] = content[*i];
+		(*i)++;
+		j++;
+	}
+}
+
 void	get_text_color_and_map(t_game *game, char **content)
 {
 	int		i;
@@ -168,7 +202,7 @@ void	get_text_color_and_map(t_game *game, char **content)
 		{
 			if (!find_textures(game, content[i]))
 			{
-				//get_map(game, content, &i);
+				get_map(game, content, &i);
 				break ;
 			}
 		}
@@ -180,5 +214,5 @@ void	parser(t_game *game, char *file)
 {
 	validate_file(game, file);
 	get_text_color_and_map(game, game->map->file_content);
-	// check_textures(game);
+	validate_map(game);
 }
