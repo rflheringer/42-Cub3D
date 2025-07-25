@@ -19,20 +19,23 @@ int	main(int argc, char **argv)
 
 	if (argc > 2)
 	{
-		ft_putstr_fd("Error\nToo many arguments\n", 2);
-		return (1);
+		error_messages(EXIT_TOO_MANY_ARGUMENTS);
+		return (EXIT_TOO_MANY_ARGUMENTS);
 	}
 	if (argc < 2)
 	{
-		ft_putstr_fd("Error\nToo few arguments\n", 2);
-		return (1);
+		error_messages(EXIT_FEW_ARGUMENTS);
+		return (EXIT_FEW_ARGUMENTS);
 	}
 	game = ft_calloc(1, sizeof(t_game));
 	game->map = ft_calloc(1, sizeof(t_map));
 	game->texture = ft_calloc(1, sizeof(t_texture));
 	game->image = ft_calloc(1, sizeof(t_image));
 	game->player = ft_calloc(1, sizeof(t_player));
-	parser(game, argv[1]);
+	if (!game)
+		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
+  parser(game, argv[1]);
+	init_cub3d(game);
 }
 // for (int i = 0; i < ft_ptrlen(game->map->map); i++)
 // 	ft_printf("%s\n", game->map->map[i]);

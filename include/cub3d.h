@@ -17,6 +17,12 @@
 # include "../lib/includes/libft.h"
 # include <fcntl.h>
 
+# define EXIT_TOO_MANY_ARGUMENTS 3
+# define EXIT_FEW_ARGUMENTS 4
+# define EXIT_ERROR_MEMORY_ALLOCATION 5
+# define EXIT_INVALID_EXTENSION 6
+# define EXIT_INVALID_FILE 7
+
 typedef struct s_player
 {
 	char	*pos;
@@ -67,4 +73,12 @@ typedef struct s_game
 // Parser
 void	parser(t_game *game, char *file);
 
-#endif /* cub3D */
+// Function prototypes //
+
+//error_manager
+void	error_messages(short error_code);
+
+//inits_manager
+int32_t	init_cub3d(t_game *game);
+
+#endif
