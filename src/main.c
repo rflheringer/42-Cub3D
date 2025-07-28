@@ -6,12 +6,11 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 18:00:20 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:01:34 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdio.h>
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/25 18:00:13 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:02:42 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/includes/libft.h"
 # include <fcntl.h>
+# include <stdio.h>
+# include <math.h>
+
+# define WIDTH 640
+# define HEIGHT 480
+# define W_NAME "DOOM 42"
+
+# define FOV (M_PI / 3)
 
 # define EXIT_TOO_MANY_ARGUMENTS 3
 # define EXIT_FEW_ARGUMENTS 4
@@ -30,6 +38,13 @@ typedef struct s_player
 	char	*pos;
 	int		pos_x;
 	int		pos_y;
+	double	player_dir_x;
+	double	player_dir_y;
+	double	camera_dir_x;
+	double	camera_dir_y;
+	double	move_speed;
+	double	rotation_speed;
+
 }	t_player;
 
 typedef struct s_map
@@ -83,6 +98,7 @@ void	error_messages(short error_code);
 //inits_manager
 int32_t	init_cub3d(t_game *game);
 
-
+//render
+void	load_screen(t_game *game);
 
 #endif
