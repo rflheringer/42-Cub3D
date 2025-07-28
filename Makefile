@@ -11,14 +11,16 @@ HEADERS		=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 
 SRCS		=	./src/main.c \
 				./src/parser/parser.c \
+				./src/player/movement.c \
         		./src/error.c \
 				./src/renders.c \
 				./src/validation.c \
+				./src/raycasting.c \
 				./src/initializers.c 
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
-VPATH		=	./src ./src/parser
+VPATH		=	./src ./src/parser ./src/player
 
 all: libmlx libft ${NAME}
 
