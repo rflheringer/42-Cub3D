@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/28 17:14:32 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:00:41 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	main(int argc, char **argv)
 	parser(game, argv[1]);
 	init_cub3d(game);
 }
-// for (int i = 0; i < ft_ptrlen(game->map->map); i++)
-// 	ft_printf("%s\n", game->map->map[i]);
 // int i = 0;
 // while (game->map->file_content[i])
 // {

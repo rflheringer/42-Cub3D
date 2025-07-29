@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/28 12:03:23 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:02:02 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,13 +221,13 @@ bool	check_valid_zero(char **map, int i, int j)
 		return (false);
 	if (!map[i + 1])
 		return (false);
-	if (j > 0 && map[i][j - 1] == ' ')
+	if (j > 0 && (map[i][j - 1] == ' ' || map[i][j - 1] == '\0'))
 		return (false);
-	if (i > 0 && map[i- 1][j] == ' ')
+	if (i > 0 && (map[i - 1][j] == ' ' || map[i - 1][j] == '\0'))
 		return (false);
 	if (map[i][j + 1] == '\0' || map[i][j + 1] == ' ')
 		return (false);
-	if (map[i + 1] && map[i + 1][j] == ' ')
+	if (map[i + 1] && (map[i + 1][j] == ' ' || map[i + 1][j] == '\0'))
 		return (false);
 	return (true);
 }
