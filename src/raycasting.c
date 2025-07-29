@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 18:06:43 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:07:44 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ uint32_t	convert_rgb_string(char *rgb_str)
 
 	rgb_value = ft_split(rgb_str, ',');
 	if(!rgb_value)
-		error_message(EXIT_INVALID_RGB_COLOR);
+		error_messages(EXIT_INVALID_RGB_COLOR);
 	r = ft_atoi(rgb_value[0]);
 	g = ft_atoi(rgb_value[1]);
 	b = ft_atoi(rgb_value[2]);
