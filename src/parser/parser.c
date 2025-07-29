@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
 /*   Updated: 2025/07/29 12:02:02 by rdel-fra         ###   ########.fr       */
@@ -252,8 +252,6 @@ void	validate_map(t_game *game, char **map)
 					exit (1);
 				}
 			}
-			// if (!check_line(game))
-			// 	exit(1);
 			j++;
 		}
 		i++;

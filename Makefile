@@ -1,7 +1,7 @@
 NAME		=	cub3D
 
 CC			=	cc
-FLAGS		=	-Wall -Werror -Wextra -g3
+FLAGS		=	-Wextra
 LIBFT		=	./lib
 LIBMLX		=	./MLX42
 
@@ -10,11 +10,17 @@ LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)/libft.a
 HEADERS		=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 
 SRCS		=	./src/main.c \
-				./src/parser/parser.c
+				./src/parser/parser.c \
+				./src/player/movement.c \
+        		./src/error.c \
+				./src/renders.c \
+				./src/validation.c \
+				./src/raycasting.c \
+				./src/initializers.c 
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
-VPATH		=	./src ./src/parser
+VPATH		=	./src ./src/parser ./src/player
 
 all: libmlx libft ${NAME}
 
