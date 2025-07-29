@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 15:00:53 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:21:53 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ typedef struct s_texture
 	char			*west_path;
 	mlx_texture_t	*west_wall;
 	char			*floor_color;
+	uint32_t		floor_color_hex;
 	char			*ceiling_color;
+	uint32_t		ceiling_color_hex;
 }	t_texture;
 
 typedef struct s_ray
@@ -168,5 +170,8 @@ void	handle_movement(void *param);
 // testes
 void	perform_raycasting(t_game *game);
 void	raycasting_loop(void *param);
+
+//
+uint32_t	convert_rgb_string(char *rgb_str);
 
 #endif
