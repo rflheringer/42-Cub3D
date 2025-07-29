@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/29 15:14:59 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:53:57 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ void	error_messages(short error_code)
 		ft_printf_fd(2, "Error\nMore than one starting position was found\n");
 	if (error_code == EXIT_NO_START_POSITION)
 		ft_printf_fd(2, "Error\nNo start position was found");
+	if (error_code == EXIT_DUPLICATE_TEXTURE)
+		ft_printf_fd(2, "Error\nDuplicate texture found\n");
+	if (error_code == EXIT_INVALID_TEXTURE_PATH)
+		ft_printf_fd(2, "Error\nInvalid texture path\n");
+	if (error_code == EXIT_EMPTY_FILE)
+		ft_printf_fd(2, "Error\nEmpty file\n");
 }
 
 // static void	delete_images(t_game *game)

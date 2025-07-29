@@ -5,55 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/29 14:49:08 by rdel-fra         ###   ########.fr       */
+/*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
+/*   Updated: 2025/07/29 15:52:04 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static bool	find_textures(t_game *game, char *content)
+static void	read_file(t_game *game, int fd)
 {
-	if (startswith(content, "NO"))
-		game->texture->north_path = get_path(content, "NO");
-	else if (startswith(content, "SO"))
-		game->texture->south_path = get_path(content, "SO");
-	else if (startswith(content, "WE"))
-		game->texture->west_path = get_path(content, "WE");
-	else if (startswith(content, "EA"))
-		game->texture->east_path = get_path(content, "EA");
-	else if (startswith(content, "F"))
-		game->texture->floor_color = get_path(content, "F");
-	else if (startswith(content, "C"))
-		game->texture->ceiling_color = get_path(content, "C");
-	else
+	char	*line;
+	char	*temp;
+	char	*aux;
+
+	line = ft_strdup("");
+	while (1)
 	{
-		if (!is_valid_line(content))
-			shutdown_program(game, 12);
-		return (false);
+		temp = get_next_line(fd);
+		if (!temp)
+			break ;
+		aux = ft_strjoin(line, temp);
+		free(line);
+		free(temp);
+		line = aux;
 	}
-	return (true);
+	if (ft_strlen(line) <= 1)
+		shutdown_program(game, 17);
+	game->map->file_content = ft_split(line, '\n');
+	free(line);
 }
 
-static void	get_text_color_and_map(t_game *game, char **content)
+static void	validate_file(t_game *game, char *file)
 {
-	int		i;
+	char	*extension;
+	int		fd;
 
-	i = 0;
-	while (content[i])
-	{
-		if (has_control_char(content[i]))
-			shutdown_program(game, 10);
-		if (!only_spaces(content[i]))
-		{
-			if (!find_textures(game, content[i]))
-			{
-				get_map(game, content, &i);
-				break ;
-			}
-		}
-		i++;
-	}
+	extension = ft_strrchr(file, '.');
+	if (ft_strcmp(extension, ".cub") != 0)
+		shutdown_program(game, 6);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		shutdown_program(game, 7);
+	read_file(game, fd);
 }
 
 void	parser(t_game *game, char *file)

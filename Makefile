@@ -12,7 +12,7 @@ HEADERS		=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 SRCS		=	./src/main.c \
 				./src/parser/parser.c \
 				./src/parser/parser_player.c \
-				./src/parser/parser_file.c \
+				./src/parser/parser_textures.c \
 				./src/parser/parser_map.c \
 				./src/parser/parser_utils.c \
 				./src/player/movement.c \

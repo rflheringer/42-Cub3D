@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 15:21:53 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:52:35 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define EXIT_UNEXPECTED_CHAR 12
 # define EXIT_TOO_MANY_START_POS 13
 # define EXIT_NO_START_POSITION 14
+# define EXIT_DUPLICATE_TEXTURE 15
+# define EXIT_INVALID_TEXTURE_PATH 16
+# define EXIT_EMPTY_FILE 17
 
 typedef struct s_player
 {
@@ -85,6 +88,12 @@ typedef struct s_texture
 	uint32_t		floor_color_hex;
 	char			*ceiling_color;
 	uint32_t		ceiling_color_hex;
+	int				north;
+	int				south;
+	int				east;
+	int				west;
+	int				floor;
+	int				ceiling;
 }	t_texture;
 
 typedef struct s_ray
@@ -135,8 +144,8 @@ typedef struct s_game
 // Parser
 void	parser(t_game *game, char *file);
 
-// Parser file
-void	validate_file(t_game *game, char *file);
+// Parser textures
+void	get_text_color_and_map(t_game *game, char **content);
 
 // Parser map
 void	validate_map(t_game *game, char **map);
@@ -147,7 +156,6 @@ bool	only_spaces(char *str);
 bool	has_control_char(char *str);
 bool	is_valid_line(char *content);
 bool	startswith(char *str, char *start);
-char	*get_path(char *content, char *start);
 
 // Paser player
 void	check_player(t_game *game);
