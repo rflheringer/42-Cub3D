@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/28 17:21:14 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 11:19:10 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	keypress(mlx_key_data_t keydata, void *param)
 	}
 }
 
+// kill this monster
 void handle_movement(void *param)
 {
     t_game *game = (t_game *)param;
