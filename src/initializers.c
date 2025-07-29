@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/28 18:08:38 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 11:33:18 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	init_map_images(t_game *game)
 	game->texture->north_wall = mlx_load_png("assets/map/dungeon_wall_2.png");
 	if (!game->texture->north_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_TEXTURE);
-	game->image->north_wall = mlx_texture(game->mlx,
+	game->image->north_wall = mlx_texture_to_image(game->mlx,
 			game->texture->north_wall);
-	if (!game->image->south_wall)
+	if (!game->image->north_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
 }
 
