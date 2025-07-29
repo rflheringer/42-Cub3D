@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 14:52:05 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:00:53 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,11 @@ typedef struct s_game
 void	parser(t_game *game, char *file);
 
 // Parser file
-void	validate_map(t_game *game, char **map);
+void	validate_file(t_game *game, char *file);
 
 // Parser map
 void	validate_map(t_game *game, char **map);
+void	get_map(t_game *game, char **content, int *i);
 
 // Parser utils
 bool	only_spaces(char *str);

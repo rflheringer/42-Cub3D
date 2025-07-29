@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 14:49:11 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:00:08 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_count_map(t_game *game, char **content, int i)
 	return (len);
 }
 
-static void	get_map(t_game *game, char **content, int *i)
+void	get_map(t_game *game, char **content, int *i)
 {
 	int		len;
 	int		j;
