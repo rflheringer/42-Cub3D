@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/29 11:33:18 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:18:52 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static void	init_map_images(t_game *game)
 			game->texture->north_wall);
 	if (!game->image->north_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
+	//convert rgbs for create walls -> common ^ bonus
+	if (game->texture->floor_color)
+		game->texture->floor_color_hex = convert_rgb_string(game->texture->floor_color);
+	if (game->texture->ceiling_color)
+		game->texture->ceiling_color_hex = convert_rgb_string(game->texture->ceiling_color);
 }
 
 static void	set_field_of_vision(t_game *game, int i, int j)

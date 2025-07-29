@@ -6,8 +6,9 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 18:32:54 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/25 17:44:53 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:16:59 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
