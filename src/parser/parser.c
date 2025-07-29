@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 15:52:04 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:43:10 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static void	read_file(t_game *game, int fd)
 		free(temp);
 		line = aux;
 	}
-	if (ft_strlen(line) <= 1)
-		shutdown_program(game, 17);
 	game->map->file_content = ft_split(line, '\n');
 	free(line);
 }
@@ -41,11 +39,13 @@ static void	validate_file(t_game *game, char *file)
 	int		fd;
 
 	extension = ft_strrchr(file, '.');
+	if (!extension)
+		shutdown_program(game, EXIT_INVALID_EXTENSION);
 	if (ft_strcmp(extension, ".cub") != 0)
-		shutdown_program(game, 6);
+		shutdown_program(game, EXIT_INVALID_EXTENSION);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		shutdown_program(game, 7);
+		shutdown_program(game, EXIT_INVALID_FILE);
 	read_file(game, fd);
 }
 

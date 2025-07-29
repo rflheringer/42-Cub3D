@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 15:00:08 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:45:12 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_count_map(t_game *game, char **content, int i)
 	while (content[i])
 	{
 		if (has_control_char(content[i]))
-			shutdown_program(game, 11);
+			shutdown_program(game, EXIT_CHAR_CONTROL);
 		len++;
 		i++;
 	}
@@ -67,14 +67,18 @@ void	validate_map(t_game *game, char **map)
 	int	j;
 
 	i = 0;
+	if (!map || !*map)
+		shutdown_program(game, EXIT_MISSING_MAP);
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
+			if (!ft_strchr(" 01NSWE", map[i][j]))
+				shutdown_program(game, EXIT_UNEXPECTED_CHAR);
 			if (map[i][j] == '0')
 				if (!check_valid_zero(map, i, j))
-					shutdown_program(game, 11);
+					shutdown_program(game, EXIT_MAP_NOT_CLOSED);
 			if (ft_strchr("NSWE", map[i][j]))
 				get_player_position(game, map, i, j);
 			j++;

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:05:29 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 13:15:42 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:52:35 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,27 @@ static void	set_field_of_vision(t_game *game, int i, int j)
 	}
 }
 
+static bool	check_player_position(char **map, int i, int j)
+{
+	if (i == 0)
+		return (false);
+	if (!map[i + 1])
+		return (false);
+	if (j > 0 && (map[i][j - 1] == ' ' || map[i][j - 1] == '\0'))
+		return (false);
+	if (i > 0 && (map[i - 1][j] == ' ' || map[i - 1][j] == '\0'))
+		return (false);
+	if (map[i][j + 1] == '\0' || map[i][j + 1] == ' ')
+		return (false);
+	if (map[i + 1] && (map[i + 1][j] == ' ' || map[i + 1][j] == '\0'))
+		return (false);
+	return (true);
+}
+
 void	get_player_position(t_game *game, char **map, int i, int j)
 {
+	if (!check_player_position(map, i, j))
+		shutdown_program(game, EXIT_INVALID_START_POSITION);
 	game->player->start_dir = map[i][j];
 	game->player->pos_x = j + 0.5;
 	game->player->pos_y = i + 0.5;
@@ -59,7 +78,7 @@ void	get_player_position(t_game *game, char **map, int i, int j)
 void	check_player(t_game *game)
 {
 	if (game->player->p > 1)
-		shutdown_program(game, 13);
+		shutdown_program(game, EXIT_TOO_MANY_START_POS);
 	else if (game->player->p < 1)
-		shutdown_program(game, 14);
+		shutdown_program(game, EXIT_NO_START_POSITION);
 }
