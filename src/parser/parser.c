@@ -6,17 +6,62 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 16:43:10 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:00:56 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+static bool	is_map_line(char *line, int *i)
+{
+	if (line[*i] == '\n')
+		return (false);
+	while (line[*i] && line[*i] != '\n')
+	{
+		if (!ft_strchr("01NSWE", line[*i]))
+		{
+			while (line[*i] && line[*i] != '\n')
+				(*i)++;
+			return (false);
+		}
+		(*i)++;
+	}
+	return (true);
+}
+
+static void	verify_map_separation(t_game *game, char *line, int i)
+{
+	while (line[i])
+	{
+		if (is_map_line(line, &i))
+		{
+			while (line[i] && line[i] != '\n')
+			{
+				if (!ft_strchr(" 01NSWE", line[i]))
+					break ;
+				i++;
+			}
+			if (line[i] == '\n')
+			{
+				if (line[i + 1] && (line[i + 1] == '\n' || line[i + 1] == ' '))
+				{
+					while (line[i] && (line[i] == '\n' || line[i] == ' '))
+						i++;
+					if (line[i] != '\0')
+						shutdown_program(game, EXIT_INVALID_MAP);
+				}
+			}
+		}
+		i++;
+	}
+}
 
 static void	read_file(t_game *game, int fd)
 {
 	char	*line;
 	char	*temp;
 	char	*aux;
+	int		i;
 
 	line = ft_strdup("");
 	while (1)
@@ -29,6 +74,8 @@ static void	read_file(t_game *game, int fd)
 		free(temp);
 		line = aux;
 	}
+	i = 0;
+	verify_map_separation(game, line, i);
 	game->map->file_content = ft_split(line, '\n');
 	free(line);
 }

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 16:52:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:56:30 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define EXIT_DUPLICATE_COLOR 16
 # define EXIT_INVALID_TEXTURE_PATH 17
 # define EXIT_INVALID_RGB_COLOR 18
-# define EXIT_EMPTY_FILE 19
+# define EXIT_INVALID_MAP 19
 # define EXIT_MISSING_MAP 20
 # define EXIT_INVALID_START_POSITION 21
 

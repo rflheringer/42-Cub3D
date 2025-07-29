@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 16:45:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:58:32 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,25 @@ static int	ft_count_map(t_game *game, char **content, int i)
 
 void	get_map(t_game *game, char **content, int *i)
 {
+	int		first;
 	int		len;
 	int		j;
 
 	j = 0;
+	first = 1;
 	len = ft_count_map(game, content, *i);
 	game->map->map = ft_calloc(len + 1, sizeof(char *));
 	while (content[*i])
 	{
-		game->map->map[j] = content[*i];
+		if (ft_findchar(content[*i], "01NSWE"))
+			first = 0;
+		if (first == 0)
+			if (only_spaces(content[*i]))
+				first = 2;
+		if (first == 2 && ft_findchar(content[*i], "01NSWE"))
+			shutdown_program(game, EXIT_INVALID_MAP);
+		game->map->map[j++] = content[*i];
 		(*i)++;
-		j++;
 	}
 	game->map->heigth = ft_ptrlen(game->map->map);
 }
