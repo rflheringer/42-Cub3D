@@ -11,10 +11,10 @@ HEADERS		=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 
 SRCS		=	./src/main.c \
 				./src/parser/parser.c \
+				./src/parser/parser_player.c \
 				./src/player/movement.c \
         		./src/error.c \
 				./src/renders.c \
-				./src/validation.c \
 				./src/raycasting.c \
 				./src/initializers.c 
 
