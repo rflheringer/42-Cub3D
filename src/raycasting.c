@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 15:17:51 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:36:41 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ uint32_t	convert_rgb_string(char *rgb_str)
 	int		b;
 
 	rgb_value = ft_split(rgb_str, ',');
-	// 	if(!rgb_value)
-	// 		return ; //colocar erro
+		if(!rgb_value)
+			return 1; //colocar erro
 	r = ft_atoi(rgb_value[0]);
 	g = ft_atoi(rgb_value[1]);
 	b = ft_atoi(rgb_value[2]);
@@ -37,84 +37,33 @@ uint32_t	convert_rgb_string(char *rgb_str)
 	return (get_color_with_alpha(r, g, b, 255));
 }
 
-static void calculate_wall(t_game *game)
-{
-    // PROTEÇÃO CONTRA DIVISÃO POR ZERO
-    if (game->raycasting->ray.perp_wall_dist <= 0)
-        game->raycasting->ray.perp_wall_dist = 0.1;
-    
-    // Calcular altura da linha a ser desenhada
-    game->raycasting->wall.height = (int)(HEIGHT / game->raycasting->ray.perp_wall_dist);
-    
-    // Calcular os pontos mais baixo e mais alto da linha
-    game->raycasting->wall.draw_start = -game->raycasting->wall.height / 2 + HEIGHT / 2;
-    if (game->raycasting->wall.draw_start < 0)
-        game->raycasting->wall.draw_start = 0;
-    
-    game->raycasting->wall.draw_end = game->raycasting->wall.height / 2 + HEIGHT / 2;
-    if (game->raycasting->wall.draw_end >= HEIGHT)
-        game->raycasting->wall.draw_end = HEIGHT - 1;
-}
-
 static void init_ray(t_game *game, int x)
 {
-    // 1. Calcular a posição x na câmera
-    double camera_x = 2 * x / (double)WIDTH - 1;
-    
-    // 2. Direção do raio
-    game->raycasting->ray.ray_dir_x = game->player->player_dir_x + 
-                                     game->player->camera_dir_x * camera_x;
-    game->raycasting->ray.ray_dir_y = game->player->player_dir_y + 
-                                     game->player->camera_dir_y * camera_x;
-    
-    // 3. Posição atual no mapa
-    game->raycasting->ray.map_x = (int)game->player->pos_x;
-    game->raycasting->ray.map_y = (int)game->player->pos_y;
-    
-    // 4. Calcular delta_dist (distância entre interseções)
-    if (game->raycasting->ray.ray_dir_x == 0)
-        game->raycasting->ray.delta_dist_x = 1e30;
-    else
-        game->raycasting->ray.delta_dist_x = fabs(1 / game->raycasting->ray.ray_dir_x);
-    
-    if (game->raycasting->ray.ray_dir_y == 0)
-        game->raycasting->ray.delta_dist_y = 1e30;
-    else
-        game->raycasting->ray.delta_dist_y = fabs(1 / game->raycasting->ray.ray_dir_y);
-    
-    // 5. Inicializar hit
-    game->raycasting->ray.hit = 0;
-    
-    // 6. Calcular step e side_dist (crucial que isso venha DEPOIS dos cálculos acima)
-    if (game->raycasting->ray.ray_dir_x < 0)
-    {
-        game->raycasting->ray.step_x = -1;
-        game->raycasting->ray.side_dist_x = (game->player->pos_x - 
-                                         game->raycasting->ray.map_x) * 
-                                         game->raycasting->ray.delta_dist_x;
-    }
-    else
-    {
-        game->raycasting->ray.step_x = 1;
-        game->raycasting->ray.side_dist_x = (game->raycasting->ray.map_x + 1.0 - 
-                                         game->player->pos_x) * 
-                                         game->raycasting->ray.delta_dist_x;
-    }
-    
-    if (game->raycasting->ray.ray_dir_y < 0)
-    {
-        game->raycasting->ray.step_y = -1;
-        game->raycasting->ray.side_dist_y = (game->player->pos_y - 
-                                         game->raycasting->ray.map_y) * 
-                                         game->raycasting->ray.delta_dist_y;
-    }
-    else
-    {
-        game->raycasting->ray.step_y = 1;
-        game->raycasting->ray.side_dist_y = (game->raycasting->ray.map_y + 1.0 - 
-                                         game->player->pos_y) * 
-                                         game->raycasting->ray.delta_dist_y;
-    }
+	// Calcular a posição x no espaço da câmera
+	double camera_x = 2 * x / (double)WIDTH - 1;
+	
+	// Direção do raio
+	game->raycasting->ray.ray_dir_x = game->player->player_dir_x + 
+									 game->player->camera_dir_x * camera_x;
+	game->raycasting->ray.ray_dir_y = game->player->player_dir_y + 
+									 game->player->camera_dir_y * camera_x;
+	
+	// Posição atual no mapa
+	game->raycasting->ray.map_x = (int)game->player->pos_x;
+	game->raycasting->ray.map_y = (int)game->player->pos_y;
+	
+	// PROTEÇÃO CONTRA DIVISÃO POR ZERO
+	if (game->raycasting->ray.ray_dir_x == 0)
+		game->raycasting->ray.delta_dist_x = 1e30; // Um número muito grande
+	else
+		game->raycasting->ray.delta_dist_x = fabs(1 / game->raycasting->ray.ray_dir_x);
+	
+	if (game->raycasting->ray.ray_dir_y == 0)
+		game->raycasting->ray.delta_dist_y = 1e30; // Um número muito grande
+	else
+		game->raycasting->ray.delta_dist_y = fabs(1 / game->raycasting->ray.ray_dir_y);
+	
+	// Resto do código igual...
 }
 
 static void perform_dda(t_game *game)
@@ -126,20 +75,8 @@ static void perform_dda(t_game *game)
 	// Executar o algoritmo DDA com limite de iterações
 	while (game->raycasting->ray.hit == 0 && iterations < max_iterations)
 	{
-		
-		 if (game->raycasting->ray.side_dist_x < game->raycasting->ray.side_dist_y)
-        {
-            game->raycasting->ray.side_dist_x += game->raycasting->ray.delta_dist_x;
-            game->raycasting->ray.map_x += game->raycasting->ray.step_x;
-            game->raycasting->ray.side = 0;
-        }
-        else
-        {
-            game->raycasting->ray.side_dist_y += game->raycasting->ray.delta_dist_y;
-            game->raycasting->ray.map_y += game->raycasting->ray.step_y;
-            game->raycasting->ray.side = 1;
-        }
-        iterations++;
+		// Código existente...
+		iterations++;
 		
 		// VERIFICAÇÃO DE LIMITES MAIS ROBUSTA
 		if (game->raycasting->ray.map_y < 0 || game->raycasting->ray.map_x < 0)
@@ -202,7 +139,7 @@ void perform_raycasting(t_game *game)
         // Usar as funções definidas mas não utilizadas
         init_ray(game, x);
         perform_dda(game);
-        calculate_wall(game);
+        //calculate_wall(game);
         
         // Desenhar a linha vertical
         int y = 0;

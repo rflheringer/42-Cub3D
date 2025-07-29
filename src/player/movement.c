@@ -5,43 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/28 17:21:14 by rheringe         ###   ########.fr       */
+/*   Created: 2025/07/29 00:00:00 by rheringe          #+#    #+#             */
+/*   Updated: 2025/07/29 16:31:07 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include <math.h>
 
-void	keypress(mlx_key_data_t keydata, void *param)
+// Função para normalizar os vetores de direção e câmera
+static void normalize_vectors(t_game *game)
 {
-	t_game *game;
-	
-	game = (t_game *)param;
-	
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
-	{
-		if (keydata.key == MLX_KEY_W)
-			game->player->up = true;
-		else if (keydata.key == MLX_KEY_S)
-			game->player->down = true;
-		else if (keydata.key == MLX_KEY_A)
-			game->player->rot_left = true;
-		else if (keydata.key == MLX_KEY_D)
-			game->player->rot_right = true;
-	}
-	else if (keydata.action == MLX_RELEASE)
-	{
-		if (keydata.key == MLX_KEY_W)
-			game->player->up = false;
-		else if (keydata.key == MLX_KEY_S)
-			game->player->down = false;
-		else if (keydata.key == MLX_KEY_A)
-			game->player->rot_left = false;
-		else if (keydata.key == MLX_KEY_D)
-			game->player->rot_right =  false;
-	}
+    // Normalizar vetores de direção
+    double dir_len = sqrt(game->player->player_dir_x * game->player->player_dir_x + 
+                         game->player->player_dir_y * game->player->player_dir_y);
+    if (dir_len > 0) {
+        game->player->player_dir_x /= dir_len;
+        game->player->player_dir_y /= dir_len;
+    }
+    
+    // Normalizar vetores de câmera
+    double cam_len = sqrt(game->player->camera_dir_x * game->player->camera_dir_x + 
+                         game->player->camera_dir_y * game->player->camera_dir_y);
+    if (cam_len > 0) {
+        game->player->camera_dir_x /= cam_len;
+        game->player->camera_dir_y /= cam_len;
+    }
 }
 
+// Função para lidar com o movimento do jogador
 void handle_movement(void *param)
 {
     t_game *game = (t_game *)param;
@@ -53,8 +45,12 @@ void handle_movement(void *param)
         double new_x = game->player->pos_x + game->player->player_dir_x * game->player->move_speed;
         double new_y = game->player->pos_y + game->player->player_dir_y * game->player->move_speed;
         
-        // Verificação de colisão básica
-        if (game->map->map[(int)new_y][(int)new_x] != '1')
+        // Adicionar margem de segurança para evitar aproximação excessiva
+        double buffer = 0.4; // Aumentado para 0.4
+        
+        if (game->map->map[(int)new_y][(int)new_x] != '1' && 
+            game->map->map[(int)(new_y + buffer * (new_y > game->player->pos_y ? 1 : -1))][(int)new_x] != '1' &&
+            game->map->map[(int)new_y][(int)(new_x + buffer * (new_x > game->player->pos_x ? 1 : -1))] != '1')
         {
             game->player->pos_x = new_x;
             game->player->pos_y = new_y;
@@ -68,7 +64,48 @@ void handle_movement(void *param)
         double new_x = game->player->pos_x - game->player->player_dir_x * game->player->move_speed;
         double new_y = game->player->pos_y - game->player->player_dir_y * game->player->move_speed;
         
-        if (game->map->map[(int)new_y][(int)new_x] != '1')
+        // Adicionar a mesma margem de segurança para movimento para trás
+        double buffer = 0.4;
+        
+        if (game->map->map[(int)new_y][(int)new_x] != '1' && 
+            game->map->map[(int)(new_y + buffer * (new_y > game->player->pos_y ? 1 : -1))][(int)new_x] != '1' &&
+            game->map->map[(int)new_y][(int)(new_x + buffer * (new_x > game->player->pos_x ? 1 : -1))] != '1')
+        {
+            game->player->pos_x = new_x;
+            game->player->pos_y = new_y;
+            moved = true;
+        }
+    }
+    
+    // Movimento para a esquerda (perpendicular à direção)
+    if (game->player->rot_left)
+    {
+        double new_x = game->player->pos_x - game->player->camera_dir_x * game->player->move_speed;
+        double new_y = game->player->pos_y - game->player->camera_dir_y * game->player->move_speed;
+        
+        double buffer = 0.4;
+        
+        if (game->map->map[(int)new_y][(int)new_x] != '1' && 
+            game->map->map[(int)(new_y + buffer * (new_y > game->player->pos_y ? 1 : -1))][(int)new_x] != '1' &&
+            game->map->map[(int)new_y][(int)(new_x + buffer * (new_x > game->player->pos_x ? 1 : -1))] != '1')
+        {
+            game->player->pos_x = new_x;
+            game->player->pos_y = new_y;
+            moved = true;
+        }
+    }
+    
+    // Movimento para a direita (perpendicular à direção)
+    if (game->player->rot_right)
+    {
+        double new_x = game->player->pos_x + game->player->camera_dir_x * game->player->move_speed;
+        double new_y = game->player->pos_y + game->player->camera_dir_y * game->player->move_speed;
+        
+        double buffer = 0.4;
+        
+        if (game->map->map[(int)new_y][(int)new_x] != '1' && 
+            game->map->map[(int)(new_y + buffer * (new_y > game->player->pos_y ? 1 : -1))][(int)new_x] != '1' &&
+            game->map->map[(int)new_y][(int)(new_x + buffer * (new_x > game->player->pos_x ? 1 : -1))] != '1')
         {
             game->player->pos_x = new_x;
             game->player->pos_y = new_y;
@@ -84,13 +121,15 @@ void handle_movement(void *param)
                                      game->player->player_dir_y * sin(game->player->rotation_speed);
         game->player->player_dir_y = old_dir_x * sin(game->player->rotation_speed) + 
                                      game->player->player_dir_y * cos(game->player->rotation_speed);
-        
         double old_plane_x = game->player->camera_dir_x;
         game->player->camera_dir_x = game->player->camera_dir_x * cos(game->player->rotation_speed) - 
-                                     game->player->camera_dir_y * sin(game->player->rotation_speed);
+                                    game->player->camera_dir_y * sin(game->player->rotation_speed);
         game->player->camera_dir_y = old_plane_x * sin(game->player->rotation_speed) + 
-                                     game->player->camera_dir_y * cos(game->player->rotation_speed);
+                                    game->player->camera_dir_y * cos(game->player->rotation_speed);
         moved = true;
+        
+        // Normalizar vetores após a rotação
+        normalize_vectors(game);
     }
     
     // Rotação para a direita
@@ -101,23 +140,25 @@ void handle_movement(void *param)
                                      game->player->player_dir_y * sin(-game->player->rotation_speed);
         game->player->player_dir_y = old_dir_x * sin(-game->player->rotation_speed) + 
                                      game->player->player_dir_y * cos(-game->player->rotation_speed);
-        
         double old_plane_x = game->player->camera_dir_x;
         game->player->camera_dir_x = game->player->camera_dir_x * cos(-game->player->rotation_speed) - 
-                                     game->player->camera_dir_y * sin(-game->player->rotation_speed);
+                                    game->player->camera_dir_y * sin(-game->player->rotation_speed);
         game->player->camera_dir_y = old_plane_x * sin(-game->player->rotation_speed) + 
-                                     game->player->camera_dir_y * cos(-game->player->rotation_speed);
+                                    game->player->camera_dir_y * cos(-game->player->rotation_speed);
         moved = true;
+        
+        // Normalizar vetores após a rotação
+        normalize_vectors(game);
     }
     
-    // Se houve movimento, atualizar a visualização
+    // Se houve movimento, atualizar o raycasting
     if (moved)
     {
-        // Limpar imagem anterior se existir
+        // Limpar a imagem anterior
         if (game->raycasting->image)
             mlx_delete_image(game->mlx, game->raycasting->image);
-            
-        // Realizar raycasting novamente para atualizar a visualização
+        
+        // Refazer o raycasting
         perform_raycasting(game);
     }
 }
