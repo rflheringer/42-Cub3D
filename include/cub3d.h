@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/28 17:15:38 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:12:20 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,20 @@
 # define EXIT_INVALID_FILE 7
 # define EXIT_FAILED_TO_LOAD_TEXTURE 8
 # define EXIT_FAILED_TO_LOAD_IMAGE 9
+# define EXIT_CHAR_CONTROL 10
+# define EXIT_MAP_NOT_CLOSED 11
+# define EXIT_UNEXPECTED_CHAR 12
+# define EXIT_TOO_MANY_START_POS 13
+# define EXIT_NO_START_POSITION 14
 
 typedef struct s_player
 {
-	char	*pos;
+	char	start_dir;
 	bool	up;
 	bool	down;
 	bool	rot_left;
 	bool	rot_right;
+	int		p;
 	double	pos_x;
 	double	pos_y;
 	double	player_dir_x;
@@ -122,26 +128,31 @@ typedef struct s_game
 	t_raycasting	*raycasting;
 }	t_game;
 
+// Function prototypes //
+
 // Parser
 void	parser(t_game *game, char *file);
 
-// Function prototypes //
+// Player
+void	check_player(t_game *game);
+void	get_player_position(t_game *game, char **map, int i, int j);
 
-//error_manager
+// error_manager
 void	error_messages(short error_code);
+void	shutdown_program(t_game *game, short error_code);
 
-//inits_manager
+// init_manager
 int32_t	init_cub3d(t_game *game);
 
-//render
+// render
 void	load_screen(t_game *game);
 
-//movement
+// movement
 void	keypress(mlx_key_data_t keydata, void *param);
 void	handle_movement(void *param);
 
-//testes
-void perform_raycasting(t_game *game);
-void raycasting_loop(void *param);
+// testes
+void	perform_raycasting(t_game *game);
+void	raycasting_loop(void *param);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/29 12:02:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:19:50 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,10 @@ void	validate_file(t_game *game, char *file)
 
 	extension = ft_strrchr(file, '.');
 	if (ft_strcmp(extension, ".cub") != 0)
-	{
-		(void)game;
-		ft_printf("Error\nInvalid Extension\n");
-		exit(1);
-	}
+		shutdown_program(game, 6);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-	{
-		(void)game;
-		ft_printf("Error\nInvalid file\n");
-		exit(1);
-	}
+		shutdown_program(game, 7);
 	read_file(game, fd);
 }
 
@@ -133,10 +125,7 @@ bool	find_textures(t_game *game, char *content)
 	else
 	{
 		if (!is_valid_line(content))
-		{
-			ft_printf("Error\nInvalid line\n");
-			exit (1);
-		}
+			shutdown_program(game, 12);
 		return (false);
 	}
 	return (true);
@@ -156,7 +145,7 @@ bool	has_control_char(char *str)
 	return (false);
 }
 
-int	ft_count_map(char **content, int i)
+int	ft_count_map(t_game *game, char **content, int i)
 {
 	int	len;
 
@@ -164,10 +153,7 @@ int	ft_count_map(char **content, int i)
 	while (content[i])
 	{
 		if (has_control_char(content[i]))
-		{
-			ft_printf("Error\nControl character found when expected space\n");
-			exit (1);
-		}
+			shutdown_program(game, 11);
 		len++;
 		i++;
 	}
@@ -180,7 +166,7 @@ void	get_map(t_game *game, char **content, int *i)
 	int		j;
 
 	j = 0;
-	len = ft_count_map(content, *i);
+	len = ft_count_map(game, content, *i);
 	game->map->map = ft_calloc(len + 1, sizeof(char *));
 	while (content[*i])
 	{
@@ -199,10 +185,7 @@ void	get_text_color_and_map(t_game *game, char **content)
 	while (content[i])
 	{
 		if (has_control_char(content[i]))
-		{
-			ft_printf("Error\nControl character found when expected space\n");
-			exit (1);
-		}
+			shutdown_program(game, 10);
 		if (!only_spaces(content[i]))
 		{
 			if (!find_textures(game, content[i]))
@@ -244,18 +227,15 @@ void	validate_map(t_game *game, char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] == '0')
-			{
 				if (!check_valid_zero(map, i, j))
-				{
-					(void)game;
-					ft_printf("Error\nMap not closed\n");
-					exit (1);
-				}
-			}
+					shutdown_program(game, 11);
+			if (ft_strchr("NSWE", map[i][j]))
+				get_player_position(game, map, i, j);
 			j++;
 		}
 		i++;
 	}
+	check_player(game);
 }
 
 void	parser(t_game *game, char *file)
