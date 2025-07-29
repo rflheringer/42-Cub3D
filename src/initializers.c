@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/29 15:21:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:03:43 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ static void	init_map_images(t_game *game)
 			game->texture->north_wall);
 	if (!game->image->north_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
+	if (game->texture->ceiling_color)
+		game->texture->ceiling_color_hex = convert_rgb_string(game->texture->ceiling_color);
+	if (game->texture->floor_color)
+		game->texture->floor_color_hex = convert_rgb_string(game->texture->floor_color);
 }
 
 int32_t	init_cub3d(t_game *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, W_NAME, true);
 	init_map_images(game);
-	game->player->up = false;
-	game->player->down = false;
-	game->player->rot_left = false;
-	game->player->rot_right = false;
 	perform_raycasting(game);
 	mlx_key_hook(game->mlx, &keypress, game);
 	mlx_loop_hook(game->mlx, &handle_movement, game);

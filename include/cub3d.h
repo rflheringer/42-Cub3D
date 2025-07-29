@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 16:52:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:26:24 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@
 
 typedef struct s_player
 {
-	char	start_dir;
 	bool	up;
 	bool	down;
 	bool	rot_left;
 	bool	rot_right;
 	int		p;
+	char	start_dir;
 	double	pos_x;
 	double	pos_y;
 	double	player_dir_x;

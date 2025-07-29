@@ -6,13 +6,11 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 15:17:51 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:03:40 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-//kill this monster!!!!!
 
 static uint32_t	get_color_with_alpha(int r, int g, int b, int a)
 {
@@ -27,8 +25,8 @@ uint32_t	convert_rgb_string(char *rgb_str)
 	int		b;
 
 	rgb_value = ft_split(rgb_str, ',');
-	// 	if(!rgb_value)
-	// 		return ; //colocar erro
+	if(!rgb_value)
+		message_error(EXIT_INVALID_RGB_COLOR);
 	r = ft_atoi(rgb_value[0]);
 	g = ft_atoi(rgb_value[1]);
 	b = ft_atoi(rgb_value[2]);
@@ -229,6 +227,5 @@ void perform_raycasting(t_game *game)
         x++;
     }
     
-    // Colocar a imagem na janela
     mlx_image_to_window(game->mlx, game->raycasting->image, 0, 0);
 }

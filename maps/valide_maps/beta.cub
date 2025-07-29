@@ -3,8 +3,8 @@ SO assets/map/dungeon_wall_1.png
 WE assets/map/dungeon_wall_2.png
 EA assets/map/dungeon_wall_2.png
 
-F 128,128,128
-C 10,15,30
+F 128, 128, 128
+C 5, 10, 20
 
 111111
 100001
