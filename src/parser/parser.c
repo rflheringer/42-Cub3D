@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 16:43:10 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:48:51 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	read_file(t_game *game, int fd)
 		free(temp);
 		line = aux;
 	}
+	close(fd);
 	game->map->file_content = ft_split(line, '\n');
 	free(line);
 }

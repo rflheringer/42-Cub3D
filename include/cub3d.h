@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 15:12:58 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:54:31 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ typedef struct s_map
 	char	*file;
 	char	**file_content;
 	char	**map;
-	char	**map_copy;
-	int		heigth;
+	int		height;
 }	t_map;
 
 typedef struct s_image
