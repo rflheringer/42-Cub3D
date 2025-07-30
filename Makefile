@@ -21,7 +21,8 @@ SRCS		=	./src/main.c \
 				./src/renders.c \
 				./src/raycasting.c \
 				./src/initializers.c \
-				./src/clean.c
+				./src/clean.c \
+				./src/parser/parser_colors.c
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

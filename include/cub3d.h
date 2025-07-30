@@ -15,6 +15,7 @@
 
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/includes/libft.h"
+# include <limits.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
@@ -163,6 +164,10 @@ bool	startswith(char *str, char *start);
 // Paser player
 void	check_player(t_game *game);
 void	get_player_position(t_game *game, char **map, int i, int j);
+
+// Parser colors
+void	validate_colors(t_game *game);
+void	validate_textures(t_game *game, char *path);
 
 // error_manager
 void	error_messages(short error_code);
