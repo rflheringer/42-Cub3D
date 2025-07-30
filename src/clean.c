@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:24:26 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 16:55:38 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:44:24 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	delete_images(t_game *game)
 {
+	if (!game->image)
+		return ;
 	if (game->image->north_wall)
 		mlx_delete_image(game->mlx, game->image->north_wall);
 	if (game->image->south_wall)
@@ -24,10 +26,13 @@ static void	delete_images(t_game *game)
 		mlx_delete_image(game->mlx, game->image->west_wall);
 	if (game->raycasting->image)
 		mlx_delete_image(game->mlx, game->raycasting->image);
+	free(game->image);
 }
 
 static void	delete_texture(t_game *game)
 {
+	if (!game->texture)
+		return ;
 	free(game->texture->north_path);
 	free(game->texture->south_path);
 	free(game->texture->east_path);
@@ -42,6 +47,7 @@ static void	delete_texture(t_game *game)
 		mlx_delete_texture(game->texture->east_wall);
 	if (game->texture->west_wall)
 		mlx_delete_texture(game->texture->west_wall);
+	free(game->texture);
 }
 
 void	shutdown_program(t_game *game, short error_code)
@@ -50,14 +56,16 @@ void	shutdown_program(t_game *game, short error_code)
 		error_messages(error_code);
 	delete_images(game);
 	delete_texture(game);
-	mlx_terminate(game->mlx);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
 	ft_free_matrix(game->map->file_content);
 	ft_free_matrix(game->map->map);
-	free(game->texture);
-	free(game->wall);
-	free(game->ray);
-	free(game->raycasting);
-	free(game->image);
+	if (game->ray)
+	{
+		free(game->ray);
+		free(game->wall);
+		free(game->raycasting);
+	}
 	free(game->player);
 	free(game->map);
 	free(game);

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/30 16:42:50 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:02:58 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	get_text_color_and_map(t_game *game, char **content)
 	int		i;
 
 	i = 0;
+	game->texture = ft_calloc(1, sizeof(t_texture));
 	while (content[i])
 	{
 		if (has_control_char(content[i]))

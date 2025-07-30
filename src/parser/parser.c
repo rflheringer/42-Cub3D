@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 17:18:06 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:09:58 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	verify_map_separation(t_game *game, char *line, int i)
 			}
 			if (line[i] == '\n')
 			{
-				if (line[i + 1] && (line[i + 1] == '\n' || line[i + 1] == ' '))
+				if (line[i + 1] && (line[i + 1] == '\n'))
 				{
 					while (line[i] && (line[i] == '\n' || line[i] == ' '))
 						i++;
@@ -103,4 +103,9 @@ void	parser(t_game *game, char *file)
 	validate_file(game, file);
 	get_text_color_and_map(game, game->map->file_content);
 	validate_map(game, game->map->map);
+	validate_textures(game, game->texture->north_path);
+	validate_textures(game, game->texture->south_path);
+	validate_textures(game, game->texture->west_path);
+	validate_textures(game, game->texture->east_path);
+	validate_colors(game);
 }
