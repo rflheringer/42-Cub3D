@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 17:56:30 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:54:31 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@
 
 typedef struct s_player
 {
-	char	start_dir;
 	bool	up;
 	bool	down;
 	bool	rot_left;
 	bool	rot_right;
 	int		p;
+	char	start_dir;
 	double	pos_x;
 	double	pos_y;
 	double	player_dir_x;
@@ -66,8 +66,7 @@ typedef struct s_map
 	char	*file;
 	char	**file_content;
 	char	**map;
-	char	**map_copy;
-	int		heigth;
+	int		height;
 }	t_map;
 
 typedef struct s_image
@@ -128,8 +127,6 @@ typedef struct s_wall
 
 typedef struct s_raycasting
 {
-	t_ray		ray;
-	t_wall		wall;
 	mlx_image_t	*image;
 }	t_raycasting;
 
@@ -141,6 +138,8 @@ typedef struct s_game
 	t_image			*image;
 	t_texture		*texture;
 	t_raycasting	*raycasting;
+	t_wall			*wall;
+	t_ray			*ray;
 }	t_game;
 
 // Function prototypes //
@@ -176,14 +175,16 @@ int32_t	init_cub3d(t_game *game);
 void	load_screen(t_game *game);
 
 // movement
-void	keypress(mlx_key_data_t keydata, void *param);
 void	handle_movement(void *param);
 
 // testes
 void	perform_raycasting(t_game *game);
 void	raycasting_loop(void *param);
 
+//controls.c
+void	keypress(mlx_key_data_t keydata, void *param);
+
 //
-uint32_t	convert_rgb_string(char *rgb_str);
+uint32_t convert_rgb_string(char *rgb_str);
 
 #endif

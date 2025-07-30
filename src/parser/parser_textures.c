@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/29 16:34:32 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:42:50 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	count_textures(t_game *game, char *content)
 static char	*get_path(char *content, char *start)
 {
 	char	*trimmed;
+	char	*path;
 	int		len;
 	int		i;
 
@@ -45,9 +46,14 @@ static char	*get_path(char *content, char *start)
 	while (trimmed[i])
 	{
 		if (trimmed[i] != ' ')
-			return (&trimmed[i]);
+		{
+			path = ft_substr(trimmed, i, ft_strlen(trimmed) - i);
+			free(trimmed);
+			return (path);
+		}
 		i++;
 	}
+	free(trimmed);
 	return (NULL);
 }
 

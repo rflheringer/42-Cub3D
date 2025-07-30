@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:45:03 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 16:26:44 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:38:23 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ bool	startswith(char *str, char *start)
 	len = ft_strlen(start);
 	trimmed = ft_strtrim(str, " ");
 	if (ft_strnstr(trimmed, start, len) && trimmed[len] == 32)
+	{
+		free(trimmed);
 		return (true);
+	}
+	free(trimmed);
 	return (false);
 }

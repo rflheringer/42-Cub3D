@@ -6,11 +6,31 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/29 18:07:18 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:26:05 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+static void	error_messages_plus(short error_code)
+{
+	if (error_code == EXIT_NO_START_POSITION)
+		ft_printf_fd(2, "Error\nNo start position was found\n");
+	if (error_code == EXIT_DUPLICATE_TEXTURE)
+		ft_printf_fd(2, "Error\nDuplicate texture found\n");
+	if (error_code == EXIT_DUPLICATE_COLOR)
+		ft_printf_fd(2, "Error\nDuplicate color found\n");
+	if (error_code == EXIT_INVALID_TEXTURE_PATH)
+		ft_printf_fd(2, "Error\nInvalid texture path\n");
+	if (error_code == EXIT_INVALID_RGB_COLOR)
+		ft_printf_fd(2, "Error\nInvalid RGB color\n");
+	if (error_code == EXIT_EMPTY_FILE)
+		ft_printf_fd(2, "Error\nEmpty file\n");
+	if (error_code == EXIT_MISSING_MAP)
+		ft_printf_fd(2, "Error\nMissing map\n");
+	if (error_code == EXIT_INVALID_START_POSITION)
+		ft_printf_fd(2, "Error\nInvalid start position\n");
+}
 
 void	error_messages(short error_code)
 {
@@ -34,46 +54,5 @@ void	error_messages(short error_code)
 		ft_printf_fd(2, "Error\nFound a unexpected character\n");
 	if (error_code == EXIT_TOO_MANY_START_POS)
 		ft_printf_fd(2, "Error\nMore than one starting position was found\n");
-	if (error_code == EXIT_NO_START_POSITION)
-		ft_printf_fd(2, "Error\nNo start position was found\n");
-	if (error_code == EXIT_DUPLICATE_TEXTURE)
-		ft_printf_fd(2, "Error\nDuplicate texture found\n");
-	if (error_code == EXIT_DUPLICATE_COLOR)
-		ft_printf_fd(2, "Error\nDuplicate color found\n");
-	if (error_code == EXIT_INVALID_TEXTURE_PATH)
-		ft_printf_fd(2, "Error\nInvalid texture path\n");
-	if (error_code == EXIT_INVALID_RGB_COLOR)
-		ft_printf_fd(2, "Error\nInvalid RGB color\n");
-	if (error_code == EXIT_INVALID_MAP)
-		ft_printf_fd(2, "Error\nInvalid map\n");
-	if (error_code == EXIT_MISSING_MAP)
-		ft_printf_fd(2, "Error\nMissing map\n");
-	if (error_code == EXIT_INVALID_START_POSITION)
-		ft_printf_fd(2, "Error\nInvalid start position\n");
-}
-
-// static void	delete_images(t_game *game)
-// {
-// 	mlx_delete_image(game->mlx, game->image->north_wall);
-// 	mlx_delete_image(game->mlx, game->image->south_wall);
-// 	mlx_delete_image(game->mlx, game->image->east_wall);
-// 	mlx_delete_image(game->mlx, game->image->west_wall);
-// }
-
-void	shutdown_program(t_game *game, short error_code)
-{
-	(void)game;
-	if (error_code != 0)
-		error_messages(error_code);
-	// if (error_code > 10)
-	// 	delete_images(game);
-	// // delete_texture(game);
-	// mlx_terminate(game->mlx);
-	// ft_free_matrix(game->map->map);
-	// free(game->raycasting);
-	// free(game->image);
-	// free(game->player);
-	// free(game->map);
-	// free(game);
-	exit(error_code);
+	error_messages_plus(error_code);
 }
