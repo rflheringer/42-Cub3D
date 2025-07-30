@@ -20,7 +20,8 @@ SRCS		=	./src/main.c \
         		./src/error.c \
 				./src/renders.c \
 				./src/raycasting.c \
-				./src/initializers.c
+				./src/initializers.c \
+				./src/clean.c
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
