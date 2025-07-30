@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/30 16:26:05 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:12:56 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	error_messages_plus(short error_code)
 		ft_printf_fd(2, "Error\nInvalid texture path\n");
 	if (error_code == EXIT_INVALID_RGB_COLOR)
 		ft_printf_fd(2, "Error\nInvalid RGB color\n");
-	if (error_code == EXIT_EMPTY_FILE)
-		ft_printf_fd(2, "Error\nEmpty file\n");
 	if (error_code == EXIT_MISSING_MAP)
 		ft_printf_fd(2, "Error\nMissing map\n");
 	if (error_code == EXIT_INVALID_START_POSITION)
