@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 17:03:16 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:14:28 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ static void	calculate_wall(t_game *game, int x)
 	double	angle_diff;
 	double	corrected_dist;
 	double	camera_x;
+
 	if (game->ray->perp_wall_dist <= 0)
 		game->ray->perp_wall_dist = 0.1;
 	camera_x = 2.0 * x / (double)WIDTH - 1;
-	ray_angle = atan(camera_x * tan(FOV/2));
+	ray_angle = atan(camera_x * tan(FOV / 2));
 	player_angle = atan2(game->player->player_dir_y,
 			game->player->player_dir_x);
 	angle_diff = ray_angle - player_angle;
@@ -94,8 +95,9 @@ static void	calculate_wall(t_game *game, int x)
 
 static void	init_ray(t_game *game, int x)
 {
-	double	camera_x = 2.0 * x / (double)WIDTH - 1;
+	double	camera_x;
 
+	camera_x = 2.0 * x / (double)WIDTH - 1;
 	game->ray->ray_dir_x = game->player->player_dir_x
 		+ game->player->camera_dir_x * camera_x;
 	game->ray->ray_dir_y = game->player->player_dir_y
@@ -141,6 +143,8 @@ static void	perform_dda(t_game *game)
 {
 	int	max_iterations;
 	int	iterations;
+	int	map_height;
+	int	map_width;
 
 	max_iterations = 100;
 	iterations = 0;
@@ -164,13 +168,13 @@ static void	perform_dda(t_game *game)
 			game->ray->hit = 1;
 			continue ;
 		}
-		int	map_height = ft_ptrlen(game->map->map);
+		map_height = ft_ptrlen(game->map->map);
 		if (game->ray->map_y >= map_height)
 		{
 			game->ray->hit = 1;
 			continue ;
 		}
-		int	map_width = ft_strlen(game->map->map[game->ray->map_y]);
+		map_width = ft_strlen(game->map->map[game->ray->map_y]);
 		if (game->ray->map_x >= map_width)
 		{
 			game->ray->hit = 1;
@@ -193,7 +197,12 @@ static void	perform_dda(t_game *game)
 
 void	perform_raycasting(t_game *game)
 {
-	int	x;
+	int			x;
+	double		tex_pos;
+	uint32_t	color;
+	uint8_t		*pixel;
+	int			tex_y;
+	int			y;
 
 	if (!game || !game->mlx || !game->raycasting)
 		return ;
@@ -206,7 +215,7 @@ void	perform_raycasting(t_game *game)
 		init_ray(game, x);
 		perform_dda(game);
 		calculate_wall(game, x);
-		int	y = 0;
+		y = 0;
 		while (y < HEIGHT)
 		{
 			if (y < game->wall->draw_start)
@@ -220,14 +229,15 @@ void	perform_raycasting(t_game *game)
 					error_messages(EXIT_INVALID_RGB_COLOR);
 				else
 				{
-					double	tex_pos = (y - game->wall->draw_start)
+					tex_pos = (y - game->wall->draw_start)
 						/ (double)(game->wall->draw_end
 							- game->wall->draw_start);
-					int	tex_y = (int)(tex_pos * game->wall->s_texture->height);
-					uint8_t	*pixel = &game->wall->s_texture->pixels[
-						(tex_y * game->wall->s_texture->width + game->wall->text_x)
-							* game->wall->s_texture->bytes_per_pixel];
-					uint32_t	color = (pixel[0] << 24) | (pixel[1] << 16)
+					tex_y = (int)(tex_pos * game->wall->s_texture->height);
+					pixel = &game->wall->s_texture->pixels[
+						(tex_y * game->wall->s_texture->width
+							+ game->wall->text_x)
+						* game->wall->s_texture->bytes_per_pixel];
+					color = (pixel[0] << 24) | (pixel[1] << 16)
 						| (pixel[2] << 8) | pixel[3];
 					mlx_put_pixel(game->raycasting->image, x, y, color);
 				}
