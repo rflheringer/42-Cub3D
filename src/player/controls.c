@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
 /*   Updated: 2025/07/30 15:24:32 by rheringe         ###   ########.fr       */
@@ -40,4 +40,3 @@ void	keypress(mlx_key_data_t keydata, void *param)
 		game->player->rot_right = false;
 	}
 }
-

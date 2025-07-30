@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 17:21:20 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:18:27 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define EXIT_DUPLICATE_COLOR 16
 # define EXIT_INVALID_TEXTURE_PATH 17
 # define EXIT_INVALID_RGB_COLOR 18
-# define EXIT_EMPTY_FILE 19
+# define EXIT_INVALID_MAP 19
 # define EXIT_MISSING_MAP 20
 # define EXIT_INVALID_START_POSITION 21
 
@@ -66,8 +66,7 @@ typedef struct s_map
 	char	*file;
 	char	**file_content;
 	char	**map;
-	char	**map_copy;
-	int		heigth;
+	int		height;
 }	t_map;
 
 typedef struct s_image
