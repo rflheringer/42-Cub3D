@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/29 17:32:58 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:13:25 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	main(int argc, char **argv)
 	game->image = ft_calloc(1, sizeof(t_image));
 	game->player = ft_calloc(1, sizeof(t_player));
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));
+	game->wall = ft_calloc(1, sizeof(t_wall));
+	game->ray = ft_calloc(1, sizeof(t_ray));
 	if (!game)
 		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
 	parser(game, argv[1]);

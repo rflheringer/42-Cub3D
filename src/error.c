@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/29 17:23:15 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:20:00 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,6 @@ void	error_messages(short error_code)
 	if (error_code == EXIT_INVALID_START_POSITION)
 		ft_printf_fd(2, "Error\nInvalid start position\n");
 }
-
-// static void	delete_images(t_game *game)
-// {
-// 	mlx_delete_image(game->mlx, game->image->north_wall);
-// 	mlx_delete_image(game->mlx, game->image->south_wall);
-// 	mlx_delete_image(game->mlx, game->image->east_wall);
-// 	mlx_delete_image(game->mlx, game->image->west_wall);
-// }
-
 void	shutdown_program(t_game *game, short error_code)
 {
 	(void)game;

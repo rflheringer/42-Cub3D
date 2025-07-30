@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/29 18:03:43 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:09:23 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,26 @@ static void	init_map_images(t_game *game)
 			game->texture->south_wall);
 	if (!game->image->south_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
-	game->texture->north_wall = mlx_load_png("assets/map/dungeon_wall_2.png");
+	game->texture->north_wall = mlx_load_png("assets/map/dungeon_wall_1.png");
 	if (!game->texture->north_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_TEXTURE);
 	game->image->north_wall = mlx_texture_to_image(game->mlx,
 			game->texture->north_wall);
 	if (!game->image->north_wall)
+		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
+	game->texture->east_wall = mlx_load_png("assets/map/dungeon_wall_2.png");
+	if (!game->texture->east_wall)
+		error_messages(EXIT_FAILED_TO_LOAD_TEXTURE);
+	game->image->east_wall = mlx_texture_to_image(game->mlx,
+			game->texture->east_wall);
+	if (!game->image->east_wall)
+		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
+	game->texture->west_wall = mlx_load_png("assets/map/dungeon_wall_2.png");
+	if (!game->texture->west_wall)
+		error_messages(EXIT_FAILED_TO_LOAD_TEXTURE);
+	game->image->west_wall = mlx_texture_to_image(game->mlx,
+			game->texture->west_wall);
+	if (!game->image->west_wall)
 		error_messages(EXIT_FAILED_TO_LOAD_IMAGE);
 	if (game->texture->ceiling_color)
 		game->texture->ceiling_color_hex = convert_rgb_string(game->texture->ceiling_color);
