@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 15:21:05 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:24:32 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,5 @@ void	keypress(mlx_key_data_t keydata, void *param)
 		else if (keydata.key == MLX_KEY_A)
 		game->player->rot_right = false;
 	}
+}
+
