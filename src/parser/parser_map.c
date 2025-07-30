@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/29 16:45:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:54:17 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	get_map(t_game *game, char **content, int *i)
 	game->map->map = ft_calloc(len + 1, sizeof(char *));
 	while (content[*i])
 	{
-		game->map->map[j] = content[*i];
+		game->map->map[j] = ft_strdup(content[*i]);
 		(*i)++;
 		j++;
 	}
-	game->map->heigth = ft_ptrlen(game->map->map);
+	game->map->height = ft_ptrlen(game->map->map);
 }
 
 static bool	check_valid_zero(char **map, int i, int j)
