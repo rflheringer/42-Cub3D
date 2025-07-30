@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 15:12:58 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:21:20 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <math.h>
 
 # define WIDTH 800
-# define HEIGHT 600
+# define HEIGHT 800
 # define W_NAME "DOOM 42"
 # define FOV (M_PI / 3)
 # define EXIT_TOO_MANY_ARGUMENTS 3

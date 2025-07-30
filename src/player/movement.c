@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 14:15:07 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:34:00 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ void	handle_movement(void *param)
 		if (down_move(game))
 			moved = true;
 	if (game->player->rot_left)
-		if (rot_right(game))
+		if (rot_left(game))
 			moved = true;
 	if (game->player->rot_right)
-		if (rot_left(game))
+		if (rot_right(game))
 			moved = true;
 	if (moved)
 	{

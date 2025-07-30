@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 17:14:28 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:13:46 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	calculate_wall(t_game *game, int x)
 	double	angle_diff;
 	double	corrected_dist;
 	double	camera_x;
-
 	if (game->ray->perp_wall_dist <= 0)
 		game->ray->perp_wall_dist = 0.1;
 	camera_x = 2.0 * x / (double)WIDTH - 1;
@@ -55,7 +54,7 @@ static void	calculate_wall(t_game *game, int x)
 	while (angle_diff < -M_PI)
 		angle_diff += 2 * M_PI;
 	corrected_dist = game->ray->perp_wall_dist * cos(ray_angle);
-	game->wall->height = (int)(HEIGHT / corrected_dist);
+	game->wall->height = (int)(HEIGHT / game->ray->perp_wall_dist);
 	game->wall->draw_start = -game->wall->height / 2 + HEIGHT / 2;
 	if (game->wall->draw_start < 0)
 		game->wall->draw_start = 0;
@@ -236,7 +235,7 @@ void	perform_raycasting(t_game *game)
 					pixel = &game->wall->s_texture->pixels[
 						(tex_y * game->wall->s_texture->width
 							+ game->wall->text_x)
-						* game->wall->s_texture->bytes_per_pixel];
+							* game->wall->s_texture->bytes_per_pixel];
 					color = (pixel[0] << 24) | (pixel[1] << 16)
 						| (pixel[2] << 8) | pixel[3];
 					mlx_put_pixel(game->raycasting->image, x, y, color);
