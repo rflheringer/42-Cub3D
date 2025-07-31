@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/31 11:06:30 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:19:40 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,38 @@ static void	count_textures(t_game *game, char *content)
 	}
 }
 
+static char	*get_path(char *content, char *start)
+{
+	char	*trimmed;
+	char	*path;
+	int		len;
+	int		i;
+
+	len = ft_strlen(start);
+	trimmed = ft_strtrim(content, " ");
+	i = len;
+	while (trimmed[i])
+	{
+		if (trimmed[i] != ' ')
+		{
+			path = ft_substr(trimmed, i, ft_strlen(trimmed) - i);
+			free(trimmed);
+			return (path);
+		}
+		i++;
+	}
+	free(trimmed);
+	return (NULL);
+}
+
 static bool	find_textures(t_game *game, char *content)
 {
+	count_textures(game, content);
+	if (game->texture->north > 1 || game->texture->south > 1
+		|| game->texture->west > 1 || game->texture->east > 1)
+		shutdown_program(game, EXIT_DUPLICATE_TEXTURE);
+	if (game->texture->floor > 1 || game->texture->ceiling > 1)
+		shutdown_program(game, EXIT_DUPLICATE_COLOR);
 	if (startswith(content, "NO"))
 		game->texture->north_path = get_path(content, "NO");
 	else if (startswith(content, "SO"))
@@ -53,22 +83,7 @@ static bool	find_textures(t_game *game, char *content)
 			shutdown_program(game, EXIT_UNEXPECTED_CHAR);
 		return (false);
 	}
-	count_textures(game, content);
 	return (true);
-}
-
-static void	check_textures(t_game *game)
-{
-	if (game->texture->north > 1 || game->texture->south > 1
-		|| game->texture->west > 1 || game->texture->east > 1)
-		shutdown_program(game, EXIT_DUPLICATE_TEXTURE);
-	if (game->texture->floor > 1 || game->texture->ceiling > 1)
-		shutdown_program(game, EXIT_DUPLICATE_COLOR);
-	if (!game->texture->north_path || !game->texture->south_path
-		|| !game->texture->west_path || !game->texture->east_path)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	if (!game->texture->floor_color || !game->texture->ceiling_color)
-		shutdown_program(game, EXIT_INVALID_RGB_COLOR);
 }
 
 void	get_text_color_and_map(t_game *game, char **content)
@@ -91,7 +106,11 @@ void	get_text_color_and_map(t_game *game, char **content)
 		}
 		i++;
 	}
-	check_textures(game);
+	if (!game->texture->north_path || !game->texture->south_path
+		|| !game->texture->west_path || !game->texture->east_path)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	if (!game->texture->floor_color || !game->texture->ceiling_color)
+		shutdown_program(game, EXIT_INVALID_RGB_COLOR);
 }
 
 void	validate_textures(t_game *game, char *path)

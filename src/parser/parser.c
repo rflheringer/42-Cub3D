@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 18:09:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:05:21 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	is_map_line(char *line, int *i)
 	return (true);
 }
 
-static void	verify_map_separation(t_game *game, char *line, int i)
+static bool	verify_map_separation(char *line, int i)
 {
 	while (line[i])
 	{
@@ -48,13 +48,14 @@ static void	verify_map_separation(t_game *game, char *line, int i)
 					while (line[i] && (line[i] == '\n' || line[i] == ' '))
 						i++;
 					if (line[i] != '\0')
-						shutdown_program(game, EXIT_INVALID_MAP);
+						return (false);
 				}
 			}
 		}
 		if (line[i])
 			i++;
 	}
+	return (true);
 }
 
 static void	read_file(t_game *game, int fd)
@@ -77,7 +78,11 @@ static void	read_file(t_game *game, int fd)
 		line = aux;
 	}
 	close(fd);
-	verify_map_separation(game, line, i);
+	if (!verify_map_separation(line, i))
+	{
+		free(line);
+		shutdown_program(game, EXIT_INVALID_MAP);
+	}
 	game->map->file_content = ft_split(line, '\n');
 	free(line);
 }

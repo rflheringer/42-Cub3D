@@ -1,48 +1,250 @@
+# MLX42 Valgrind Suppressions
+# Suppresses known MLX42/GLFW/OpenGL/X11 library leaks that are not real memory leaks
+
 {
-   <MLX_CODAM>
+   MLX_CODAM_DL_CATCH
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
    fun:_dl_catch_exception
    ...
 }
+
 {
- <MLX_CODAM>
+   MLX_CODAM_INIT
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
    fun:mlx_init
    ...
 }
+
 {
- <MLX_CODAM>
+   MLX_CODAM_XRM_DATABASE
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
    fun:XrmGetStringDatabase
    ...
 }
+
 {
- <MLX_CODAM>
+   MLX_CODAM_XRM_PARSE
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
    fun:_XrmInitParseInfo
    ...
 }
+
 {
- <MLX_CODAM>
+   MLX_CODAM_TLS
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
    fun:__tls_get_addr
    ...
 }
+
 {
- <MLX_CODAM>
+   MLX_CODAM_PTHREAD
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
    fun:__pthread_once_slow
+   ...
+}
+
+{
+   MLX_CODAM_GLFW_INIT
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:glfwInit
+   ...
+}
+
+{
+   MLX_CODAM_DL_INIT
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_init
+   ...
+}
+
+{
+   MLX_CODAM_DL_OPEN
+   Memcheck:Leak
+   match-leak-kinds: reachable,definite
+   ...
+   fun:_dl_find_object_update
+   ...
+}
+
+{
+   MLX_CODAM_GLFW_CREATE_WINDOW
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:glfwCreateWindow
+   ...
+}
+
+{
+   MLX_CODAM_OPENGL_CONTEXT
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:glXCreateContext
+   ...
+}
+
+{
+   MLX_CODAM_X11_DISPLAY
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:XOpenDisplay
+   ...
+}
+
+{
+   MLX_CODAM_MESA_DRIVER
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/dri/*_dri.so
+   ...
+}
+
+{
+   MLX_CODAM_NVIDIA_DRIVER
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libnvidia*.so*
+   ...
+}
+
+{
+   MLX_CODAM_GLX_VENDOR
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:__glXInitialize
+   ...
+}
+
+{
+   MLX_CODAM_FONTCONFIG
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libfontconfig.so*
+   ...
+}
+
+{
+   MLX_CODAM_FREETYPE
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libfreetype.so*
+   ...
+}
+
+{
+   MLX_CODAM_PNG_LOAD
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:malloc
+   ...
+   fun:mlx_load_png
+   ...
+}
+
+{
+   MLX_CODAM_TEXTURE_CREATE
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:mlx_texture_to_image
+   ...
+}
+
+{
+   MLX_CODAM_DL_ADDR_READ
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   ...
+   fun:_dl_map_object
+   ...
+}
+
+{
+   MLX_CODAM_DL_RPATH_READ
+   Memcheck:Addr8
+   fun:strncmp
+   ...
+   fun:decompose_rpath
+   ...
+   fun:_dl_map_object
+   ...
+}
+
+{
+   MLX_CODAM_DLOPEN_LEAK
+   Memcheck:Leak
+   match-leak-kinds: definite,reachable
+   fun:malloc
+   ...
+   fun:dlopen*
+   ...
+}
+
+{
+   MLX_CODAM_GLIBC_LOCALE
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_nl_load_locale_from_archive
+   ...
+}
+
+{
+   MLX_CODAM_THREAD_LOCAL
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_allocate_tls
+   ...
+}
+
+{
+   MLX_CODAM_XLIB_INTERNAL
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libX11.so*
+   ...
+}
+
+{
+   MLX_CODAM_CURSOR_CREATE
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:glfwCreateCursor
+   ...
+}
+
+{
+   MLX_CODAM_CURSOR_STANDARD
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:glfwCreateStandardCursor
    ...
 }

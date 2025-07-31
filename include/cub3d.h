@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 11:07:20 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:20:04 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ bool	only_spaces(char *str);
 bool	has_control_char(char *str);
 bool	is_valid_line(char *content);
 bool	startswith(char *str, char *start);
-char	*get_path(char *content, char *start);
 
 // Parser player
 void	check_player(t_game *game);
