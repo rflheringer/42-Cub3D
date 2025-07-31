@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 18:06:22 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:48:07 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	main(int argc, char **argv)
 
 	if (argc > 2)
 	{
-		error_messages(EXIT_TOO_MANY_ARGUMENTS);
-		return (EXIT_TOO_MANY_ARGUMENTS);
+		ft_printf_fd(2, "Error\nToo many arguments\n");
+		return (1);
 	}
 	if (argc < 2)
 	{
-		error_messages(EXIT_FEW_ARGUMENTS);
-		return (EXIT_FEW_ARGUMENTS);
+		ft_printf_fd(2, "Error\nToo few arguments\n");
+		return (1);
 	}
 	game = ft_calloc(1, sizeof(t_game));
 	game->map = ft_calloc(1, sizeof(t_map));

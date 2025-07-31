@@ -6,47 +6,69 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/30 18:44:38 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:51:13 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+static uint32_t	get_color_with_alpha(int r, int g, int b, int a)
+{
+	return ((r & 0xFF) << 24 | (g & 0xFF) << 16 | (b & 0xFF) << 8 | (a & 0xFF));
+}
+
+static uint32_t	convert_rgb_string(t_game *game, char *rgb_str)
+{
+	char	**rgb_value;
+	int		r;
+	int		g;
+	int		b;
+
+	rgb_value = ft_split(rgb_str, ',');
+	if (!rgb_value)
+		shutdown_program(game, EXIT_INVALID_RGB_COLOR);
+	r = ft_atoi(rgb_value[0]);
+	g = ft_atoi(rgb_value[1]);
+	b = ft_atoi(rgb_value[2]);
+	ft_free_matrix(rgb_value);
+	return (get_color_with_alpha(r, g, b, 255));
+}
+
 static void	init_colors(t_game *game)
 {
 	if (game->texture->ceiling_color)
 		game->texture->ceiling_color_hex
-			= convert_rgb_string(game->texture->ceiling_color);
+			= convert_rgb_string(game, game->texture->ceiling_color);
 	if (game->texture->floor_color)
 		game->texture->floor_color_hex
-			= convert_rgb_string(game->texture->floor_color);
+			= convert_rgb_string(game, game->texture->floor_color);
 }
 
 static void	init_map_images(t_game *game)
 {
 	game->texture->south_wall = mlx_load_png(game->texture->south_path);
 	if (!game->texture->south_wall)
-		shutdown_program(game, EXIT_FAILED_TO_LOAD_TEXTURE);
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	game->image->south_wall = mlx_texture_to_image(game->mlx,
 			game->texture->south_wall);
 	game->texture->north_wall = mlx_load_png(game->texture->north_path);
 	if (!game->texture->north_wall)
-		shutdown_program(game, EXIT_FAILED_TO_LOAD_TEXTURE);
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	game->image->north_wall = mlx_texture_to_image(game->mlx,
 			game->texture->north_wall);
 	game->texture->east_wall = mlx_load_png(game->texture->east_path);
 	if (!game->texture->east_wall)
-		shutdown_program(game, EXIT_FAILED_TO_LOAD_TEXTURE);
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	game->image->east_wall = mlx_texture_to_image(game->mlx,
 			game->texture->east_wall);
 	game->texture->west_wall = mlx_load_png(game->texture->west_path);
 	if (!game->texture->west_wall)
-		shutdown_program(game, EXIT_FAILED_TO_LOAD_TEXTURE);
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	game->image->west_wall = mlx_texture_to_image(game->mlx,
 			game->texture->west_wall);
 	if (!game->image->north_wall || !game->image->south_wall
 		|| !game->image->east_wall || !game->image->west_wall)
-		shutdown_program(game, EXIT_FAILED_TO_LOAD_IMAGE);
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	init_colors(game);
 }
 

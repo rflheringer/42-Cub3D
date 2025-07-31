@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/07/30 18:07:29 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:55:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,16 @@ static void	error_messages_plus(short error_code)
 		ft_printf_fd(2, "Error\nInvalid RGB color\n");
 	if (error_code == EXIT_INVALID_MAP)
 		ft_printf_fd(2, "Error\nInvalid map\n");
-	if (error_code == EXIT_MISSING_MAP)
-		ft_printf_fd(2, "Error\nMissing map\n");
 	if (error_code == EXIT_INVALID_START_POSITION)
 		ft_printf_fd(2, "Error\nInvalid start position\n");
 }
 
 void	error_messages(short error_code)
 {
-	if (error_code == EXIT_TOO_MANY_ARGUMENTS)
-		ft_printf_fd(2, "Error\nToo many arguments\n");
-	if (error_code == EXIT_FEW_ARGUMENTS)
-		ft_printf_fd(2, "Error\nToo few arguments\n");
 	if (error_code == EXIT_INVALID_EXTENSION)
 		ft_printf_fd(2, "Error\nInvalid file extension\n");
 	if (error_code == EXIT_INVALID_FILE)
 		ft_printf_fd(2, "Error\nInvalid file\n");
-	if (error_code == EXIT_FAILED_TO_LOAD_TEXTURE)
-		ft_printf_fd(2, "Error\nFailed to load texture\n");
-	if (error_code == EXIT_FAILED_TO_LOAD_IMAGE)
-		ft_printf_fd(2, "Error\nFailed to load images\n");
 	if (error_code == EXIT_CHAR_CONTROL)
 		ft_printf_fd(2, "Error\nControl char found when expected space\n");
 	if (error_code == EXIT_MAP_NOT_CLOSED)

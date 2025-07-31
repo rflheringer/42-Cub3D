@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 16:54:17 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:52:37 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	validate_map(t_game *game, char **map)
 
 	i = 0;
 	if (!map || !*map)
-		shutdown_program(game, EXIT_MISSING_MAP);
+		shutdown_program(game, EXIT_INVALID_MAP);
 	while (map[i])
 	{
 		j = 0;

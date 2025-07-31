@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 13:20:04 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:55:57 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@
 # define HEIGHT 800
 # define W_NAME "DOOM 42"
 # define FOV (M_PI / 3)
-# define EXIT_TOO_MANY_ARGUMENTS 3
-# define EXIT_FEW_ARGUMENTS 4
-# define EXIT_ERROR_MEMORY_ALLOCATION 5
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7
-# define EXIT_FAILED_TO_LOAD_TEXTURE 8
-# define EXIT_FAILED_TO_LOAD_IMAGE 9
 # define EXIT_CHAR_CONTROL 10
 # define EXIT_MAP_NOT_CLOSED 11
 # define EXIT_UNEXPECTED_CHAR 12
@@ -41,7 +36,6 @@
 # define EXIT_INVALID_TEXTURE_PATH 17
 # define EXIT_INVALID_RGB_COLOR 18
 # define EXIT_INVALID_MAP 19
-# define EXIT_MISSING_MAP 20
 # define EXIT_INVALID_START_POSITION 21
 
 typedef struct s_player
@@ -188,8 +182,5 @@ void	raycasting_loop(void *param);
 
 //controls.c
 void	keypress(mlx_key_data_t keydata, void *param);
-
-//
-uint32_t convert_rgb_string(char *rgb_str);
 
 #endif

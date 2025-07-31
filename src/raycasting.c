@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 18:13:46 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:46:34 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-static	uint32_t	get_color_with_alpha(int r, int g, int b, int a)
-{
-	return ((r & 0xFF) << 24 | (g & 0xFF) << 16 | (b & 0xFF) << 8 | (a & 0xFF));
-}
-
-uint32_t	convert_rgb_string(char *rgb_str)
-{
-	char	**rgb_value;
-	int		r;
-	int		g;
-	int		b;
-
-	rgb_value = ft_split(rgb_str, ',');
-	if (!rgb_value)
-		error_messages(EXIT_INVALID_RGB_COLOR);
-	r = ft_atoi(rgb_value[0]);
-	g = ft_atoi(rgb_value[1]);
-	b = ft_atoi(rgb_value[2]);
-	ft_free_matrix(rgb_value);
-	return (get_color_with_alpha(r, g, b, 255));
-}
 
 static void	calculate_wall(t_game *game, int x)
 {
@@ -42,6 +20,7 @@ static void	calculate_wall(t_game *game, int x)
 	double	angle_diff;
 	double	corrected_dist;
 	double	camera_x;
+
 	if (game->ray->perp_wall_dist <= 0)
 		game->ray->perp_wall_dist = 0.1;
 	camera_x = 2.0 * x / (double)WIDTH - 1;
@@ -235,7 +214,7 @@ void	perform_raycasting(t_game *game)
 					pixel = &game->wall->s_texture->pixels[
 						(tex_y * game->wall->s_texture->width
 							+ game->wall->text_x)
-							* game->wall->s_texture->bytes_per_pixel];
+						* game->wall->s_texture->bytes_per_pixel];
 					color = (pixel[0] << 24) | (pixel[1] << 16)
 						| (pixel[2] << 8) | pixel[3];
 					mlx_put_pixel(game->raycasting->image, x, y, color);
