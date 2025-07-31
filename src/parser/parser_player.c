@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:05:29 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 18:57:04 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:12:37 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	set_north(t_game *game)
 {
 	game->player->player_dir_x = 0;
 	game->player->player_dir_y = -1;
-	game->player->camera_dir_x = 0;
-	game->player->camera_dir_y = 0.66;
+	game->player->camera_dir_x = game->player->player_dir_y * tan(FOV / 2.0);
+	game->player->camera_dir_y = -game->player->player_dir_x * tan(FOV / 2.0);
 }
 
 static void	set_field_of_vision(t_game *game, int i, int j)
@@ -28,22 +28,22 @@ static void	set_field_of_vision(t_game *game, int i, int j)
 	{
 		game->player->player_dir_x = 0;
 		game->player->player_dir_y = 1;
-		game->player->camera_dir_x = 0;
-		game->player->camera_dir_y = 0.66;
+		game->player->camera_dir_x = game->player->player_dir_y * tan(FOV / 2.0);
+		game->player->camera_dir_y = -game->player->player_dir_x * tan(FOV / 2.0);
 	}
 	else if (game->map->map[i][j] == 'E')
 	{
 		game->player->player_dir_x = 1;
 		game->player->player_dir_y = 0;
-		game->player->camera_dir_x = 0;
-		game->player->camera_dir_y = 0.66;
+		game->player->camera_dir_x = game->player->player_dir_y * tan(FOV / 2.0);
+		game->player->camera_dir_y = -game->player->player_dir_x * tan(FOV / 2.0);
 	}
 	else if (game->map->map[i][j] == 'W')
 	{
 		game->player->player_dir_x = -1;
 		game->player->player_dir_y = 0;
-		game->player->camera_dir_x = 0;
-		game->player->camera_dir_y = 0.66;
+		game->player->camera_dir_x = game->player->player_dir_y * tan(FOV / 2.0);
+		game->player->camera_dir_y = -game->player->player_dir_x * tan(FOV / 2.0);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 19:00:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:13:34 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ bool	right_move(t_game *game)
 	double	new_x;
 	double	new_y;
 
-	new_x = game->player->pos_x - game->player->player_dir_y
+	new_x = game->player->pos_x + game->player->player_dir_y
 		* game->player->move_speed;
-	new_y = game->player->pos_y + game->player->player_dir_x
+	new_y = game->player->pos_y - game->player->player_dir_x
 		* game->player->move_speed;
 	if (game->map->map[(int)new_y][(int)new_x] == '1')
 		return (false);
@@ -37,9 +37,9 @@ bool	left_move(t_game *game)
 	double	new_x;
 	double	new_y;
 
-	new_x = game->player->pos_x + game->player->player_dir_y
+	new_x = game->player->pos_x - game->player->player_dir_y
 		* game->player->move_speed;
-	new_y = game->player->pos_y - game->player->player_dir_x
+	new_y = game->player->pos_y + game->player->player_dir_x
 		* game->player->move_speed;
 	if (game->map->map[(int)new_y][(int)new_x] == '1')
 		return (false);
