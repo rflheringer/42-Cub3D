@@ -15,14 +15,14 @@ SRCS		=	./src/main.c \
 				./src/parser/parser_textures.c \
 				./src/parser/parser_map.c \
 				./src/parser/parser_utils.c \
+				./src/parser/parser_colors.c \
 				./src/player/movement.c \
 				./src/player/controls.c \
         		./src/error.c \
-				./src/renders.c \
 				./src/raycasting.c \
 				./src/initializers.c \
 				./src/clean.c \
-				./src/parser/parser_colors.c
+				./src/player/move_utils.c
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

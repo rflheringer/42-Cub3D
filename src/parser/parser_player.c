@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:05:29 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 17:15:29 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:56:10 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	set_north(t_game *game)
 {
 	game->player->player_dir_x = 0;
 	game->player->player_dir_y = -1;
-	game->player->camera_dir_x = FOV;
-	game->player->camera_dir_y = 0;
+	game->player->camera_dir_x = 0;
+	game->player->camera_dir_y = 0.66;
 }
 
 static void	set_field_of_vision(t_game *game, int i, int j)
@@ -28,22 +28,22 @@ static void	set_field_of_vision(t_game *game, int i, int j)
 	{
 		game->player->player_dir_x = 0;
 		game->player->player_dir_y = 1;
-		game->player->camera_dir_x = -FOV;
-		game->player->camera_dir_y = 0;
+		game->player->camera_dir_x = 0;
+		game->player->camera_dir_y = 0.66;
 	}
 	else if (game->map->map[i][j] == 'E')
 	{
 		game->player->player_dir_x = 1;
 		game->player->player_dir_y = 0;
 		game->player->camera_dir_x = 0;
-		game->player->camera_dir_y = FOV;
+		game->player->camera_dir_y = 0.66;
 	}
 	else if (game->map->map[i][j] == 'W')
 	{
 		game->player->player_dir_x = -1;
 		game->player->player_dir_y = 0;
 		game->player->camera_dir_x = 0;
-		game->player->camera_dir_y = -FOV;
+		game->player->camera_dir_y = 0.66;
 	}
 }
 

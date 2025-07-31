@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 17:34:00 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/31 18:37:33 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static bool	up_move(t_game *game)
 			* game->player->move_speed);
 	new_y = game->player->pos_y + (game->player->player_dir_y
 			* game->player->move_speed);
-	if (game->map->map[(int)new_y][(int)new_x] != '1')
+	if (game->map->map[(int)new_y][(int)new_x] == '1')
+		return (false);
+	if (can_move_to(game->map->map, new_x, new_y))
 	{
 		game->player->pos_x = new_x;
 		game->player->pos_y = new_y;
@@ -39,7 +41,9 @@ static bool	down_move(t_game *game)
 		* game->player->move_speed;
 	new_y = game->player->pos_y - game->player->player_dir_y
 		* game->player->move_speed;
-	if (game->map->map[(int)new_y][(int)new_x] != '1')
+	if (game->map->map[(int)new_y][(int)new_x] == '1')
+		return (false);
+	if (can_move_to(game->map->map, new_x, new_y))
 	{
 		game->player->pos_x = new_x;
 		game->player->pos_y = new_y;

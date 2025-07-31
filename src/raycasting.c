@@ -5,43 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 14:03:07 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 13:46:34 by rdel-fra         ###   ########.fr       */
+/*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
+/*   Updated: 2025/07/31 18:42:49 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+// game->wall->draw_start = -game->wall->height / 2 + HEIGHT / 2;
+// if (game->wall->draw_start < 0)
+// 	game->wall->draw_start = 0;
+// game->wall->draw_end = game->wall->height / 2 + HEIGHT / 2;
+// if (game->wall->draw_end >= HEIGHT)
+// 	game->wall->draw_end = HEIGHT - 1;
+
 static void	calculate_wall(t_game *game, int x)
 {
 	double	wall_x;
-	double	ray_angle;
-	double	player_angle;
-	double	angle_diff;
-	double	corrected_dist;
 	double	camera_x;
+	double	dist_proj_plane;
 
-	if (game->ray->perp_wall_dist <= 0)
-		game->ray->perp_wall_dist = 0.1;
+	if (game->ray->perp_wall_dist < 0.01)
+		game->ray->perp_wall_dist = 0.01;
+	dist_proj_plane = (WIDTH / 2.0) / tan(FOV / 2.0);
 	camera_x = 2.0 * x / (double)WIDTH - 1;
-	ray_angle = atan(camera_x * tan(FOV / 2));
-	player_angle = atan2(game->player->player_dir_y,
-			game->player->player_dir_x);
-	angle_diff = ray_angle - player_angle;
-	while (angle_diff > M_PI)
-		angle_diff -= 2 * M_PI;
-	while (angle_diff < -M_PI)
-		angle_diff += 2 * M_PI;
-	corrected_dist = game->ray->perp_wall_dist * cos(ray_angle);
-	game->wall->height = (int)(HEIGHT / game->ray->perp_wall_dist);
-	game->wall->draw_start = -game->wall->height / 2 + HEIGHT / 2;
+	game->wall->height = (int)((1.0 / game->ray->perp_wall_dist)
+			* dist_proj_plane);
+	game->wall->draw_start = HEIGHT / 2 - game->wall->height / 2;
 	if (game->wall->draw_start < 0)
 		game->wall->draw_start = 0;
-	game->wall->draw_end = game->wall->height / 2 + HEIGHT / 2;
+	game->wall->draw_end = HEIGHT / 2 + game->wall->height / 2;
 	if (game->wall->draw_end >= HEIGHT)
-	{
 		game->wall->draw_end = HEIGHT - 1;
-	}
 	if (game->ray->side == 0)
 	{
 		if (game->ray->ray_dir_x > 0)
@@ -162,25 +157,30 @@ static void	perform_dda(t_game *game)
 			game->ray->hit = 1;
 	}
 	if (game->ray->side == 0 && game->ray->ray_dir_x != 0)
-		game->ray->perp_wall_dist = (game->ray->map_x
-				- game->player->pos_x + (1 - game->ray->step_x) / 2)
-			/ game->ray->ray_dir_x;
+		game->ray->perp_wall_dist = fabs((game->ray->map_x
+					- game->player->pos_x + (1 - game->ray->step_x) / 2)
+				/ game->ray->ray_dir_x);
 	else if (game->ray->ray_dir_y != 0)
-		game->ray->perp_wall_dist = (game->ray->map_y
-				- game->player->pos_y + (1 - game->ray->step_y) / 2)
-			/ game->ray->ray_dir_y;
-	else
-		game->ray->perp_wall_dist = 1.0;
+		game->ray->perp_wall_dist = fabs((game->ray->map_y
+					- game->player->pos_y + (1 - game->ray->step_y) / 2)
+				/ game->ray->ray_dir_y);
 }
+
+// tex_pos = (y - game->wall->draw_start)
+// 	/ (double)(game->wall->draw_end
+// 		- game->wall->draw_start);
+// tex_y = (int)(tex_pos * game->wall->s_texture->height);
 
 void	perform_raycasting(t_game *game)
 {
 	int			x;
-	double		tex_pos;
 	uint32_t	color;
 	uint8_t		*pixel;
 	int			tex_y;
 	int			y;
+	int			wall_start;
+	int			actual_y;
+	double		step;
 
 	if (!game || !game->mlx || !game->raycasting)
 		return ;
@@ -203,22 +203,22 @@ void	perform_raycasting(t_game *game)
 			}
 			else if (y < game->wall->draw_end)
 			{
-				if (!game->wall->s_texture)
-					error_messages(EXIT_INVALID_RGB_COLOR);
-				else
-				{
-					tex_pos = (y - game->wall->draw_start)
-						/ (double)(game->wall->draw_end
-							- game->wall->draw_start);
-					tex_y = (int)(tex_pos * game->wall->s_texture->height);
-					pixel = &game->wall->s_texture->pixels[
-						(tex_y * game->wall->s_texture->width
-							+ game->wall->text_x)
-						* game->wall->s_texture->bytes_per_pixel];
-					color = (pixel[0] << 24) | (pixel[1] << 16)
-						| (pixel[2] << 8) | pixel[3];
-					mlx_put_pixel(game->raycasting->image, x, y, color);
-				}
+				wall_start = HEIGHT / 2 - game->wall->height / 2;
+				actual_y = y - wall_start;
+				step = (double)game->wall->s_texture->height
+					/ game->wall->height;
+				tex_y = (int)(actual_y * step);
+				if (tex_y < 0)
+					tex_y = 0;
+				if (tex_y >= (int)game->wall->s_texture->height)
+					tex_y = game->wall->s_texture->height - 1;
+				pixel = &game->wall->s_texture->pixels[
+					(tex_y * game->wall->s_texture->width
+						+ game->wall->text_x)
+					* game->wall->s_texture->bytes_per_pixel];
+				color = (pixel[0] << 24) | (pixel[1] << 16)
+					| (pixel[2] << 8) | pixel[3];
+				mlx_put_pixel(game->raycasting->image, x, y, color);
 			}
 			else
 			{

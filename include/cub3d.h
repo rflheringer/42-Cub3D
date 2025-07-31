@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 13:55:57 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 18:43:53 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 800
+# define WIDTH 1200
 # define HEIGHT 800
 # define W_NAME "DOOM 42"
 # define FOV (M_PI / 3)
+# define R 0.1
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7
 # define EXIT_CHAR_CONTROL 10
@@ -54,6 +55,8 @@ typedef struct s_player
 	double	camera_dir_y;
 	double	move_speed;
 	double	rotation_speed;
+	double	hit_x;
+	double	hit_y;
 }	t_player;
 
 typedef struct s_map
@@ -176,9 +179,11 @@ void	load_screen(t_game *game);
 // movement
 void	handle_movement(void *param);
 
+// movement utils
+bool	can_move_to(char **map, double x, double y);
+
 // testes
 void	perform_raycasting(t_game *game);
-void	raycasting_loop(void *param);
 
 //controls.c
 void	keypress(mlx_key_data_t keydata, void *param);
