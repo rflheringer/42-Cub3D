@@ -1,5 +1,8 @@
 # folders
 .vscode/
+objs/
+logs/
+
 
 # files
 *.o
