@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 18:37:33 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 18:59:40 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,24 @@ static bool	rot_right(t_game *game)
 	return (true);
 }
 
-void	handle_movement(void *param)
+void	get_move(t_game *game)
 {
-	t_game	*game;
-	bool	moved;
-
-	game = (t_game *)param;
-	moved = false;
 	if (game->player->up)
 		if (up_move(game))
-			moved = true;
+			game->player->moved = true;
 	if (game->player->down)
 		if (down_move(game))
-			moved = true;
+			game->player->moved = true;
+	if (game->player->right)
+		if (right_move(game))
+			game->player->moved = true;
+	if (game->player->left)
+		if (left_move(game))
+			game->player->moved = true;
 	if (game->player->rot_left)
 		if (rot_left(game))
-			moved = true;
+			game->player->moved = true;
 	if (game->player->rot_right)
 		if (rot_right(game))
-			moved = true;
-	if (moved)
-	{
-		if (game->raycasting->image)
-			mlx_delete_image(game->mlx, game->raycasting->image);
-		perform_raycasting(game);
-	}
+			game->player->moved = true;
 }

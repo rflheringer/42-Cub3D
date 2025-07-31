@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 18:43:53 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:01:35 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define HEIGHT 800
 # define W_NAME "DOOM 42"
 # define FOV (M_PI / 3)
-# define R 0.1
+# define R 0.05
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7
 # define EXIT_CHAR_CONTROL 10
@@ -43,8 +43,11 @@ typedef struct s_player
 {
 	bool	up;
 	bool	down;
+	bool	right;
+	bool	left;
 	bool	rot_left;
 	bool	rot_right;
+	bool	moved;
 	int		p;
 	char	start_dir;
 	double	pos_x;
@@ -173,13 +176,13 @@ void	shutdown_program(t_game *game, short error_code);
 // init_manager
 int32_t	init_cub3d(t_game *game);
 
-// render
-void	load_screen(t_game *game);
-
 // movement
-void	handle_movement(void *param);
+void	get_move(t_game *game);
 
 // movement utils
+bool	left_move(t_game *game);
+bool	right_move(t_game *game);
+void	handle_movement(void *param);
 bool	can_move_to(char **map, double x, double y);
 
 // testes
