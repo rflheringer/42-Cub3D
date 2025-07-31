@@ -1,7 +1,7 @@
-NO assets/textures/texture.png
-SO assets/textures/texture.png
-WE assets/textures/texture.png
-EA assets/textures/texture.png
+NO assets/map/dungeon_wall_1.png
+SO assets/map/dungeon_wall_1.png
+assets/map/dungeon_wall_2.png
+EA assets/map/dungeon_wall_2.png
 
 F 220,100,0
 C 225,30,0

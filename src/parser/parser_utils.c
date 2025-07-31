@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:45:03 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 16:38:23 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:06:41 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,28 @@ bool	startswith(char *str, char *start)
 	}
 	free(trimmed);
 	return (false);
+}
+
+char	*get_path(char *content, char *start)
+{
+	char	*trimmed;
+	char	*path;
+	int		len;
+	int		i;
+
+	len = ft_strlen(start);
+	trimmed = ft_strtrim(content, " ");
+	i = len;
+	while (trimmed[i])
+	{
+		if (trimmed[i] != ' ')
+		{
+			path = ft_substr(trimmed, i, ft_strlen(trimmed) - i);
+			free(trimmed);
+			return (path);
+		}
+		i++;
+	}
+	free(trimmed);
+	return (NULL);
 }

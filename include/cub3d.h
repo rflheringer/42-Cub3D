@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/30 18:18:27 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:07:20 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void	parser(t_game *game, char *file);
 
 // Parser textures
 void	get_text_color_and_map(t_game *game, char **content);
+void	validate_textures(t_game *game, char *path);
 
 // Parser map
 void	validate_map(t_game *game, char **map);
@@ -160,14 +161,14 @@ bool	only_spaces(char *str);
 bool	has_control_char(char *str);
 bool	is_valid_line(char *content);
 bool	startswith(char *str, char *start);
+char	*get_path(char *content, char *start);
 
-// Paser player
+// Parser player
 void	check_player(t_game *game);
 void	get_player_position(t_game *game, char **map, int i, int j);
 
 // Parser colors
 void	validate_colors(t_game *game);
-void	validate_textures(t_game *game, char *path);
 
 // error_manager
 void	error_messages(short error_code);

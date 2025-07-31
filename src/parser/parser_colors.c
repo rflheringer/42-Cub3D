@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:33:37 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/30 18:54:46 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:35:33 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,6 @@ static bool	is_valid_rgb(char *color)
 	}
 	ft_free_matrix(rgb);
 	return (true);
-}
-
-void	validate_textures(t_game *game, char *path)
-{
-	char	*extension;
-	int		fd;
-
-	extension = ft_strrchr(path, '.');
-	if (!extension)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	if (ft_strcmp(extension, ".png") != 0)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	close(fd);
 }
 
 void	validate_colors(t_game *game)

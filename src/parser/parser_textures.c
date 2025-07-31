@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:26:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/07/30 18:02:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:06:30 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,6 @@ static void	count_textures(t_game *game, char *content)
 		if (!is_valid_line(content))
 			shutdown_program(game, EXIT_UNEXPECTED_CHAR);
 	}
-}
-
-static char	*get_path(char *content, char *start)
-{
-	char	*trimmed;
-	char	*path;
-	int		len;
-	int		i;
-
-	len = ft_strlen(start);
-	trimmed = ft_strtrim(content, " ");
-	i = len;
-	while (trimmed[i])
-	{
-		if (trimmed[i] != ' ')
-		{
-			path = ft_substr(trimmed, i, ft_strlen(trimmed) - i);
-			free(trimmed);
-			return (path);
-		}
-		i++;
-	}
-	free(trimmed);
-	return (NULL);
 }
 
 static bool	find_textures(t_game *game, char *content)
@@ -116,4 +92,20 @@ void	get_text_color_and_map(t_game *game, char **content)
 		i++;
 	}
 	check_textures(game);
+}
+
+void	validate_textures(t_game *game, char *path)
+{
+	char	*extension;
+	int		fd;
+
+	extension = ft_strrchr(path, '.');
+	if (!extension)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	if (ft_strcmp(extension, ".png") != 0)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	close(fd);
 }
