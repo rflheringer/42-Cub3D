@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:33:37 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 11:35:33 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:41:34 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	verify_rgb_format(char *color)
 	while (color[i])
 	{
 		if (color[i] < '0' || color[i] > '9')
-			if (color[i] != ',')
+			if (color[i] != ',' && color[i] != ' ')
 				return (false);
 		i++;
 	}
