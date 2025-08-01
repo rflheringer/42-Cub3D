@@ -20,6 +20,9 @@ SRCS		=	./src/main.c \
 				./src/player/controls.c \
         		./src/error.c \
 				./src/raycasting/raycasting.c \
+				./src/raycasting/raycasting_utils.c \
+				./src/raycasting/dda.c \
+				./src/raycasting/init_ray.c \
 				./src/initializers.c \
 				./src/clean.c \
 				./src/player/move_utils.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 13:48:07 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:21:03 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,3 @@ int	main(int argc, char **argv)
 	parser(game, argv[1]);
 	init_cub3d(game);
 }
-// int i = 0;
-// while (game->map->file_content[i])
-// {
-// 	printf("%s\n", game->map->file_content[i]);
-// 	printf("%d\n", i);
-// 	i++;
-// }
-/*parser*/
-/*init progam = load texture, images, screen*/

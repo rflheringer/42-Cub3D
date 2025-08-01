@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/01 11:36:24 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:18:14 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 # define WIDTH 1200
 # define HEIGHT 800
-# define W_NAME "MEU OVO 42"
-# define FOV (M_PI / 3.0)
+# define W_NAME "Catacombs 42"
+# define FOV 1.0472
 # define R 0.05
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7
@@ -185,10 +185,15 @@ bool	right_move(t_game *game);
 void	handle_movement(void *param);
 bool	can_move_to(char **map, double x, double y);
 
-// testes
+// raycasting
 void	perform_raycasting(t_game *game);
+void	init_ray(t_game *game, int x);
+void	calculate_wall(t_game *game, int x);
 
-//controls.c
+//controls
 void	keypress(mlx_key_data_t keydata, void *param);
+
+//dda
+void	perform_dda(t_game *game);
 
 #endif
