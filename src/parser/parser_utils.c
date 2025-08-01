@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:45:03 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 13:19:54 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:49:53 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	check_player(t_game *game)
+{
+	if (game->player->p > 1)
+		shutdown_program(game, EXIT_TOO_MANY_START_POS);
+	else if (game->player->p < 1)
+		shutdown_program(game, EXIT_NO_START_POSITION);
+}
 
 bool	only_spaces(char *str)
 {

@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 18:42:49 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:00:03 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
-
-// game->wall->draw_start = -game->wall->height / 2 + HEIGHT / 2;
-// if (game->wall->draw_start < 0)
-// 	game->wall->draw_start = 0;
-// game->wall->draw_end = game->wall->height / 2 + HEIGHT / 2;
-// if (game->wall->draw_end >= HEIGHT)
-// 	game->wall->draw_end = HEIGHT - 1;
+#include "../../include/cub3d.h"
 
 static void	calculate_wall(t_game *game, int x)
 {
@@ -165,11 +158,6 @@ static void	perform_dda(t_game *game)
 					- game->player->pos_y + (1 - game->ray->step_y) / 2)
 				/ game->ray->ray_dir_y);
 }
-
-// tex_pos = (y - game->wall->draw_start)
-// 	/ (double)(game->wall->draw_end
-// 		- game->wall->draw_start);
-// tex_y = (int)(tex_pos * game->wall->s_texture->height);
 
 void	perform_raycasting(t_game *game)
 {

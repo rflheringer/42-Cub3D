@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/07/31 19:01:35 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:36:24 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 # define WIDTH 1200
 # define HEIGHT 800
-# define W_NAME "DOOM 42"
-# define FOV (M_PI / 3)
+# define W_NAME "MEU OVO 42"
+# define FOV (M_PI / 3.0)
 # define R 0.05
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7

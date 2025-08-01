@@ -19,14 +19,14 @@ SRCS		=	./src/main.c \
 				./src/player/movement.c \
 				./src/player/controls.c \
         		./src/error.c \
-				./src/raycasting.c \
+				./src/raycasting/raycasting.c \
 				./src/initializers.c \
 				./src/clean.c \
 				./src/player/move_utils.c
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
-VPATH		=	./src ./src/parser ./src/player
+VPATH		=	./src ./src/parser ./src/player ./src/raycasting
 
 all: libmlx libft ${NAME}
 
