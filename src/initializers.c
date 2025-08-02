@@ -6,7 +6,7 @@
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/02 00:21:58 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/02 01:16:22 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	init_map_images(t_game *game)
 	if (!game->texture->south_wall)
 		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	game->image->south_wall = mlx_texture_to_image(game->mlx,
-			game->texture->south_wall);
+		    game->texture->south_wall);
 	game->texture->north_wall = mlx_load_png(game->texture->north_path);
 	if (!game->texture->north_wall)
 		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
@@ -91,7 +91,6 @@ int32_t	init_cub3d(t_game *game)
 	init_map_images(game);
 	game->ray = ft_calloc(1, sizeof(t_ray));
 	game->wall = ft_calloc(1, sizeof(t_wall));
-    game->texture = ft_calloc(1, sizeof(t_texture));
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));
 	perform_raycasting(game);
 	mlx_key_hook(game->mlx, &keypress, game);
