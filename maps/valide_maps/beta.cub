@@ -1,9 +1,9 @@
-NO assets/map/dungeon_wall_1.png
-SO assets/map/dungeon_wall_1.png
-WE assets/map/dungeon_wall_2.png
-EA assets/map/dungeon_wall_2.png
+NO assets/map/dungeon_wall_5.png
+SO assets/map/dungeon_wall_6.png
+WE assets/map/dungeon_wall_7.png
+EA assets/map/dungeon_wall_8.png
 
-F 84,84,84
+F 0,0,168
 C 22,30,0
 
         1111111111111111111111111

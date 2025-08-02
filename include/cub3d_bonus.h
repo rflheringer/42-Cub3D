@@ -6,7 +6,7 @@
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 01:08:27 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/02 16:00:46 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,12 @@ typedef struct s_enemy
 }	t_enemy;
 
 typedef struct s_lightning {
-	long	last_flash_time;
-	int		is_flashing;
-	int		flash_count;
-	long	next_flash_delay;
-	long	flash_duration;
-	long	flash_start_time;
+	bool		is_active;
+	uint32_t	original_color;
+	uint32_t	flash_color;
+	double		last_time;
+	double		next_flash;
+	double		duration;
 }	t_lightning;
 
 typedef struct s_collectible
@@ -238,5 +238,9 @@ void	keypress(mlx_key_data_t keydata, void *param);
 
 //dda
 void	perform_dda(t_game *game);
+
+// lightning_bonus
+void init_lightning(t_game *game);
+void update_lightning(t_game *game);
 
 #endif
