@@ -6,7 +6,7 @@
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/01 22:21:28 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/02 00:02:35 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define W_NAME "Catacombs 42"
 # define FOV 1.0472
 # define R 0.05
+# define EXIT_TOO_MANY_ARGUMENTS 3
+# define EXIT_FEW_ARGUMENTS 4
+# define EXIT_ERROR_MEMORY_ALLOCATION 5
 # define EXIT_INVALID_EXTENSION 6
 # define EXIT_INVALID_FILE 7
 # define EXIT_CHAR_CONTROL 10
