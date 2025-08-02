@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializers.c                                     :+:      :+:    :+:   */
+/*   initializers_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/01 22:26:42 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/02 00:12:42 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int32_t	init_cub3d(t_game *game)
 	game->ray = ft_calloc(1, sizeof(t_ray));
 	game->wall = ft_calloc(1, sizeof(t_wall));
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));
+	game->enemy = ft_calloc(1, sizeof(t_enemy));
 	perform_raycasting(game);
 	mlx_key_hook(game->mlx, &keypress, game);
 	mlx_loop_hook(game->mlx, &handle_movement, game);
