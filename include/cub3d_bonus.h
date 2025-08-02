@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/01 22:21:28 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/01 23:21:38 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../lib/includes/libft.h"
@@ -76,6 +76,8 @@ typedef struct s_image
 	mlx_image_t		*south_wall;
 	mlx_image_t		*east_wall;
 	mlx_image_t		*west_wall;
+	mlx_image_t		*closed_door;
+	mlx_image_t		*open_door;
 }	t_image;
 
 typedef struct s_texture
@@ -92,6 +94,10 @@ typedef struct s_texture
 	uint32_t		floor_color_hex;
 	char			*ceiling_color;
 	uint32_t		ceiling_color_hex;
+	char			*closed_door_path;
+	mlx_texture_t	*closed_door;
+	char			*open_door_path;
+	mlx_texture_t	*open_door;
 	int				north;
 	int				south;
 	int				east;
@@ -131,6 +137,36 @@ typedef struct s_raycasting
 	mlx_image_t	*image;
 }	t_raycasting;
 
+typedef struct s_enemy
+{
+	mlx_image_t	*skell_images[9];
+	mlx_image_t *skell_texture[9];
+	int			cur_sprite;
+	double		pos_x;
+	double		pos_y;
+	double		distance;
+	double		angle;
+	double		move_speed;
+	bool		is_visible;
+}	t_enemy;
+
+typedef struct s_lightning {
+	long	last_flash_time;
+	int		is_flashing;
+	int		flash_count;
+	long	next_flash_delay;
+	long	flash_duration;
+	long	flash_start_time;
+}	t_lightning;
+
+typedef struct s_collectible
+{
+	mlx_image_t	*image;
+	double		pos_x;
+	double		pos_y;
+	int			is_collected;
+}	t_collectible;
+
 typedef struct s_game
 {
 	mlx_t			*mlx;
@@ -141,7 +177,11 @@ typedef struct s_game
 	t_raycasting	*raycasting;
 	t_wall			*wall;
 	t_ray			*ray;
+	t_enemy			*enemy;
+	t_lightning		*lightning;
+	t_collectible	*collectible;
 }	t_game;
+
 
 // Function prototypes //
 
