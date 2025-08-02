@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/01 13:31:19 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/01 22:12:38 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	perform_raycasting(t_game *game)
 	{
 		init_ray(game, x);
 		perform_dda(game);
-		calculate_wall(game, x);
+		calculate_wall(game);
 		draw_wall(game, x);
 	}
 	mlx_image_to_window(game->mlx, game->raycasting->image, 0, 0);

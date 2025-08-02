@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 11:53:54 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/01 15:20:33 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/01 22:11:24 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	calculate_wall_dimensions(t_game *game, int x)
+static void	calculate_wall_dimensions(t_game *game)
 {
-	double	camera_x;
 	double	dist_proj_plane;
 
 	if (game->ray->perp_wall_dist < 0.01)
 		game->ray->perp_wall_dist = 0.01;
 	dist_proj_plane = (WIDTH / 2.0) / tan(FOV / 2.0);
-	camera_x = 2.0 * x / (double)WIDTH - 1;
 	game->wall->height = (int)((1.0 / game->ray->perp_wall_dist)
 			* dist_proj_plane);
 	game->wall->draw_start = HEIGHT / 2 - game->wall->height / 2;
@@ -68,9 +66,9 @@ static void	calculate_texture_x(t_game *game)
 			- game->wall->text_x - 1;
 }
 
-void	calculate_wall(t_game *game, int x)
+void	calculate_wall(t_game *game)
 {
-	calculate_wall_dimensions(game, x);
+	calculate_wall_dimensions(game);
 	select_wall_texture(game);
 	calculate_texture_x(game);
 }

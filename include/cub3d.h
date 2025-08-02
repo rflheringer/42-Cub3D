@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/01 15:18:14 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/01 22:11:34 by rafaelherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ bool	can_move_to(char **map, double x, double y);
 // raycasting
 void	perform_raycasting(t_game *game);
 void	init_ray(t_game *game, int x);
-void	calculate_wall(t_game *game, int x);
+void	calculate_wall(t_game *game);
 
 //controls
 void	keypress(mlx_key_data_t keydata, void *param);
