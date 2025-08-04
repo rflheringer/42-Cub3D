@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 16:00:46 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 15:19:36 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_player
 	char	start_dir;
 	double	pos_x;
 	double	pos_y;
+	double	old_x;
+	double	old_y;
 	double	player_dir_x;
 	double	player_dir_y;
 	double	camera_dir_x;
@@ -138,6 +140,7 @@ typedef struct s_wall
 typedef struct s_raycasting
 {
 	mlx_image_t	*image;
+	mlx_image_t	*minimap;
 }	t_raycasting;
 
 typedef struct s_enemy
@@ -187,6 +190,8 @@ typedef struct s_game
 
 
 // Function prototypes //
+void	init_minimap(t_game *game);
+void	update_minimap(t_game *game);
 
 // Parser
 void	parser(t_game *game, char *file);

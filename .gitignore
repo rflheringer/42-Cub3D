@@ -7,5 +7,5 @@ logs/
 # files
 *.o
 *.a
-cub3D
+cub3D*
 *.cub

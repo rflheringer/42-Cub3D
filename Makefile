@@ -46,7 +46,8 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/raycasting_bonus/dda_bonus.c \
 				./src/bonus/raycasting_bonus/init_ray_bonus.c \
 				./src/bonus/raycasting_bonus/raycasting_bonus.c \
-				./src/bonus/raycasting_bonus/raycasting_utils_bonus.c
+				./src/bonus/raycasting_bonus/raycasting_utils_bonus.c \
+				./src/bonus/minimap_bonus/minimap_bonus.c
 				
 
 OBJ_DIR		=	objs
@@ -54,7 +55,7 @@ OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 OBJS_BONUS	=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_BONUS:.c=.o)))
 
 VPATH			=	./src ./src/parser ./src/player ./src/raycasting
-VPATH_BONUS		=	./src/bonus ./src/bonus/parser_bonus ./src/bonus/player_bonus ./src/bonus/raycasting_bonus ./src/bonus/initializers_bonus
+VPATH_BONUS		=	./src/bonus ./src/bonus/parser_bonus ./src/bonus/player_bonus ./src/bonus/raycasting_bonus ./src/bonus/initializers_bonus ./src/bonus/minimap_bonus
 
 all: libmlx libft ${NAME}
 

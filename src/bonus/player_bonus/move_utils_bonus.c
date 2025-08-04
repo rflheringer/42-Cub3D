@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/02 01:08:46 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 15:23:12 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ bool	right_move(t_game *game)
 		return (false);
 	if (can_move_to(game->map->map, new_x, new_y))
 	{
+		game->player->old_x = game->player->pos_x;
+		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
 		game->player->pos_y = new_y;
 		return (true);
@@ -45,6 +47,8 @@ bool	left_move(t_game *game)
 		return (false);
 	if (can_move_to(game->map->map, new_x, new_y))
 	{
+		game->player->old_x = game->player->pos_x;
+		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
 		game->player->pos_y = new_y;
 		return (true);
@@ -88,4 +92,7 @@ void	handle_movement(void *param)
 			mlx_delete_image(game->mlx, game->raycasting->image);
 		perform_raycasting(game);
 	}
+	game->map->map[(int)game->player->old_y][(int)game->player->old_x] = '0';
+	game->map->map[(int)game->player->pos_y][(int)game->player->pos_x] = 'N';
+	update_minimap(game);
 }
