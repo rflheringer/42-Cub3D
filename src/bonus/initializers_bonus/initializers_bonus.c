@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/04 16:15:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:35:07 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int32_t	init_cub3d(t_game *game)
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));
 	game->enemy = ft_calloc(1, sizeof(t_enemy));
 	perform_raycasting(game);
-	init_minimap(game);
+	update_minimap(game);
 	mlx_key_hook(game->mlx, &keypress, game);
 	//mlx_cursor_hook(game->mlx, &keypress, game);
 	mlx_loop_hook(game->mlx, &handle_movement, game);
