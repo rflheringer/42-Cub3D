@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 01:08:43 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 11:38:08 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

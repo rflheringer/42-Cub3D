@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/02 01:07:26 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 12:45:27 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 static void	error_messages_plus(short error_code)
 {

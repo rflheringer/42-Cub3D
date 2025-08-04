@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/02 15:59:50 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 12:59:00 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int32_t	init_cub3d(t_game *game)
 	game->enemy = ft_calloc(1, sizeof(t_enemy));
 	perform_raycasting(game);
 	mlx_key_hook(game->mlx, &keypress, game);
+	//mlx_cursor_hook(game->mlx, &keypress, game);
 	mlx_loop_hook(game->mlx, &handle_movement, game);
 	mlx_loop(game->mlx);
 	shutdown_program(game, EXIT_SUCCESS);

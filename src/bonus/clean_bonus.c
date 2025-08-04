@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:24:26 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/02 01:07:24 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 12:45:33 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 static void	delete_images(t_game *game)
 {

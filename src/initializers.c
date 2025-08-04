@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/02 01:16:22 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 11:10:26 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	init_map_images(t_game *game)
 	if (!game->texture->south_wall)
 		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	game->image->south_wall = mlx_texture_to_image(game->mlx,
-		    game->texture->south_wall);
+			game->texture->south_wall);
 	game->texture->north_wall = mlx_load_png(game->texture->north_path);
 	if (!game->texture->north_wall)
 		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 18:43:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 01:07:29 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/04 12:45:12 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 int	main(int argc, char **argv)
 {
@@ -31,6 +31,6 @@ int	main(int argc, char **argv)
 		error_messages(EXIT_ERROR_MEMORY_ALLOCATION);
 	game->player = ft_calloc(1, sizeof(t_player));
 	game->map = ft_calloc(1, sizeof(t_map));
-	/*validations*/
+	parser(game, argv[1]);
 	init_cub3d(game);
 }
