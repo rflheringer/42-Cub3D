@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/04 11:10:26 by rheringe         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   initializers.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/01 13:49:41 by rheringe         ###   ########.fr       */
+/*   Created: 2025/08/04 16:09:01 by rdel-fra          #+#    #+#             */
+/*   Updated: 2025/08/04 16:10:03 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +74,7 @@ static void	init_map_images(t_game *game)
 
 int32_t	init_cub3d(t_game *game)
 {
-	game->mlx = mlx_init(WIDTH, HEIGHT, W_NAME, true);
+	game->mlx = mlx_init(WIDTH, HEIGHT, W_NAME, false);
 	game->image = ft_calloc(1, sizeof(t_image));
 	init_map_images(game);
 	game->ray = ft_calloc(1, sizeof(t_ray));

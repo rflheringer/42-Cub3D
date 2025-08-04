@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/04 15:23:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:15:08 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ void	handle_movement(void *param)
 		if (game->raycasting->image)
 			mlx_delete_image(game->mlx, game->raycasting->image);
 		perform_raycasting(game);
+		update_minimap(game);
 	}
-	game->map->map[(int)game->player->old_y][(int)game->player->old_x] = '0';
-	game->map->map[(int)game->player->pos_y][(int)game->player->pos_x] = 'N';
-	update_minimap(game);
 }

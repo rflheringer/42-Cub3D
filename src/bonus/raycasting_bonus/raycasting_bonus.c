@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/04 15:30:09 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:14:41 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,14 @@ void	perform_raycasting(t_game *game)
 	game->raycasting->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->raycasting->image)
 		return ;
-	x = -1;
-	while (x++ < WIDTH)
+	x = 0;
+	while (x < WIDTH)
 	{
 		init_ray(game, x);
 		perform_dda(game);
 		calculate_wall(game);
 		draw_wall(game, x);
+		x++;
 	}
 	mlx_image_to_window(game->mlx, game->raycasting->image, 0, 0);
 }
