@@ -1,25 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_skell_bonus.c                                 :+:      :+:    :+:   */
+/*   init_enemy_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 23:42:11 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/04 12:58:34 by rheringe         ###   ########.fr       */
+/*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
+/*   Updated: 2025/08/05 16:31:11 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/cub3d_bonus.h"
+#include	"../../../include/cub3d_bonus.h"
 
-void	load_skell_images(t_game *game)
+static void	add_enemy_list(t_game *game, t_enemy_list *enemy)
+{
+	t_enemy_list	*last;
+
+	if (!game->enemy->enemy_list)
+		game->enemy->enemy_list = enemy;
+	else
+	{
+		last = game->enemy->enemy_list;
+		while (last->next)
+			last = last->next;
+		last->next = enemy;
+	}
+}
+
+static void	create_enemy(t_game *game, int i, int j)
+{
+	t_enemy_list	*enemy;
+
+	enemy = ft_calloc(1, sizeof(t_enemy_list));
+	enemy->pos_x = j;
+	enemy->pos_y = i;
+	add_enemy_list(game, enemy);
+}
+
+void	set_enemy_or_door(t_game *game, int i, int j)
+{
+	if (game->map->map[i][j] == 'I')
+		create_enemy(game, i, j);
+	// else
+	// 	create_door(game, i, j);
+}
+
+static void	load_skell_images(t_game *game)
 {
 	char	enemy_path[42];
 	char	*num;
 	int		i;
 
-	i = -1;
-	while (i++, i < 10)
+	i = 0;
+	while (i < 10)
 	{
 		num = ft_itoa(i);
 		if (!num)
@@ -35,5 +68,13 @@ void	load_skell_images(t_game *game)
 				game->enemy->skell_texture[i]);
 		if (!game->enemy->skell_images[i])
 			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+		i++;
 	}
+}
+
+void	set_default_enemy(t_game *game)
+{
+	game->enemy->move_speed = 0.03;
+	game->enemy->cur_sprite = 0;
+	load_skell_images(game);
 }

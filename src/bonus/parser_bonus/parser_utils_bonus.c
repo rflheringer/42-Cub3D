@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:45:03 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/02 01:07:45 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/05 16:29:17 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	is_valid_line(char *content)
 	i = 0;
 	while (content[i])
 	{
-		if (!ft_strchr(" 01NSWE", content[i]))
+		if (!ft_strchr(" 01NSWEID", content[i]))
 			return (false);
 		i++;
 	}

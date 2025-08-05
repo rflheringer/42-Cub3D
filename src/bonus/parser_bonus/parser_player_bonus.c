@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:05:29 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/02 01:07:40 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/05 16:33:14 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	get_player_position(t_game *game, char **map, int i, int j)
 {
 	if (!check_player_position(map, i, j))
 		shutdown_program(game, EXIT_INVALID_START_POSITION);
-	game->player->move_speed = 0.05;
-	game->player->rotation_speed = 0.02;
+	game->player->move_speed = 0.06;
+	game->player->rotation_speed = 0.03;
 	game->player->start_dir = map[i][j];
 	game->player->pos_x = j + 0.5;
 	game->player->pos_y = i + 0.5;
