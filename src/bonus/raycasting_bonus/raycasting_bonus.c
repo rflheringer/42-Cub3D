@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/04 16:14:41 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:19:16 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	perform_raycasting(t_game *game)
 	while (x < WIDTH)
 	{
 		init_ray(game, x);
-		perform_dda(game);
+		perform_dda(game, x);
 		calculate_wall(game);
 		draw_wall(game, x);
 		x++;

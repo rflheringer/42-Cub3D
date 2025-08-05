@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/05 16:31:11 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:55:17 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	add_enemy_list(t_game *game, t_enemy_list *enemy)
 {
 	t_enemy_list	*last;
 
-	if (!game->enemy->enemy_list)
-		game->enemy->enemy_list = enemy;
+	if (!game->enemy->list)
+		game->enemy->list = enemy;
 	else
 	{
-		last = game->enemy->enemy_list;
+		last = game->enemy->list;
 		while (last->next)
 			last = last->next;
 		last->next = enemy;
@@ -34,6 +34,7 @@ static void	create_enemy(t_game *game, int i, int j)
 	enemy = ft_calloc(1, sizeof(t_enemy_list));
 	enemy->pos_x = j;
 	enemy->pos_y = i;
+	enemy->cur_sprite = 0;
 	add_enemy_list(game, enemy);
 }
 
@@ -41,8 +42,6 @@ void	set_enemy_or_door(t_game *game, int i, int j)
 {
 	if (game->map->map[i][j] == 'I')
 		create_enemy(game, i, j);
-	// else
-	// 	create_door(game, i, j);
 }
 
 static void	load_skell_images(t_game *game)
@@ -75,6 +74,5 @@ static void	load_skell_images(t_game *game)
 void	set_default_enemy(t_game *game)
 {
 	game->enemy->move_speed = 0.03;
-	game->enemy->cur_sprite = 0;
 	load_skell_images(game);
 }

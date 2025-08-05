@@ -48,6 +48,8 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/raycasting_bonus/raycasting_bonus.c \
 				./src/bonus/raycasting_bonus/raycasting_utils_bonus.c \
 				./src/bonus/enemy_bonus/init_enemy_bonus.c \
+				./src/bonus/enemy_bonus/enemy_move_bonus.c \
+				./src/bonus/enemy_bonus/enemy_utils_bonus.c \
 				./src/bonus/minimap_bonus/minimap_bonus.c
 				
 

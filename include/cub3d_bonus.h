@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/05 16:32:26 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:19:45 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_wall
 typedef struct s_raycasting
 {
 	mlx_image_t	*image;
+	double		*buffer;
 }	t_raycasting;
 
 typedef enum e_state
@@ -155,6 +156,9 @@ typedef struct s_enemy_list
 	double				pos_y;
 	double				distance;
 	t_state				state;
+	int					cur_sprite;
+	double				move_delay;
+	double				frame_delay;
 	struct s_enemy_list	*next;
 }	t_enemy_list;
 
@@ -162,9 +166,8 @@ typedef struct s_enemy
 {
 	mlx_image_t		*skell_images[9];
 	mlx_texture_t	*skell_texture[9];
-	int				cur_sprite;
 	double			move_speed;
-	t_enemy_list	*enemy_list;
+	t_enemy_list	*list;
 }	t_enemy;
 
 typedef struct s_lightning {
@@ -187,6 +190,7 @@ typedef struct s_collectible
 typedef struct s_game
 {
 	mlx_t			*mlx;
+	double			delta_time;
 	t_player		*player;
 	t_map			*map;
 	t_image			*image;
@@ -201,7 +205,6 @@ typedef struct s_game
 
 
 // Function prototypes //
-void	init_minimap(t_game *game);
 void	update_minimap(t_game *game);
 
 // Parser
@@ -253,7 +256,7 @@ void	calculate_wall(t_game *game);
 void	keypress(mlx_key_data_t keydata, void *param);
 
 //dda
-void	perform_dda(t_game *game);
+void	perform_dda(t_game *game, int x);
 
 // lightning_bonus
 void init_lightning(t_game *game);
@@ -262,5 +265,8 @@ void update_lightning(t_game *game);
 // enemy_bonus
 void	set_default_enemy(t_game *game);
 void	set_enemy_or_door(t_game *game, int i, int j);
+
+// utils_bonus
+double	get_delta_time(void);
 
 #endif

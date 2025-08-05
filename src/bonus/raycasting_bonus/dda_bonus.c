@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dda_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:18:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 01:08:56 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/05 18:18:55 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-static void	calculate_perp_dist(t_game *game)
+static void	calculate_perp_dist(t_game *game, int x)
 {
 	if (game->ray->side == 0 && game->ray->ray_dir_x != 0)
 		game->ray->perp_wall_dist = fabs((game->ray->map_x
@@ -22,6 +22,7 @@ static void	calculate_perp_dist(t_game *game)
 		game->ray->perp_wall_dist = fabs((game->ray->map_y
 					- game->player->pos_y + (1 - game->ray->step_y) / 2)
 				/ game->ray->ray_dir_y);
+	game->raycasting->buffer[x] = game->ray->perp_wall_dist;
 }
 
 static int	check_ray_hit(t_game *game)
@@ -42,7 +43,7 @@ static int	check_ray_hit(t_game *game)
 	return (0);
 }
 
-void	perform_dda(t_game *game)
+void	perform_dda(t_game *game, int x)
 {
 	int	max_iterations;
 	int	iterations;
@@ -67,5 +68,5 @@ void	perform_dda(t_game *game)
 		if (check_ray_hit(game))
 			game->ray->hit = 1;
 	}
-	calculate_perp_dist(game);
+	calculate_perp_dist(game, x);
 }
