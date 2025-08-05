@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/05 17:55:17 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:57:59 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	create_enemy(t_game *game, int i, int j)
 	enemy = ft_calloc(1, sizeof(t_enemy_list));
 	enemy->pos_x = j;
 	enemy->pos_y = i;
+	ft_printf("Enemy set x:%d y:%d\n", j, i);
 	enemy->cur_sprite = 0;
 	add_enemy_list(game, enemy);
 }

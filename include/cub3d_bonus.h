@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/05 18:19:45 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:52:14 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,7 @@ void init_lightning(t_game *game);
 void update_lightning(t_game *game);
 
 // enemy_bonus
+void	manage_enemies(t_game *game);
 void	set_default_enemy(t_game *game);
 void	set_enemy_or_door(t_game *game, int i, int j);
 
