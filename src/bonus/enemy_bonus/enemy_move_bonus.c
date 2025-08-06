@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 17:08:13 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:28:53 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@
 // 	return (true);
 // }
 
-// static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
-// {
-// 	double	inv_len;
-// 	double	dirx;
-// 	double	diry;
-// 	double	next_x;
-// 	double	next_y;
+static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
+{
+	double	inv_len;
+	double	dirx;
+	double	diry;
+	double	next_x;
+	double	next_y;
 
-// 	inv_len = 1.0 / enemy->distance;
-// 	dirx = dx * inv_len;
-// 	diry = dy * inv_len;
-// 	next_x = enemy->pos_x + dirx * game->enemy->move_speed;
-// 	next_y = enemy->pos_y + diry * game->enemy->move_speed;
-// 	if (!validate_moves(game, enemy, next_x, next_y))
-// 		return ;
-// 	enemy->pos_x = next_x;
-// 	enemy->pos_y = next_y;
-// }
+	inv_len = 1.0 / enemy->distance;
+	dirx = dx * inv_len;
+	diry = dy * inv_len;
+	next_x = enemy->pos_x + dirx * game->enemy->move_speed;
+	next_y = enemy->pos_y + diry * game->enemy->move_speed;
+	if (!can_move_to(game->map->map, next_x, next_y))
+		return ;
+	enemy->pos_x = next_x;
+	enemy->pos_y = next_y;
+}
 
 static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 {
@@ -54,8 +54,8 @@ static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 	dx = px - enemy->pos_x;
 	dy = py - enemy->pos_y;
 	enemy->distance = sqrt(dx * dx + dy * dy);
-	// if (enemy->distance > 0.4 && enemy->move_delay > 0.4)
-	// 	enemy_move(game, enemy, dx, dy);
+	if (enemy->distance > 0.6 && enemy->move_delay > 3.0)
+		enemy_move(game, enemy, dx, dy);
 }
 
 static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
@@ -79,17 +79,17 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	
 	double dist_proj_plane = (WIDTH / 2.0) / tan(FOV / 2.0);
 	int floorHeight = (int)((1.0 / transformY) * dist_proj_plane);
-	int floorDrawEnd = HEIGHT / 2 + floorHeight / 2;
-	int drawEndY = floorDrawEnd;
+	int floorDrawEnd = (HEIGHT / 2 + floorHeight / 2);
 	// Fator de escala para diminuir o tamanho do sprite (0.7 = 70% do tamanho original)
 	double scaleFactor = 0.7;
 	spriteHeight = (int)(spriteHeight * scaleFactor);
-	
+
 	// Calcular onde o chão aparece na perspectiva (mesma lógica das paredes)
 	
 	// Sprite "em pé" no chão - base toca onde o chão seria desenhado
 	// int drawEndY = spriteHeight / 2 + HEIGHT / 2;
-	int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
+	int drawEndY = floorDrawEnd;
+	int drawStartY = (-spriteHeight / 2 + HEIGHT / 2);
 	if (drawStartY < 0) 
 		drawStartY = 0;
 	if (drawEndY >= HEIGHT) 
@@ -123,8 +123,7 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 			{
 				// Cálculo de texY como no Lode para evitar floats
 				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128; //256 e 128 fatores para evitar floats
-          		int texY = ((d * texture->height) / spriteHeight) / 256;
-				
+          		int texY = ((d * texture->height) / spriteHeight - 6000) / 256;
 				// Validar bounds da textura
 				if (texY < 0) texY = 0;
 				if (texY >= (int)texture->height) texY = texture->height - 1;
