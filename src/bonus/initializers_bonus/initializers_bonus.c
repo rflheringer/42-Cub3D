@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/05 18:58:41 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 13:09:24 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int32_t	init_cub3d(t_game *game)
 	game->ray = ft_calloc(1, sizeof(t_ray));
 	game->wall = ft_calloc(1, sizeof(t_wall));
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));
-	game->enemy = ft_calloc(1, sizeof(t_enemy));
 	game->raycasting->buffer = ft_calloc(WIDTH, sizeof(double));
 	perform_raycasting(game);
 	manage_enemies(game);

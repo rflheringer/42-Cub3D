@@ -6,11 +6,27 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/04 15:23:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:28:12 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
+
+static bool	calculate_distance_to_enemies(t_enemy_list *enemy, double new_x, double new_y)
+{
+	double	distance;
+	double	dx;
+	double	dy;
+
+	dx = new_x - enemy->pos_x;
+	dy = new_y - enemy->pos_y;
+	distance = sqrt(dx * dx + dy * dy);
+	if (distance > 0.5)
+		return (true);
+	return (false);
+	// if (enemy->distance > 0.4 && enemy->move_delay > 0.4)
+	// 	enemy_move(game, enemy, dx, dy);
+}
 
 static bool	up_move(t_game *game)
 {
@@ -23,6 +39,14 @@ static bool	up_move(t_game *game)
 			* game->player->move_speed);
 	if (game->map->map[(int)new_y][(int)new_x] == '1')
 		return (false);
+	t_enemy_list	*tmp;
+	tmp = game->enemy->list;
+	while (tmp)
+	{
+		if (!calculate_distance_to_enemies(tmp, new_x, new_y))
+			return (false);
+		tmp = tmp->next;
+	}
 	if (can_move_to(game->map->map, new_x, new_y))
 	{
 		game->player->old_x = game->player->pos_x;
@@ -45,6 +69,14 @@ static bool	down_move(t_game *game)
 		* game->player->move_speed;
 	if (game->map->map[(int)new_y][(int)new_x] == '1')
 		return (false);
+	t_enemy_list	*tmp;
+	tmp = game->enemy->list;
+	while (tmp)
+	{
+		if (!calculate_distance_to_enemies(tmp, new_x, new_y))
+			return (false);
+		tmp = tmp->next;
+	}
 	if (can_move_to(game->map->map, new_x, new_y))
 	{
 		game->player->old_x = game->player->pos_x;

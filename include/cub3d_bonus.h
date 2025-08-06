@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/05 18:52:14 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:38:44 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ typedef struct s_enemy
 	mlx_texture_t	*skell_texture[9];
 	double			move_speed;
 	t_enemy_list	*list;
+	int				texX;
+	int				texY;
 }	t_enemy;
 
 typedef struct s_lightning {

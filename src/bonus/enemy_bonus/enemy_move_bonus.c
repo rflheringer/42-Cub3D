@@ -6,40 +6,40 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/05 19:18:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:08:13 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/cub3d_bonus.h"
 
-static bool	validate_moves(t_game *game, t_enemy_list *enemy, double next_x,
-		double next_y)
-{
-	if (game->map->map[(int)enemy->pos_y][(int)next_x] == '1')
-		return (false);
-	if (game->map->map[(int)next_y][(int)enemy->pos_x] == '1')
-		return (false);
-	return (true);
-}
+// static bool	validate_moves(t_game *game, t_enemy_list *enemy, double next_x,
+// 		double next_y)
+// {
+// 	if (game->map->map[(int)enemy->pos_y][(int)next_x] == '1')
+// 		return (false);
+// 	if (game->map->map[(int)next_y][(int)enemy->pos_x] == '1')
+// 		return (false);
+// 	return (true);
+// }
 
-static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
-{
-	double	inv_len;
-	double	dirx;
-	double	diry;
-	double	next_x;
-	double	next_y;
+// static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
+// {
+// 	double	inv_len;
+// 	double	dirx;
+// 	double	diry;
+// 	double	next_x;
+// 	double	next_y;
 
-	inv_len = 1.0 / enemy->distance;
-	dirx = dx * inv_len;
-	diry = dy * inv_len;
-	next_x = enemy->pos_x + dirx * game->enemy->move_speed;
-	next_y = enemy->pos_y + diry * game->enemy->move_speed;
-	if (!validate_moves(game, enemy, next_x, next_y))
-		return ;
-	enemy->pos_x = next_x;
-	enemy->pos_y = next_y;
-}
+// 	inv_len = 1.0 / enemy->distance;
+// 	dirx = dx * inv_len;
+// 	diry = dy * inv_len;
+// 	next_x = enemy->pos_x + dirx * game->enemy->move_speed;
+// 	next_y = enemy->pos_y + diry * game->enemy->move_speed;
+// 	if (!validate_moves(game, enemy, next_x, next_y))
+// 		return ;
+// 	enemy->pos_x = next_x;
+// 	enemy->pos_y = next_y;
+// }
 
 static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 {
@@ -54,8 +54,8 @@ static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 	dx = px - enemy->pos_x;
 	dy = py - enemy->pos_y;
 	enemy->distance = sqrt(dx * dx + dy * dy);
-	if (enemy->distance > 0.4 && enemy->move_delay > 20)
-		enemy_move(game, enemy, dx, dy);
+	// if (enemy->distance > 0.4 && enemy->move_delay > 0.4)
+	// 	enemy_move(game, enemy, dx, dy);
 }
 
 static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
@@ -71,32 +71,47 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	// Se está atrás da câmera, não renderizar
 	if (transformY <= 0)
 		return;
-	printf("Enemy at (%.2f, %.2f), transformY: %.2f\n", enemy->pos_x, enemy->pos_y, transformY);
 	// CORREÇÃO: spriteScreenX sem multiplicação extra
 	int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
 
 	// CORREÇÃO: usar HEIGHT para manter proporção
 	int spriteHeight = (int)fabs(HEIGHT / transformY);
+	
+	double dist_proj_plane = (WIDTH / 2.0) / tan(FOV / 2.0);
+	int floorHeight = (int)((1.0 / transformY) * dist_proj_plane);
+	int floorDrawEnd = HEIGHT / 2 + floorHeight / 2;
+	int drawEndY = floorDrawEnd;
+	// Fator de escala para diminuir o tamanho do sprite (0.7 = 70% do tamanho original)
+	double scaleFactor = 0.7;
+	spriteHeight = (int)(spriteHeight * scaleFactor);
+	
+	// Calcular onde o chão aparece na perspectiva (mesma lógica das paredes)
+	
+	// Sprite "em pé" no chão - base toca onde o chão seria desenhado
+	// int drawEndY = spriteHeight / 2 + HEIGHT / 2;
 	int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
-	if (drawStartY < 0)
+	if (drawStartY < 0) 
 		drawStartY = 0;
-	int drawEndY = spriteHeight / 2 + HEIGHT / 2;
-	if (drawEndY >= HEIGHT)
+	if (drawEndY >= HEIGHT) 
 		drawEndY = HEIGHT - 1;
 
+	// Calcular largura e posições X
 	int spriteWidth = (int)fabs(HEIGHT / transformY);
+	spriteWidth = (int)(spriteWidth * scaleFactor); // Aplicar mesmo fator de escala
 	int drawStartX = -spriteWidth / 2 + spriteScreenX;
-	if (drawStartX < 0)
+	int originalDrawStartX = drawStartX; // Guardar posição original para texX
+	if (drawStartX < 0) 
 		drawStartX = 0;
 	int drawEndX = spriteWidth / 2 + spriteScreenX;
-	if (drawEndX >= WIDTH)
+	if (drawEndX >= WIDTH) 
 		drawEndX = WIDTH - 1;
 
 	mlx_texture_t *texture = game->enemy->skell_texture[0];
 	int stripe = drawStartX;
 	while (stripe < drawEndX)
 	{
-		int texX = (int)(texture->width * (stripe - (-spriteWidth / 2 + spriteScreenX)) / spriteWidth);
+		// Cálculo de texX como no Lode - usando posição original
+		int texX = (int)(256 * (stripe - originalDrawStartX) * texture->width / spriteWidth) / 256;
 		if (texX < 0) texX = 0;
 		if (texX >= (int)texture->width) texX = texture->width - 1;
 		
@@ -106,8 +121,9 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 			int y = drawStartY;
 			while (y < drawEndY)
 			{
-				int d = (y) * 256 - HEIGHT * 128 + spriteHeight * 128;
-				int texY = ((d * texture->height) / spriteHeight) / 256;
+				// Cálculo de texY como no Lode para evitar floats
+				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128; //256 e 128 fatores para evitar floats
+          		int texY = ((d * texture->height) / spriteHeight) / 256;
 				
 				// Validar bounds da textura
 				if (texY < 0) texY = 0;
@@ -115,7 +131,6 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 				
 				uint8_t *pixel = &texture->pixels[(texture->width * texY + texX) * texture->bytes_per_pixel];
 				uint32_t color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
-				
 				// Verificar transparência (assumindo que alpha = 0 é transparente)
 				if (pixel[3] > 0)
 					mlx_put_pixel(game->raycasting->image, stripe, y, color);
@@ -126,12 +141,11 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	}
 }
 
-
 void	manage_enemies(t_game *game)
 {
 	t_enemy_list	*nav;
 
-	if (!game->enemy->list)
+	if (game->enemy->list == NULL)
 		return ;
 	nav = game->enemy->list;
 	while (nav)
