@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 18:01:19 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:44:21 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,37 +46,29 @@ void	set_enemy_or_door(t_game *game, int i, int j)
 
 static void	load_skell_images(t_game *game)
 {
-	// char	enemy_path[42];
-	// char	*num;
+	char	enemy_path[42];
+	char	*num;
 	int		i;
 
 	i = 0;
-	game->enemy->skell_texture[0] = mlx_load_png("assets/enemy/skeleton/skeleton_0.png");
-	if (!game->enemy->skell_texture[0])
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	// while (i < 10)
-	// {
-	// 	num = ft_itoa(i);
-	// 	if (!num)
-	// 		shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
-	// 	ft_strlcpy(enemy_path, "../../../assets/enemy/skeleton/skeleton_", 41);
-	// 	ft_strlcat(enemy_path, num, sizeof(enemy_path));
-	// 	ft_strlcat(enemy_path, ".png", sizeof(enemy_path));
-	// 	free(num);
-	// 	game->enemy->skell_texture[i] = mlx_load_png(enemy_path);
-	// 	if (!game->enemy->skell_texture[i])
-	// 		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	// 	game->enemy->skell_images[i] = mlx_texture_to_image(game->mlx,
-	// 			game->enemy->skell_texture[i]);
-	// 	if (!game->enemy->skell_images[i])
-	// 		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-		
-	// 	i++;
-	// }
+	while (i < 10)
+	{
+		num = ft_itoa(i);
+		if (!num)
+			shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
+		ft_strlcpy(enemy_path, "assets/enemy/skeleton/skeleton_", sizeof(enemy_path));
+		ft_strlcat(enemy_path, num, sizeof(enemy_path));
+		ft_strlcat(enemy_path, ".png", sizeof(enemy_path));
+		free(num);
+		game->enemy->skell_texture[i] = mlx_load_png(enemy_path);
+		if (!game->enemy->skell_texture[i])
+			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+		i++;
+	}
 }
 
 void	set_default_enemy(t_game *game)
 {
-	game->enemy->move_speed = 0.03;
 	load_skell_images(game);
+	game->enemy->move_speed = 0.05;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 11:53:54 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 01:09:04 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/06 19:33:39 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static void	calculate_wall_dimensions(t_game *game)
 
 static void	select_wall_texture(t_game *game)
 {
-	if (game->ray->side == 0)
+	if (game->ray->hit == 2)
+		game->wall->s_texture = game->texture->closed_door;
+	else if (game->ray->side == 0)
 	{
 		if (game->ray->ray_dir_x > 0)
 			game->wall->s_texture = game->texture->east_wall;

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/06 13:09:24 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:37:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	init_colors(t_game *game)
 	if (game->texture->floor_color)
 		game->texture->floor_color_hex
 			= convert_rgb_string(game, game->texture->floor_color);
+	game->texture->closed_door = mlx_load_png("assets/map/door_2.png");
 }
 
 static void	init_map_images(t_game *game)

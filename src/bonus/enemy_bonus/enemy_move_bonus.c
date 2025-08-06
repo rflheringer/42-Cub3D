@@ -6,21 +6,11 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 18:28:53 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:07:56 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/cub3d_bonus.h"
-
-// static bool	validate_moves(t_game *game, t_enemy_list *enemy, double next_x,
-// 		double next_y)
-// {
-// 	if (game->map->map[(int)enemy->pos_y][(int)next_x] == '1')
-// 		return (false);
-// 	if (game->map->map[(int)next_y][(int)enemy->pos_x] == '1')
-// 		return (false);
-// 	return (true);
-// }
 
 static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
 {
@@ -54,7 +44,7 @@ static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 	dx = px - enemy->pos_x;
 	dy = py - enemy->pos_y;
 	enemy->distance = sqrt(dx * dx + dy * dy);
-	if (enemy->distance > 0.6 && enemy->move_delay > 3.0)
+	if (enemy->distance > 0.6 && enemy->move_delay > 2.0)
 		enemy_move(game, enemy, dx, dy);
 }
 
@@ -106,7 +96,7 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	if (drawEndX >= WIDTH) 
 		drawEndX = WIDTH - 1;
 
-	mlx_texture_t *texture = game->enemy->skell_texture[0];
+	mlx_texture_t *texture = game->enemy->skell_texture[enemy->cur_sprite];
 	int stripe = drawStartX;
 	while (stripe < drawEndX)
 	{
@@ -140,6 +130,16 @@ static void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	}
 }
 
+static void	calculate_sprite_change(t_game *game, t_enemy_list *enemy)
+{
+	enemy->frame_delay += game->delta_time;
+	if (enemy->frame_delay > 0.3)
+	{
+		enemy->cur_sprite = (enemy->cur_sprite + 1) % 3;
+		enemy->frame_delay = 0;
+	}
+}
+
 void	manage_enemies(t_game *game)
 {
 	t_enemy_list	*nav;
@@ -150,6 +150,7 @@ void	manage_enemies(t_game *game)
 	while (nav)
 	{
 		calculate_distance_to_player(game, nav);
+		calculate_sprite_change(game, nav);
 		calculate_enemie_position(game, nav);
 		nav = nav->next;
 	}

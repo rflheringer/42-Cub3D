@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:18:05 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/05 18:18:55 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:30:18 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	check_ray_hit(t_game *game)
 	map_width = ft_strlen(game->map->map[game->ray->map_y]);
 	if (game->ray->map_x >= map_width)
 		return (1);
+	if (game->map->map[game->ray->map_y][game->ray->map_x] == 'D')
+		return (2);
 	if (game->map->map[game->ray->map_y][game->ray->map_x] == '1')
 		return (1);
 	return (0);
@@ -65,8 +67,7 @@ void	perform_dda(t_game *game, int x)
 			game->ray->side = 1;
 		}
 		iterations++;
-		if (check_ray_hit(game))
-			game->ray->hit = 1;
+		game->ray->hit = check_ray_hit(game);
 	}
 	calculate_perp_dist(game, x);
 }

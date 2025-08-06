@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 16:28:05 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:18:11 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static bool	calculate_distance_to_enemies(t_enemy_list *enemy, double new_x, dou
 	if (distance > 0.5)
 		return (true);
 	return (false);
-	// if (enemy->distance > 0.4 && enemy->move_delay > 0.4)
-	// 	enemy_move(game, enemy, dx, dy);
 }
 
 bool	right_move(t_game *game)
@@ -90,24 +88,13 @@ bool	left_move(t_game *game)
 
 bool	can_move_to(char **map, double x, double y)
 {
-	int	ix;
-	int	iy;
-
-	ix = (int)floor(x + R);
-	iy = (int)floor(y + R);
-	if (map[iy][ix] == '1')
+	if (map[(int)floor(y + R)][(int)floor(x + R)] == '1')
 		return (false);
-	ix = (int)floor(x - R);
-	iy = (int)floor(y + R);
-	if (map[iy][ix] == '1')
+	if (map[(int)floor(y + R)][(int)floor(x - R)] == '1')
 		return (false);
-	ix = (int)floor(x + R);
-	iy = (int)floor(y - R);
-	if (map[iy][ix] == '1')
+	if (map[(int)floor(y - R)][(int)floor(x + R)] == '1')
 		return (false);
-	ix = (int)floor(x - R);
-	iy = (int)floor(y - R);
-	if (map[iy][ix] == '1')
+	if (map[(int)floor(y - R)][(int)floor(x - R)] == '1')
 		return (false);
 	return (true);
 }

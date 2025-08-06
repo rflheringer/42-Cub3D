@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:26:34 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/04 16:40:48 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:16:11 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,47 @@ static void	draw_player_on_screen(t_game *game, int scale)
 			x = 10 + ((int)game->player->pos_x * scale) + sx;
 			y = 10 + ((int)game->player->pos_y * scale) + sy;
 			if (x < WIDTH && y < HEIGHT)
+				mlx_put_pixel(game->raycasting->image, x, y, 0x00FF00FF);
+			sx++;
+		}
+		sy++;
+	}
+}
+
+static void	draw_enemies_on_screen(t_game *game, t_enemy_list *enemy, int scale)
+{
+	int	x;
+	int	y;
+	int	sx;
+	int	sy;
+
+	sy = 0;
+	while (sy < scale)
+	{
+		sx = 0;
+		while (sx < scale)
+		{
+			x = 10 + ((int)enemy->pos_x * scale) + sx;
+			y = 10 + ((int)enemy->pos_y * scale) + sy;
+			if (x < WIDTH && y < HEIGHT)
 				mlx_put_pixel(game->raycasting->image, x, y, 0xFF0000FF);
 			sx++;
 		}
 		sy++;
+	}
+}
+
+static void	draw_enemies(t_game *game, int scale)
+{
+	t_enemy_list	*enemy;
+
+	enemy = game->enemy->list;
+	if (!enemy)
+		return ;
+	while (enemy)
+	{
+		draw_enemies_on_screen(game, enemy, scale);
+		enemy = enemy->next;
 	}
 }
 
@@ -69,7 +106,11 @@ void	update_minimap(t_game *game)
 	int	i;
 	int	j;
 
-	scale = 6;
+	scale = game->map->height * 0.10;
+	if (scale > 5)
+		scale = 2;
+	else
+		scale = 5;
 	i = 0;
 	while (game->map->map[i])
 	{
@@ -82,4 +123,5 @@ void	update_minimap(t_game *game)
 		i++;
 	}
 	draw_player_on_screen(game, scale);
+	draw_enemies(game, scale);
 }
