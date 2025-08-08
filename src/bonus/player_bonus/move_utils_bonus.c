@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 19:18:11 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 12:55:59 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	calculate_distance_to_enemies(t_enemy_list *enemy, double new_x, dou
 	dx = new_x - enemy->pos_x;
 	dy = new_y - enemy->pos_y;
 	distance = sqrt(dx * dx + dy * dy);
-	if (distance > 0.5)
+	if (distance > 0.3)
 		return (true);
 	return (false);
 }
@@ -35,17 +35,7 @@ bool	right_move(t_game *game)
 		* game->player->move_speed;
 	new_y = game->player->pos_y - game->player->player_dir_x
 		* game->player->move_speed;
-	if (game->map->map[(int)new_y][(int)new_x] == '1')
-		return (false);
-	t_enemy_list	*tmp;
-	tmp = game->enemy->list;
-	while (tmp)
-	{
-		if (!calculate_distance_to_enemies(tmp, new_x, new_y))
-			return (false);
-		tmp = tmp->next;
-	}
-	if (can_move_to(game->map->map, new_x, new_y))
+	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
 	{
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
@@ -65,17 +55,7 @@ bool	left_move(t_game *game)
 		* game->player->move_speed;
 	new_y = game->player->pos_y + game->player->player_dir_x
 		* game->player->move_speed;
-	if (game->map->map[(int)new_y][(int)new_x] == '1')
-		return (false);
-	t_enemy_list	*tmp;
-	tmp = game->enemy->list;
-	while (tmp)
-	{
-		if (!calculate_distance_to_enemies(tmp, new_x, new_y))
-			return (false);
-		tmp = tmp->next;
-	}
-	if (can_move_to(game->map->map, new_x, new_y))
+	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
 	{
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
@@ -86,8 +66,10 @@ bool	left_move(t_game *game)
 	return (false);
 }
 
-bool	can_move_to(char **map, double x, double y)
+bool	can_move_to(char **map, double x, double y, t_enemy_list *enemy_list)
 {
+	t_enemy_list	*tmp;
+
 	if (map[(int)floor(y + R)][(int)floor(x + R)] == '1')
 		return (false);
 	if (map[(int)floor(y + R)][(int)floor(x - R)] == '1')
@@ -96,6 +78,13 @@ bool	can_move_to(char **map, double x, double y)
 		return (false);
 	if (map[(int)floor(y - R)][(int)floor(x - R)] == '1')
 		return (false);
+	tmp = enemy_list;
+	while (tmp)
+	{
+		if (!calculate_distance_to_enemies(tmp, x, y))
+			return (false);
+		tmp = tmp->next;
+	}
 	return (true);
 }
 

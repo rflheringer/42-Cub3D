@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 18:44:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 13:15:20 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	add_enemy_list(t_game *game, t_enemy_list *enemy)
 		while (last->next)
 			last = last->next;
 		last->next = enemy;
+		enemy->prev = last;
 	}
 }
 
@@ -70,5 +71,5 @@ static void	load_skell_images(t_game *game)
 void	set_default_enemy(t_game *game)
 {
 	load_skell_images(game);
-	game->enemy->move_speed = 0.05;
+	game->enemy->move_speed = 0.2;
 }

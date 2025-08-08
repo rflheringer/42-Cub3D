@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/06 16:38:44 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:29:49 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_enemy_list
 	double				move_delay;
 	double				frame_delay;
 	struct s_enemy_list	*next;
+	struct s_enemy_list	*prev;
 }	t_enemy_list;
 
 typedef struct s_enemy
@@ -168,8 +169,8 @@ typedef struct s_enemy
 	mlx_texture_t	*skell_texture[9];
 	double			move_speed;
 	t_enemy_list	*list;
-	int				texX;
-	int				texY;
+	int				texx;
+	int				texy;
 }	t_enemy;
 
 typedef struct s_lightning {
@@ -204,7 +205,6 @@ typedef struct s_game
 	t_lightning		*lightning;
 	t_collectible	*collectible;
 }	t_game;
-
 
 // Function prototypes //
 void	update_minimap(t_game *game);
@@ -247,7 +247,7 @@ void	get_move(t_game *game);
 bool	left_move(t_game *game);
 bool	right_move(t_game *game);
 void	handle_movement(void *param);
-bool	can_move_to(char **map, double x, double y);
+bool	can_move_to(char **map, double x, double y, t_enemy_list *enemy_list);
 
 // raycasting
 void	perform_raycasting(t_game *game);
@@ -261,8 +261,8 @@ void	keypress(mlx_key_data_t keydata, void *param);
 void	perform_dda(t_game *game, int x);
 
 // lightning_bonus
-void init_lightning(t_game *game);
-void update_lightning(t_game *game);
+void	init_lightning(t_game *game);
+void	update_lightning(t_game *game);
 
 // enemy_bonus
 void	manage_enemies(t_game *game);
