@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 18:14:35 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 18:17:02 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ void	set_default_enemy(t_game *game)
 		load_skell_images(game, "assets/enemy/sea_dragon/sea_dragon_", 3);
 	else
 		load_skell_images(game, "assets/enemy/skeleton/skeleton_", 10);
-	game->enemy->move_speed = 0.1;
+	game->enemy->move_speed = 0.2;
 }

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 17:47:33 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 18:18:12 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,6 @@ static void	sort_enemies(t_game *game, t_enemy_list *nav)
 {
 	if (!nav->next)
 		return ;
-	while (nav)
-	{
-		calculate_distance_to_player(game, nav);
-		nav = nav->next;
-	}
 	while (!ft_is_sorted(game))
 	{
 		nav = game->enemy->list;
@@ -173,6 +168,12 @@ void	manage_enemies(t_game *game)
 
 	if (game->enemy->list == NULL)
 		return ;
+	nav = game->enemy->list;
+	while (nav)
+	{
+		calculate_distance_to_player(game, nav);
+		nav = nav->next;
+	}
 	sort_enemies(game, game->enemy->list);
 	nav = game->enemy->list;
 	while (nav)
