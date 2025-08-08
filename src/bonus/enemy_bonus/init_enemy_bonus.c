@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_enemy_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 18:44:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:38:38 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ void	set_enemy_or_door(t_game *game, int i, int j)
 		create_enemy(game, i, j);
 }
 
-static void	load_skell_images(t_game *game)
+static void	load_skell_images(t_game *game, char *base_path, int len)
 {
-	char	enemy_path[42];
+	char	enemy_path[100];
 	char	*num;
 	int		i;
 
 	i = 0;
-	while (i < 10)
+	while (i < len)
 	{
 		num = ft_itoa(i);
 		if (!num)
 			shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
-		ft_strlcpy(enemy_path, "assets/enemy/skeleton/skeleton_", sizeof(enemy_path));
+		ft_strlcpy(enemy_path, base_path, sizeof(enemy_path));
 		ft_strlcat(enemy_path, num, sizeof(enemy_path));
 		ft_strlcat(enemy_path, ".png", sizeof(enemy_path));
 		free(num);
@@ -69,6 +69,9 @@ static void	load_skell_images(t_game *game)
 
 void	set_default_enemy(t_game *game)
 {
-	load_skell_images(game);
+	if (ft_strnstr(game->map->file_name, "sewer", ft_strlen(game->map->file_name)))
+		load_skell_images(game, "assets/enemy/sea_dragon/sea_dragon_", 3);
+	else
+		load_skell_images(game, "assets/enemy/skeleton/skeleton_", 10);
 	game->enemy->move_speed = 0.05;
 }

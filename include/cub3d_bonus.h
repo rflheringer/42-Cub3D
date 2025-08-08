@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/06 16:38:44 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:18:28 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_map
 	char	*file;
 	char	**file_content;
 	char	**map;
+	char	*file_name;
 	int		height;
 }	t_map;
 
@@ -268,6 +269,7 @@ void update_lightning(t_game *game);
 void	manage_enemies(t_game *game);
 void	set_default_enemy(t_game *game);
 void	set_enemy_or_door(t_game *game, int i, int j);
+void	calculate_enemie_position(t_game *game, t_enemy_list *enemy);
 
 // utils_bonus
 double	get_delta_time(void);
