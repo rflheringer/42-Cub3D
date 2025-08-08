@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 18:18:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:47:29 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ static bool	can_enemy_move_to(t_game *game, double x, double y, t_enemy_list *cu
 {
 	t_enemy_list	*tmp;
 
-	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == '1')
+	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == '1'
+		|| game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == 'D')
 		return (false);
-	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x - 0.2)] == '1')
+	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x - 0.2)] == '1'
+		|| game->map->map[(int)floor(y + 0.2)][(int)floor(x - 0.2)] == 'D')
 		return (false);
-	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x + 0.2)] == '1')
+	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x + 0.2)] == '1'
+		|| game->map->map[(int)floor(y - 0.2)][(int)floor(x + 0.2)] == 'D')
 		return (false);
-	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == '1')
+	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == '1'
+		|| game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == 'D')
 		return (false);
 	tmp = game->enemy->list;
 	while (tmp)

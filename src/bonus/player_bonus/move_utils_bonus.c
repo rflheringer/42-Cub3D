@@ -6,20 +6,20 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 12:55:59 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:18:28 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-static bool	calculate_distance_to_enemies(t_enemy_list *enemy, double new_x, double new_y)
+static bool	calculate_dist_to_enemy(t_enemy_list *enemy, double x, double y)
 {
 	double	distance;
 	double	dx;
 	double	dy;
 
-	dx = new_x - enemy->pos_x;
-	dy = new_y - enemy->pos_y;
+	dx = x - enemy->pos_x;
+	dy = y - enemy->pos_y;
 	distance = sqrt(dx * dx + dy * dy);
 	if (distance > 0.3)
 		return (true);
@@ -70,18 +70,22 @@ bool	can_move_to(char **map, double x, double y, t_enemy_list *enemy_list)
 {
 	t_enemy_list	*tmp;
 
-	if (map[(int)floor(y + R)][(int)floor(x + R)] == '1')
+	if (map[(int)floor(y + R)][(int)floor(x + R)] == '1'
+		|| map[(int)floor(y + R)][(int)floor(x + R)] == 'D')
 		return (false);
-	if (map[(int)floor(y + R)][(int)floor(x - R)] == '1')
+	if (map[(int)floor(y + R)][(int)floor(x - R)] == '1'
+		|| map[(int)floor(y + R)][(int)floor(x - R)] == 'D')
 		return (false);
-	if (map[(int)floor(y - R)][(int)floor(x + R)] == '1')
+	if (map[(int)floor(y - R)][(int)floor(x + R)] == '1'
+		|| map[(int)floor(y - R)][(int)floor(x + R)] == 'D')
 		return (false);
-	if (map[(int)floor(y - R)][(int)floor(x - R)] == '1')
+	if (map[(int)floor(y - R)][(int)floor(x - R)] == '1'
+		|| map[(int)floor(y - R)][(int)floor(x - R)] == 'D')
 		return (false);
 	tmp = enemy_list;
 	while (tmp)
 	{
-		if (!calculate_distance_to_enemies(tmp, x, y))
+		if (!calculate_dist_to_enemy(tmp, x, y))
 			return (false);
 		tmp = tmp->next;
 	}

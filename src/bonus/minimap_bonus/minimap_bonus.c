@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:26:34 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/06 19:16:11 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:11:57 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	draw_minimap_on_screen(t_game *game, int i, int j, int scale)
 	sy = 0;
 	while (sy < scale)
 	{
-		sx = 0;
-		while (sx < scale)
+		sx = -1;
+		while (sx++ < scale - 1)
 		{
 			x = 10 + (j * scale) + sx;
 			y = 10 + (i * scale) + sy;
@@ -33,8 +33,9 @@ static void	draw_minimap_on_screen(t_game *game, int i, int j, int scale)
 					mlx_put_pixel(game->raycasting->image, x, y, 0x000000FF);
 				if (game->map->map[i][j] == '1')
 					mlx_put_pixel(game->raycasting->image, x, y, 0x00000000);
+				if (game->map->map[i][j] == 'D' || game->map->map[i][j] == 'O')
+					mlx_put_pixel(game->raycasting->image, x, y, 0xFFFF00FF);
 			}
-			sx++;
 		}
 		sy++;
 	}
@@ -122,6 +123,6 @@ void	update_minimap(t_game *game)
 		}
 		i++;
 	}
-	draw_player_on_screen(game, scale);
 	draw_enemies(game, scale);
+	draw_player_on_screen(game, scale);
 }

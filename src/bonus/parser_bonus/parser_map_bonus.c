@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/05 16:23:27 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:13:16 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	validate_map(t_game *game, char **map)
 					shutdown_program(game, EXIT_MAP_NOT_CLOSED);
 			if (ft_strchr("NSWE", map[i][j]))
 				get_player_position(game, map, i, j);
-			if (ft_strchr("ID", map[i][j]))
-				set_enemy_or_door(game, i, j);
+			if (ft_strchr("I", map[i][j]))
+				set_enemy(game, i, j);
 			j++;
 		}
 		i++;

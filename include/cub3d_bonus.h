@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/08 17:46:24 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:13:41 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_player
 	bool	rot_left;
 	bool	rot_right;
 	bool	moved;
+	bool	open_close_door;
 	int		p;
 	char	start_dir;
 	double	pos_x;
@@ -100,9 +101,7 @@ typedef struct s_texture
 	uint32_t		floor_color_hex;
 	char			*ceiling_color;
 	uint32_t		ceiling_color_hex;
-	char			*closed_door_path;
 	mlx_texture_t	*closed_door;
-	char			*open_door_path;
 	mlx_texture_t	*open_door;
 	int				north;
 	int				south;
@@ -151,6 +150,11 @@ typedef enum e_state
 	DEAD
 }	t_state;
 
+typedef struct s_door
+{
+	double	pos_x;
+	double	pos_y;
+}	t_door;
 typedef struct s_enemy_list
 {
 	double				pos_x;
@@ -197,6 +201,7 @@ typedef struct s_game
 	double			delta_time;
 	t_player		*player;
 	t_map			*map;
+	t_door			*door;
 	t_image			*image;
 	t_texture		*texture;
 	t_raycasting	*raycasting;
@@ -268,7 +273,7 @@ void	update_lightning(t_game *game);
 // enemy_bonus
 void	manage_enemies(t_game *game);
 void	set_default_enemy(t_game *game);
-void	set_enemy_or_door(t_game *game, int i, int j);
+void	set_enemy(t_game *game, int i, int j);
 void	calculate_enemie_position(t_game *game, t_enemy_list *enemy);
 
 // utils_bonus

@@ -1,6 +1,6 @@
-NO assets/map/dungeon_wall_1.png
+NO assets/map/dungeon_wall_3.png
 SO assets/map/dungeon_wall_9.png
-WE assets/map/dungeon_wall_2.png
+WE assets/map/dungeon_wall_4.png
 EA assets/map/dungeon_wall_10.png
 
 F 84,84,84
@@ -9,7 +9,7 @@ C 22,30,0
 11111111111
 10000000001
 10011100001
-1000E00000111111111
+1000E000D0111111111
 1001100000000000001
 1000000000000000001
 1000000000111111111
