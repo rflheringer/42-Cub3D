@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_enemy_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 17:38:38 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:47:53 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	add_enemy_list(t_game *game, t_enemy_list *enemy)
 		while (last->next)
 			last = last->next;
 		last->next = enemy;
+		enemy->prev = last;
 	}
 }
 

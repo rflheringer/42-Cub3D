@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_move_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 11:43:34 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:47:33 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/cub3d_bonus.h"
+
+static bool	can_enemy_move_to(t_game *game, double x, double y, t_enemy_list *current_enemy)
+{
+	t_enemy_list	*tmp;
+
+	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == '1')
+		return (false);
+	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x - 0.2)] == '1')
+		return (false);
+	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x + 0.2)] == '1')
+		return (false);
+	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == '1')
+		return (false);
+	tmp = game->enemy->list;
+	while (tmp)
+	{
+		if (tmp != current_enemy)
+		{
+			double dx = x - tmp->pos_x;
+			double dy = y - tmp->pos_y;
+			double distance = sqrt(dx * dx + dy * dy);
+			if (distance < 0.6)
+				return (false);
+		}
+		tmp = tmp->next;
+	}
+	return (true);
+}
 
 static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
 {
@@ -25,10 +53,38 @@ static void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
 	diry = dy * inv_len;
 	next_x = enemy->pos_x + dirx * game->enemy->move_speed;
 	next_y = enemy->pos_y + diry * game->enemy->move_speed;
-	if (!can_move_to(game->map->map, next_x, next_y))
+	
+	// Tentar movimento direto primeiro
+	if (can_enemy_move_to(game, next_x, next_y, enemy))
+	{
+		enemy->pos_x = next_x;
+		enemy->pos_y = next_y;
+		enemy->move_delay = 0;  // Reset delay quando consegue se mover
 		return ;
-	enemy->pos_x = next_x;
-	enemy->pos_y = next_y;
+	}
+
+	// Se não conseguir ir direto, tentar movimento perpendicular (contorno)
+	double alt_x1 = enemy->pos_x + diry * game->enemy->move_speed;
+	double alt_y1 = enemy->pos_y - dirx * game->enemy->move_speed;
+	if (can_enemy_move_to(game, alt_x1, alt_y1, enemy))
+	{
+		enemy->pos_x = alt_x1;
+		enemy->pos_y = alt_y1;
+		enemy->move_delay = 0;  // Reset delay quando consegue se mover
+		return ;
+	}
+	
+	// Tentar movimento perpendicular no sentido oposto
+	double alt_x2 = enemy->pos_x - diry * game->enemy->move_speed;
+	double alt_y2 = enemy->pos_y + dirx * game->enemy->move_speed;
+	if (can_enemy_move_to(game, alt_x2, alt_y2, enemy))
+	{
+		enemy->pos_x = alt_x2;
+		enemy->pos_y = alt_y2;
+		enemy->move_delay = 0;  // Reset delay quando consegue se mover
+	}
+	// Se chegou aqui, não conseguiu se mover em nenhuma direção
+	// O move_delay continua acumulando, evitando tentativas muito frequentes
 }
 
 static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
@@ -44,7 +100,7 @@ static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 	dx = px - enemy->pos_x;
 	dy = py - enemy->pos_y;
 	enemy->distance = sqrt(dx * dx + dy * dy);
-	if (enemy->distance > 0.6 && enemy->move_delay > 2.0)
+	if (enemy->distance > 0.6 && enemy->move_delay > 0.1)
 		enemy_move(game, enemy, dx, dy);
 }
 
@@ -58,16 +114,69 @@ static void	calculate_sprite_change(t_game *game, t_enemy_list *enemy)
 	}
 }
 
+static bool	ft_swap(t_enemy_list **head, t_enemy_list *cur, t_enemy_list *next)
+{
+	if (!head || !cur || !next || cur == next)
+		return (false);
+	if (cur->prev)
+		cur->prev->next = next;
+	else
+		*head = next;
+	if (next->next)
+		next->next->prev = cur;
+	next->prev = cur->prev;
+	cur->prev = next;
+	cur->next = next->next;
+	next->next = cur;
+	return (true);
+}
+
+static bool	ft_is_sorted(t_game *game)
+{
+	t_enemy_list	*nav;
+
+	nav = game->enemy->list;
+	while (nav->next)
+	{
+		if (nav->distance < nav->next->distance)
+			return (false);
+		nav = nav->next;
+	}
+	return (true);
+}
+
+static void	sort_enemies(t_game *game, t_enemy_list *nav)
+{
+	if (!nav->next)
+		return ;
+	while (nav)
+	{
+		calculate_distance_to_player(game, nav);
+		nav = nav->next;
+	}
+	while (!ft_is_sorted(game))
+	{
+		nav = game->enemy->list;
+		while (nav->next)
+		{
+			if (nav->distance < nav->next->distance)
+				if(ft_swap(&game->enemy->list, nav, nav->next))
+					break ;
+			nav = nav->next;
+		}
+	}
+}
+
 void	manage_enemies(t_game *game)
 {
 	t_enemy_list	*nav;
 
 	if (game->enemy->list == NULL)
 		return ;
+	sort_enemies(game, game->enemy->list);
 	nav = game->enemy->list;
 	while (nav)
 	{
-		calculate_distance_to_player(game, nav);
 		calculate_sprite_change(game, nav);
 		calculate_enemie_position(game, nav);
 		nav = nav->next;
