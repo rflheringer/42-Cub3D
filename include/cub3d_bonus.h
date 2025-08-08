@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/08 17:46:24 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:40:35 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 1620
+# define HEIGHT 880
 # define W_NAME "Catacombs 42"
 # define FOV 1.0472
 # define R 0.05
@@ -257,6 +257,7 @@ void	calculate_wall(t_game *game);
 
 //controls
 void	keypress(mlx_key_data_t keydata, void *param);
+void	rotate_player_mouse(double xpos, double ypos, void *param);
 
 //dda
 void	perform_dda(t_game *game, int x);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/06 19:37:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/08 20:31:42 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int32_t	init_cub3d(t_game *game)
 	manage_enemies(game);
 	update_minimap(game);
 	mlx_key_hook(game->mlx, &keypress, game);
-	//mlx_cursor_hook(game->mlx, &keypress, game);
+	mlx_cursor_hook(game->mlx, &rotate_player_mouse, game);
+	//mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(game->mlx, &handle_movement, game);
 	mlx_loop(game->mlx);
 	shutdown_program(game, EXIT_SUCCESS);
