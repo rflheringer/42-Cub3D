@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 16:21:57 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/08 18:14:52 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ static void	validate_file(t_game *game, char *file)
 
 void	parser(t_game *game, char *file)
 {
-	game->map->file_name = ft_strdup(file);
 	validate_file(game, file);
+	game->map->file_name = file;
 	get_text_color_and_map(game, game->map->file_content);
 	validate_map(game, game->map->map);
 	validate_textures(game, game->texture->north_path);
