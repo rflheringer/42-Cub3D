@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 17:35:22 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:01:36 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct s_raycasting
 {
 	mlx_image_t	*image;
 	double		*buffer;
+	int			scale;
 }	t_raycasting;
 
 typedef struct s_door

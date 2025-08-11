@@ -3,45 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:26:34 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 17:41:27 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:05:51 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-static void	draw_minimap_on_screen(t_game *game, int i, int j, int scale)
+static void	draw_minimap(t_game *game, int i, int j, int sy)
 {
 	int	x;
 	int	y;
 	int	sx;
+
+	sx = 0;
+	while (sx < game->raycasting->scale)
+	{
+		x = 10 + (j * game->raycasting->scale) + sx;
+		y = 10 + (i * game->raycasting->scale) + sy;
+		if (x < WIDTH && y < HEIGHT)
+		{
+			if (game->map->map[i][j] != ' ')
+				mlx_put_pixel(game->raycasting->image, x, y, 0x000000FF);
+			if (game->map->map[i][j] == '1')
+				mlx_put_pixel(game->raycasting->image, x, y, 0x00000000);
+			if (game->map->map[i][j] == 'D' || game->map->map[i][j] == 'O')
+				mlx_put_pixel(game->raycasting->image, x, y, 0xFFFF00FF);
+			if (game->map->map[i][j] == 'P')
+				mlx_put_pixel(game->raycasting->image, x, y, 0xFFC0CBFF);
+			if (game->map->map[i][j] == 'K')
+				mlx_put_pixel(game->raycasting->image, x, y, 0x00FFFFFF);
+		}
+		sx++;
+	}
+}
+
+static void	draw_minimap_on_screen(t_game *game, int i, int j)
+{
 	int	sy;
 
 	sy = 0;
-	while (sy < scale)
+	while (sy < game->raycasting->scale)
 	{
-		sx = -1;
-		while (sx++ < scale - 1)
-		{
-			x = 10 + (j * scale) + sx;
-			y = 10 + (i * scale) + sy;
-			if (x < WIDTH && y < HEIGHT)
-			{
-				if (game->map->map[i][j] != ' ')
-					mlx_put_pixel(game->raycasting->image, x, y, 0x000000FF);
-				if (game->map->map[i][j] == '1')
-					mlx_put_pixel(game->raycasting->image, x, y, 0x00000000);
-				if (game->map->map[i][j] == 'D' || game->map->map[i][j] == 'O')
-					mlx_put_pixel(game->raycasting->image, x, y, 0xFFFF00FF);
-			}
-		}
+		draw_minimap(game, i, j, sy);
 		sy++;
 	}
 }
 
-static void	draw_player_on_screen(t_game *game, int scale)
+static void	draw_player_on_screen(t_game *game)
 {
 	int	x;
 	int	y;
@@ -49,13 +60,13 @@ static void	draw_player_on_screen(t_game *game, int scale)
 	int	sy;
 
 	sy = 0;
-	while (sy < scale)
+	while (sy < game->raycasting->scale)
 	{
 		sx = 0;
-		while (sx < scale)
+		while (sx < game->raycasting->scale)
 		{
-			x = 10 + ((int)game->player->pos_x * scale) + sx;
-			y = 10 + ((int)game->player->pos_y * scale) + sy;
+			x = 10 + ((int)game->player->pos_x * game->raycasting->scale) + sx;
+			y = 10 + ((int)game->player->pos_y * game->raycasting->scale) + sy;
 			if (x < WIDTH && y < HEIGHT)
 				mlx_put_pixel(game->raycasting->image, x, y, 0x00FF00FF);
 			sx++;
@@ -64,7 +75,7 @@ static void	draw_player_on_screen(t_game *game, int scale)
 	}
 }
 
-static void	draw_enemies_on_screen(t_game *game, t_enemy_list *enemy, int scale)
+static void	draw_enemies_on_screen(t_game *game, t_enemy_list *enemy)
 {
 	int	x;
 	int	y;
@@ -72,13 +83,13 @@ static void	draw_enemies_on_screen(t_game *game, t_enemy_list *enemy, int scale)
 	int	sy;
 
 	sy = 0;
-	while (sy < scale)
+	while (sy < game->raycasting->scale)
 	{
 		sx = 0;
-		while (sx < scale)
+		while (sx < game->raycasting->scale)
 		{
-			x = 10 + ((int)enemy->pos_x * scale) + sx;
-			y = 10 + ((int)enemy->pos_y * scale) + sy;
+			x = 10 + ((int)enemy->pos_x * game->raycasting->scale) + sx;
+			y = 10 + ((int)enemy->pos_y * game->raycasting->scale) + sy;
 			if (x < WIDTH && y < HEIGHT)
 				mlx_put_pixel(game->raycasting->image, x, y, 0xFF0000FF);
 			sx++;
@@ -87,7 +98,7 @@ static void	draw_enemies_on_screen(t_game *game, t_enemy_list *enemy, int scale)
 	}
 }
 
-static void	draw_enemies(t_game *game, int scale)
+static void	draw_enemies(t_game *game)
 {
 	t_enemy_list	*enemy;
 
@@ -96,7 +107,7 @@ static void	draw_enemies(t_game *game, int scale)
 		return ;
 	while (enemy)
 	{
-		draw_enemies_on_screen(game, enemy, scale);
+		draw_enemies_on_screen(game, enemy);
 		enemy = enemy->next;
 	}
 }
@@ -262,27 +273,26 @@ static void	draw_player_fov(t_game *game, int scale)
 
 void	update_minimap(t_game *game)
 {
-	int	scale;
 	int	i;
 	int	j;
 
-	scale = game->map->height * 0.10;
-	if (scale > 5)
-		scale = 2;
+	game->raycasting->scale = game->map->height * 0.10;
+	if (game->raycasting->scale > 5)
+		game->raycasting->scale = 2;
 	else
-		scale = 5;
+		game->raycasting->scale = 5;
 	i = 0;
 	while (game->map->map[i])
 	{
 		j = 0;
 		while (game->map->map[i][j])
 		{
-			draw_minimap_on_screen(game, i, j, scale);
+			draw_minimap_on_screen(game, i, j);
 			j++;
 		}
 		i++;
 	}
-	draw_enemies(game, scale);
-	draw_player_on_screen(game, scale);
-	draw_player_fov(game, scale);
+	draw_enemies(game);
+	draw_player_on_screen(game);
+	draw_player_fov(game, game->raycasting->scale);
 }
