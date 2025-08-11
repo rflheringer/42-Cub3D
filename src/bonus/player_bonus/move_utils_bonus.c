@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 17:47:40 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:51:56 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ bool	can_move_to(char **map, double x, double y, t_enemy_list *enemy_list)
 	tmp = enemy_list;
 	while (tmp)
 	{
-		if (!calculate_dist_to_enemy(tmp, x, y))
+		if ((tmp->state == ALERT || tmp->state == ATTACK) && !calculate_dist_to_enemy(tmp, x, y))
 			return (false);
 		tmp = tmp->next;
 	}

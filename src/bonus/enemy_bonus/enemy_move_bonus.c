@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:49:52 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:44:15 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static void	calculate_sprite_change(t_game *game, t_enemy_list *enemy)
 		enemy->cur_sprite = (enemy->cur_sprite + 1) % 3;
 		enemy->frame_delay = 0;
 	}
-	else if (enemy->frame_delay > 0.5 && enemy->state == ATTACK)
+	else if (enemy->frame_delay > 0.2 && enemy->state == ATTACK)
 	{
 		enemy->attack_sprite++;
 		enemy->frame_delay = 0;

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:26:57 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:52:25 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static int	fireball_move(t_game *game, double x, double y)
 		double dx = x - tmp->pos_x;
 		double dy = y - tmp->pos_y;
 		double distance = sqrt(dx * dx + dy * dy);
-		if (distance < 0.3)
+		if ((tmp->state == ALERT || tmp->state == ATTACK) && distance < 0.3)
 		{
 			tmp->state = HITED;
 			return (2);
