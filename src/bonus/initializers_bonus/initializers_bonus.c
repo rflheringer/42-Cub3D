@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/11 11:44:15 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:58:16 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int32_t	init_cub3d(t_game *game)
 	update_minimap(game);
 	mlx_key_hook(game->mlx, &keypress, game);
 	mlx_cursor_hook(game->mlx, &rotate_player_mouse, game);
-	//mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(game->mlx, &handle_movement, game);
 	mlx_loop(game->mlx);
 	shutdown_program(game, EXIT_SUCCESS);

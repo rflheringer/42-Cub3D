@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:15:18 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:26:57 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,7 @@ void	create_fireball(t_game *game)
 	fireball->dir_x = game->player->player_dir_x;
 	fireball->dir_y = game->player->player_dir_y;
 	fireball->state = MOVING;
+	fireball->move_delay = 0.21;
 	fireball->frame_delay = 0.0;
 	fireball->current_frame = 0;
 	add_fireball_list(game, fireball);

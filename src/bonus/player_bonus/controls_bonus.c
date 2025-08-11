@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 16:20:52 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:56:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	rotate_player_mouse(double xpos, double ypos, void *param)
 
 	(void)ypos;
 	game = (t_game *)param;
+	if (game->game_over)
+		return ;
 	original_speed = game->player->rotation_speed;
 	if (xpos < WIDTH * 0.3)
 	{
@@ -95,6 +97,8 @@ void	keypress(mlx_key_data_t keydata, void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
+	if (game->game_over)
+		return ;
 	if (keydata.action == MLX_PRESS && keydata.key == MLX_KEY_F)
 		open_close_door(game);
 	else if (keydata.action == MLX_PRESS && keydata.key == MLX_KEY_SPACE

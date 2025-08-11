@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:20:20 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:59:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,13 @@ void	handle_movement(void *param)
 
 	game = (t_game *)param;
 	game->delta_time = get_delta_time();
+	if (game->game_over == 1)
+	{
+		// update_game_over(game);
+		game->game_over += 1;
+	}
+	if (game->game_over >= 1)
+		return ;
 	get_move(game);
 	if (game->raycasting->image)
 		mlx_delete_image(game->mlx, game->raycasting->image);
@@ -161,4 +168,6 @@ void	handle_movement(void *param)
 	clean_dead_fireballs(game);
 	clean_dead_enemies(game);
 	update_minimap(game);
+	if (game->player->hp <= 0)
+		game->game_over = 1;
 }

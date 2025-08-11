@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 16:16:06 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:54:58 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef enum e_state
 {
 	MOVING = 1,
 	ALERT,
+	ATTACK,
 	DYING,
 	DEAD,
 	HITED,
@@ -67,6 +68,9 @@ typedef struct s_attack
 
 typedef struct s_player
 {
+	int				p;
+	int				hp;
+	char			start_dir;
 	bool			up;
 	bool			down;
 	bool			right;
@@ -74,9 +78,6 @@ typedef struct s_player
 	bool			rot_left;
 	bool			rot_right;
 	bool			moved;
-	bool			open_close_door;
-	int				p;
-	char			start_dir;
 	double			pos_x;
 	double			pos_y;
 	double			old_x;
@@ -181,6 +182,7 @@ typedef struct s_enemy_list
 	t_state				state;
 	int					cur_sprite;
 	int					dying_sprite;
+	int					attack_sprite;
 	double				move_delay;
 	double				death_delay;
 	double				frame_delay;
@@ -218,6 +220,7 @@ typedef struct s_game
 {
 	mlx_t			*mlx;
 	double			delta_time;
+	int				game_over;
 	t_player		*player;
 	t_map			*map;
 	t_door			*door;

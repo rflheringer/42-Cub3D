@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 15:47:22 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:43:58 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@ static void	create_enemy(t_game *game, int i, int j)
 {
 	t_enemy_list	*enemy;
 
+	if (game->map->map[i][j] != 'I')
+		shutdown_program(game, EXIT_UNEXPECTED_CHAR);
 	enemy = ft_calloc(1, sizeof(t_enemy_list));
 	enemy->pos_x = j + 0.5;
 	enemy->pos_y = i + 0.5;
 	enemy->state = ALERT;
 	enemy->cur_sprite = 0;
+	enemy->attack_sprite = 3;
 	enemy->dying_sprite = 7;
 	add_enemy_list(game, enemy);
 }
 
 void	set_enemy(t_game *game, int i, int j)
 {
-	if (game->map->map[i][j] == 'I')
 		create_enemy(game, i, j);
 }
 
