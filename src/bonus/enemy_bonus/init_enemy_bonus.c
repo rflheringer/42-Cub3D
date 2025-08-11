@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:43:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:02:29 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	init_bonus_images(t_game *game)
 	if (ft_strnstr(game->map->file_name, "sewer", ft_strlen(game->map->file_name)))
 		load_bonus_images(game, "assets/enemy/sea_dragon/sea_dragon_", 3);
 	else
-		load_bonus_images(game, "assets/enemy/skeleton/skeleton_", 10);
+		load_bonus_images(game, "assets/enemy/skeleton/skeleton_", 11);
 	load_player_attack(game, "assets/player/fireball_", 5);
 	game->enemy->move_speed = 0.15;
 }

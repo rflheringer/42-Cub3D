@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 16:54:58 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:01:54 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define W_NAME "Catacombs 42"
 # define FOV 1.0472
 # define R 0.05
+# define LIFE_MAX 10
 # define EXIT_TOO_MANY_ARGUMENTS 3
 # define EXIT_FEW_ARGUMENTS 4
 # define EXIT_ERROR_MEMORY_ALLOCATION 5
@@ -308,5 +309,8 @@ double	get_delta_time(void);
 // fire
 void	create_fireball(t_game *game);
 void	update_fireballs(t_game *game);
+
+//life
+void	draw_life(t_game *game);
 
 #endif
