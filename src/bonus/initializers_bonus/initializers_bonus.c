@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/11 10:17:31 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:44:15 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int32_t	init_cub3d(t_game *game)
 	game->image = ft_calloc(1, sizeof(t_image));
 	init_map_images(game);
 	init_lightning(game);
-	set_default_enemy(game);
+	init_bonus_images(game);
 	game->ray = ft_calloc(1, sizeof(t_ray));
 	game->wall = ft_calloc(1, sizeof(t_wall));
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));

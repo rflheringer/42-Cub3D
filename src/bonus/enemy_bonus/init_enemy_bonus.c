@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 20:13:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:47:22 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void	create_enemy(t_game *game, int i, int j)
 	enemy = ft_calloc(1, sizeof(t_enemy_list));
 	enemy->pos_x = j + 0.5;
 	enemy->pos_y = i + 0.5;
+	enemy->state = ALERT;
 	enemy->cur_sprite = 0;
+	enemy->dying_sprite = 7;
 	add_enemy_list(game, enemy);
 }
 
@@ -45,7 +47,7 @@ void	set_enemy(t_game *game, int i, int j)
 		create_enemy(game, i, j);
 }
 
-static void	load_skell_images(t_game *game, char *base_path, int len)
+static void	load_bonus_images(t_game *game, char *base_path, int len)
 {
 	char	enemy_path[100];
 	char	*num;
@@ -68,11 +70,35 @@ static void	load_skell_images(t_game *game, char *base_path, int len)
 	}
 }
 
-void	set_default_enemy(t_game *game)
+static void	load_player_attack(t_game *game, char *base_path, int len)
+{
+	char	attack_path[100];
+	char	*num;
+	int		i;
+
+	i = 0;
+	while (i < len)
+	{
+		num = ft_itoa(i);
+		if (!num)
+			shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
+		ft_strlcpy(attack_path, base_path, sizeof(attack_path));
+		ft_strlcat(attack_path, num, sizeof(attack_path));
+		ft_strlcat(attack_path, ".png", sizeof(attack_path));
+		free(num);
+		game->player->fireball_textures[i] = mlx_load_png(attack_path);
+		if (!game->player->fireball_textures[i])
+			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+		i++;
+	}
+}
+
+void	init_bonus_images(t_game *game)
 {
 	if (ft_strnstr(game->map->file_name, "sewer", ft_strlen(game->map->file_name)))
-		load_skell_images(game, "assets/enemy/sea_dragon/sea_dragon_", 3);
+		load_bonus_images(game, "assets/enemy/sea_dragon/sea_dragon_", 3);
 	else
-		load_skell_images(game, "assets/enemy/skeleton/skeleton_", 10);
-	game->enemy->move_speed = 0.2;
+		load_bonus_images(game, "assets/enemy/skeleton/skeleton_", 10);
+	load_player_attack(game, "assets/player/fireball_", 5);
+	game->enemy->move_speed = 0.15;
 }

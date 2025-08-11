@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 10:17:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:16:06 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,55 @@
 # define EXIT_INVALID_MAP 19
 # define EXIT_INVALID_START_POSITION 21
 
+typedef enum e_state
+{
+	MOVING = 1,
+	ALERT,
+	DYING,
+	DEAD,
+	HITED,
+}	t_state;
+
+typedef struct s_attack
+{
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			move_delay;
+	double			frame_delay;
+	t_state			state;
+	int				next_tile;
+	int				current_frame;
+	struct s_attack	*next;
+}	t_attack;
+
 typedef struct s_player
 {
-	bool	up;
-	bool	down;
-	bool	right;
-	bool	left;
-	bool	rot_left;
-	bool	rot_right;
-	bool	moved;
-	bool	open_close_door;
-	int		p;
-	char	start_dir;
-	double	pos_x;
-	double	pos_y;
-	double	old_x;
-	double	old_y;
-	double	player_dir_x;
-	double	player_dir_y;
-	double	camera_dir_x;
-	double	camera_dir_y;
-	double	move_speed;
-	double	rotation_speed;
-	double	hit_x;
-	double	hit_y;
+	bool			up;
+	bool			down;
+	bool			right;
+	bool			left;
+	bool			rot_left;
+	bool			rot_right;
+	bool			moved;
+	bool			open_close_door;
+	int				p;
+	char			start_dir;
+	double			pos_x;
+	double			pos_y;
+	double			old_x;
+	double			old_y;
+	double			player_dir_x;
+	double			player_dir_y;
+	double			camera_dir_x;
+	double			camera_dir_y;
+	double			move_speed;
+	double			rotation_speed;
+	double			hit_x;
+	double			hit_y;
+	double			attack_delay;
+	mlx_texture_t	*fireball_textures[5];
 }	t_player;
 
 typedef struct s_map
@@ -143,13 +168,6 @@ typedef struct s_raycasting
 	double		*buffer;
 }	t_raycasting;
 
-typedef enum e_state
-{
-	IDLE = 1,
-	ALERT,
-	DEAD
-}	t_state;
-
 typedef struct s_door
 {
 	double	pos_x;
@@ -162,7 +180,9 @@ typedef struct s_enemy_list
 	double				distance;
 	t_state				state;
 	int					cur_sprite;
+	int					dying_sprite;
 	double				move_delay;
+	double				death_delay;
 	double				frame_delay;
 	struct s_enemy_list	*next;
 	struct s_enemy_list	*prev;
@@ -170,8 +190,7 @@ typedef struct s_enemy_list
 
 typedef struct s_enemy
 {
-	mlx_image_t		*skell_images[9];
-	mlx_texture_t	*skell_texture[9];
+	mlx_texture_t	*skell_texture[10];
 	double			move_speed;
 	t_enemy_list	*list;
 	int				texx;
@@ -208,6 +227,7 @@ typedef struct s_game
 	t_wall			*wall;
 	t_ray			*ray;
 	t_enemy			*enemy;
+	t_attack		*fireballs;
 	t_lightning		*lightning;
 	t_collectible	*collectible;
 }	t_game;
@@ -247,6 +267,8 @@ void	shutdown_program(t_game *game, short error_code);
 int32_t	init_cub3d(t_game *game);
 
 // movement
+bool	rot_left(t_game *game);
+bool	rot_right(t_game *game);
 void	get_move(t_game *game);
 
 // movement utils
@@ -273,11 +295,15 @@ void	update_lightning(t_game *game);
 
 // enemy_bonus
 void	manage_enemies(t_game *game);
-void	set_default_enemy(t_game *game);
+void	init_bonus_images(t_game *game);
 void	set_enemy(t_game *game, int i, int j);
-void	calculate_enemie_position(t_game *game, t_enemy_list *enemy);
+void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture);
 
 // utils_bonus
 double	get_delta_time(void);
+
+// fire
+void	create_fireball(t_game *game);
+void	update_fireballs(t_game *game);
 
 #endif

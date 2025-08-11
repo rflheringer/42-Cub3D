@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_position.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 11:38:51 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/08 17:43:14 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:21:47 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
+void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture)
 {
 	double	sprite_x;
 	double	sprite_y;
@@ -20,8 +20,8 @@ void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	double	transform_x;
 	double	transform_y;
 
-	sprite_x = enemy->pos_x - game->player->pos_x;
-	sprite_y = enemy->pos_y - game->player->pos_y;
+	sprite_x = pos_x - game->player->pos_x;
+	sprite_y = pos_y - game->player->pos_y;
 	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
 			- game->player->player_dir_x * game->player->camera_dir_y);
 	transform_x = inv_det * (game->player->player_dir_y * sprite_x
@@ -72,8 +72,6 @@ void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	draw_end_x = sprite_width / 2 + sprite_screen_x;
 	if (draw_end_x >= WIDTH) 
 		draw_end_x = WIDTH - 1;
-	mlx_texture_t *texture;
-	texture = game->enemy->skell_texture[enemy->cur_sprite];
 	int stripe;
 	stripe = draw_start_x;
 	while (stripe < draw_end_x)

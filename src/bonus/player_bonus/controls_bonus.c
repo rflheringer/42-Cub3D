@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 10:18:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:20:52 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	key_release(mlx_key_data_t keydata, t_game *game)
 		game->player->rot_right = false;
 	else if (keydata.key == MLX_KEY_RIGHT)
 		game->player->rot_left = false;
-	else if (keydata.key == MLX_KEY_F)
-		game->player->open_close_door = false;
 }
 
 static void	key_press(mlx_key_data_t keydata, t_game *game)
@@ -54,16 +52,42 @@ static void	open_close_door(t_game *game)
 	int		check_y;
 	double	distance = 1.0;
 
-	check_x = (int)floor(game->player->pos_x + game->player->player_dir_x * distance);
-	check_y = (int)floor(game->player->pos_y + game->player->player_dir_y * distance);
+	check_x = (int)floor(game->player->pos_x
+				+ game->player->player_dir_x * distance);
+	check_y = (int)floor(game->player->pos_y
+				+ game->player->player_dir_y * distance);
 	if (check_x < 0 || check_y < 0 || check_y >= game->map->height)
 		return;
-	if (!game->map->map[check_y] || check_x >= (int)ft_strlen(game->map->map[check_y]))
+	if (!game->map->map[check_y]
+		|| check_x >= (int)ft_strlen(game->map->map[check_y]))
 		return;
 	if (game->map->map[check_y][check_x] == 'D')
 		game->map->map[check_y][check_x] = 'O';
 	else if (game->map->map[check_y][check_x] == 'O')
 		game->map->map[check_y][check_x] = 'D';
+}
+
+void	rotate_player_mouse(double xpos, double ypos, void *param)
+{
+	t_game	*game;
+	double	original_speed;
+
+	(void)ypos;
+	game = (t_game *)param;
+	original_speed = game->player->rotation_speed;
+	if (xpos < WIDTH * 0.3)
+	{
+		game->player->rotation_speed = original_speed * 0.4;
+		rot_right(game);
+		game->player->moved = true;
+	}
+	else if (xpos > WIDTH * 0.7)
+	{
+		game->player->rotation_speed = original_speed * 0.4;
+		rot_left(game);
+		game->player->moved = true;
+	}
+	game->player->rotation_speed = original_speed;
 }
 
 void	keypress(mlx_key_data_t keydata, void *param)
@@ -72,9 +96,12 @@ void	keypress(mlx_key_data_t keydata, void *param)
 
 	game = (t_game *)param;
 	if (keydata.action == MLX_PRESS && keydata.key == MLX_KEY_F)
-	{
-		// Executa a ação imediatamente, sem usar a variável booleana
 		open_close_door(game);
+	else if (keydata.action == MLX_PRESS && keydata.key == MLX_KEY_SPACE
+		&& game->player->attack_delay > 0.4)
+	{
+		create_fireball(game);
+		game->player->attack_delay = 0;
 	}
 	else if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 		key_press(keydata, game);

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 10:18:15 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 12:14:57 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	down_move(t_game *game)
 	return (false);
 }
 
-static bool	rot_left(t_game *game)
+bool	rot_left(t_game *game)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -74,7 +74,7 @@ static bool	rot_left(t_game *game)
 	return (true);
 }
 
-static bool	rot_right(t_game *game)
+bool	rot_right(t_game *game)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -116,44 +116,4 @@ void	get_move(t_game *game)
 	if (game->player->rot_right)
 		if (rot_right(game))
 			game->player->moved = true;
-}
-
-void rotate_player_mouse(double xpos, double ypos, void *param)
-{
-    t_game *game;
-    static double last_xpos = WIDTH / 2;
-    double mouse_delta;
-    double original_speed;
-    (void)ypos;
-    
-    game = (t_game *)param;
-    
-    // Skip first call to avoid large jumps
-    if (last_xpos == WIDTH / 2)
-    {
-        last_xpos = xpos;
-        return;
-    }
-    
-    // Normal movement based on mouse delta
-    mouse_delta = 0.5;
-    original_speed = game->player->rotation_speed;
-    
-    // Edge detection - continuous rotation when mouse at edges
-    if (xpos < WIDTH * 0.3) // Left 10% of screen
-    {
-        // Continuous left rotation when at left edge
-        game->player->rotation_speed = original_speed * -mouse_delta;
-        rot_left(game);
-        game->player->moved = true;
-    }
-    else if (xpos > WIDTH * 0.7) // Right 10% of screen
-    {
-        // Continuous right rotation when at right edge
-        game->player->rotation_speed = original_speed * -mouse_delta;
-        rot_right(game);
-        game->player->moved = true;
-    }
-    game->player->rotation_speed = original_speed;
-    last_xpos = xpos;
 }

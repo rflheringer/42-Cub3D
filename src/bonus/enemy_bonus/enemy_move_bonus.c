@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 19:47:29 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:00:17 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,27 @@ static void	calculate_distance_to_player(t_game *game, t_enemy_list *enemy)
 	dx = px - enemy->pos_x;
 	dy = py - enemy->pos_y;
 	enemy->distance = sqrt(dx * dx + dy * dy);
-	if (enemy->distance > 0.6 && enemy->move_delay > 0.1)
+	if (enemy->state == ALERT && enemy->distance > 0.7 && enemy->move_delay > 0.1)
 		enemy_move(game, enemy, dx, dy);
 }
 
 static void	calculate_sprite_change(t_game *game, t_enemy_list *enemy)
 {
-	enemy->frame_delay += game->delta_time;
-	if (enemy->frame_delay > 0.3)
+	if (enemy->state == ALERT)
+		enemy->frame_delay += game->delta_time;
+	else if (enemy->state == DYING)
+		enemy->death_delay += game->delta_time;
+	if (enemy->frame_delay > 0.3 && enemy->state == ALERT)
 	{
 		enemy->cur_sprite = (enemy->cur_sprite + 1) % 3;
 		enemy->frame_delay = 0;
+	}
+	else if (enemy->death_delay > 0.5 && enemy->state == DYING)
+	{
+		enemy->dying_sprite++;
+		enemy->death_delay = 0;
+		if (enemy->dying_sprite > 9)
+			enemy->state = DEAD;
 	}
 }
 
@@ -174,7 +184,7 @@ void	manage_enemies(t_game *game)
 		return ;
 	nav = game->enemy->list;
 	while (nav)
-	{
+	{	
 		calculate_distance_to_player(game, nav);
 		nav = nav->next;
 	}
@@ -182,8 +192,14 @@ void	manage_enemies(t_game *game)
 	nav = game->enemy->list;
 	while (nav)
 	{
-		calculate_sprite_change(game, nav);
-		calculate_enemie_position(game, nav);
+		if (nav->state != DEAD)
+		{
+			calculate_sprite_change(game, nav);
+			if (nav->state == ALERT)
+				calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->cur_sprite]);
+			else if (nav->state == DYING)
+				calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->dying_sprite]);
+		}
 		nav = nav->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 10:18:09 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:20:20 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ static bool	calculate_dist_to_enemy(t_enemy_list *enemy, double x, double y)
 	double	dx;
 	double	dy;
 
+	if (enemy->state == DEAD)
+		return (true);
 	dx = x - enemy->pos_x;
 	dy = y - enemy->pos_y;
 	distance = sqrt(dx * dx + dy * dy);
-	if (distance > 0.3)
+	if (distance > 0.6)
 		return (true);
 	return (false);
 }
@@ -92,6 +94,57 @@ bool	can_move_to(char **map, double x, double y, t_enemy_list *enemy_list)
 	return (true);
 }
 
+static void	clean_dead_enemies(t_game *game)
+{
+	t_enemy_list	*current;
+	t_enemy_list	*next;
+	t_enemy_list	*prev;
+
+	current = game->enemy->list;
+	prev = NULL;
+	while (current)
+	{
+		next = current->next;
+		if (current->state == DEAD)
+		{
+			if (prev)
+				prev->next = next;
+			else
+				game->enemy->list = next;
+			free(current);
+		}
+		else
+			prev = current;
+		current = next;
+	}
+}
+
+static void	clean_dead_fireballs(t_game *game)
+{
+	t_attack	*current;
+	t_attack	*next;
+	t_attack	*prev;
+
+	current = game->fireballs;
+	prev = NULL;
+	while (current)
+	{
+		next = current->next;
+		if (current->state == DEAD)
+		{
+			if (prev)
+				prev->next = next;
+			else
+				game->fireballs = next;
+			free(current);
+		}
+		else
+			prev = current;
+		current = next;
+	}
+}
+
+
 void	handle_movement(void *param)
 {
 	t_game	*game;
@@ -101,7 +154,11 @@ void	handle_movement(void *param)
 	get_move(game);
 	if (game->raycasting->image)
 		mlx_delete_image(game->mlx, game->raycasting->image);
+	game->player->attack_delay += game->delta_time;
 	perform_raycasting(game);
 	manage_enemies(game);
+	update_fireballs(game);
+	clean_dead_fireballs(game);
+	clean_dead_enemies(game);
 	update_minimap(game);
 }
