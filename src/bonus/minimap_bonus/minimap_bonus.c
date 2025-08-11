@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:26:34 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:59:40 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:29:37 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,23 +103,53 @@ static void	draw_enemies(t_game *game, int scale)
 
 static void	draw_line_mm(mlx_image_t *img, int x0, int y0, int x1, int y1, uint32_t col)
 {
-	int dx = (x1 > x0) ? (x1 - x0) : (x0 - x1);
-	int sx = (x0 < x1) ? 1 : -1;
-	int dy = (y1 > y0) ? (y1 - y0) : (y0 - y1);
-	int sy = (y0 < y1) ? 1 : -1;
-	int err = (dx > dy ? dx : -dy) / 2;
-	int e2;
+    int dx;
+    int dy;
+    int sx;
+    int sy;
+    int err;
+    int e2;
 
-	if (!img) return;
-	while (1)
-	{
-		if (x0 >= 0 && x0 < (int)img->width && y0 >= 0 && y0 < (int)img->height)
-			mlx_put_pixel(img, x0, y0, col);
-		if (x0 == x1 && y0 == y1) break;
-		e2 = err;
-		if (e2 > -dx) { err -= dy; x0 += sx; }
-		if (e2 <  dy) { err += dx; y0 += sy; }
-	}
+    if (!img)
+        return;
+
+    dx = x1 - x0;
+    if (dx < 0)
+        dx = -dx;
+    dy = y1 - y0;
+    if (dy < 0)
+        dy = -dy;
+
+    sx = 1;
+    if (x0 >= x1)
+        sx = -1;
+    sy = 1;
+    if (y0 >= y1)
+        sy = -1;
+
+    err = dx;
+    if (dx <= dy)
+        err = -dy;
+    err /= 2;
+
+    while (1)
+    {
+        if (x0 >= 0 && x0 < (int)img->width && y0 >= 0 && y0 < (int)img->height)
+            mlx_put_pixel(img, x0, y0, col);
+        if (x0 == x1 && y0 == y1)
+            break;
+        e2 = err;
+        if (e2 > -dx)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dy)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
 
 static inline long	edge_func(int px, int py, int ax, int ay, int bx, int by)
@@ -155,6 +185,31 @@ static void	fill_triangle_mm(mlx_image_t *img,
 		}
 	}
 }
+static int cxx(t_game *game, int scale)
+{
+	int tile_x;
+	int px0;
+	int	cx;
+	
+	tile_x = (int)game->player->pos_x;
+	px0 = 10 + tile_x * scale;
+	cx = px0 + (scale / 2);
+
+	return (cx);
+}
+
+static int cyy(t_game *game, int scale)
+{
+	int tile_y;
+	int py0;
+	int	cy;
+
+	tile_y = (int)game->player->pos_y;
+	py0 = 10 + tile_y * scale;
+	cy = py0 + (scale / 2);
+
+	return (cy);
+}
 
 static void	draw_player_fov(t_game *game, int scale)
 {
@@ -165,22 +220,17 @@ static void	draw_player_fov(t_game *game, int scale)
 	double		plx, ply;
 	double		k;
 	int			xl, yl, xr, yr;
-
+	int			scalee;
+	
+	scalee = scale;
 	if (!game || !game->player || !game->raycasting)
 		return;
 	img = game->raycasting->image;
-	{
-		int tile_x = (int)game->player->pos_x;
-		int tile_y = (int)game->player->pos_y;
-		int px0 = 10 + tile_x * scale;
-		int py0 = 10 + tile_y * scale;
-		cx = px0 + (scale / 2);
-		cy = py0 + (scale / 2);
-	}
-
+	cx = cxx(game, scalee);
+	cy = cyy(game, scalee);
 	len = scale * 3.0;
-	if (len < 16.0) len = 16.0;
-
+	if (len < 16.0) 
+		len = 16.0;
 	dirx = game->player->player_dir_x;
 	diry = game->player->player_dir_y;
 	plx  = game->player->camera_dir_x;
