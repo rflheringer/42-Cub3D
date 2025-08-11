@@ -32,6 +32,9 @@ int	main(int argc, char **argv)
 	game->map = ft_calloc(1, sizeof(t_map));
 	game->player = ft_calloc(1, sizeof(t_player));
 	game->enemy = ft_calloc(1, sizeof(t_enemy));
+	game->texture = ft_calloc(1, sizeof(t_texture));
+	if (!game->map || !game->player || !game->enemy || !game->texture)
+		shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
 	parser(game, argv[1]);
 	init_cub3d(game);
 }

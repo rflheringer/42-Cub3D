@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 11:38:51 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/08 17:43:14 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:28:20 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	calculate_enemie_position(t_game *game, t_enemy_list *enemy)
 	if (draw_end_x >= WIDTH) 
 		draw_end_x = WIDTH - 1;
 	mlx_texture_t *texture;
-	texture = game->enemy->skell_texture[enemy->cur_sprite];
+	texture = enemy->tex_set[enemy->cur_sprite];
+	if (!texture)
+		return ;
 	int stripe;
 	stripe = draw_start_x;
 	while (stripe < draw_end_x)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_utils.c                                      :+:      :+:    :+:   */
+/*   enemy_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 17:41:16 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/05 17:41:50 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:29:27 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,16 @@ double	get_delta_time(void)
 	delta_time = current_time - last_time;
 	last_time = current_time;
 	return (delta_time);
+}
+
+void	update_enemy_animation(t_enemy_list *e, double dt)
+{
+    e->frame_delay += dt;
+    if (e->frame_delay > 0.12)
+    {
+        e->cur_sprite++;
+        if (e->cur_sprite >= e->frame_count)
+            e->cur_sprite = 0;
+        e->frame_delay = 0;
+    }
 }

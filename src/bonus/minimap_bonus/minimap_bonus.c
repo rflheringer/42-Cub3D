@@ -23,18 +23,20 @@ static void	draw_minimap_on_screen(t_game *game, int i, int j, int scale)
 	while (sy < scale)
 	{
 		sx = -1;
-		while (sx++ < scale - 1)
+			while (sx < scale)
 		{
 			x = 10 + (j * scale) + sx;
 			y = 10 + (i * scale) + sy;
 			if (x < WIDTH && y < HEIGHT)
 			{
-				if (game->map->map[i][j] != ' ')
-					mlx_put_pixel(game->raycasting->image, x, y, 0x000000FF);
-				if (game->map->map[i][j] == '1')
-					mlx_put_pixel(game->raycasting->image, x, y, 0x00000000);
-				if (game->map->map[i][j] == 'D' || game->map->map[i][j] == 'O')
-					mlx_put_pixel(game->raycasting->image, x, y, 0xFFFF00FF);
+					if (game->map->map[i][j] == '1')
+						mlx_put_pixel(game->raycasting->image, x, y, 0x333333FF);
+					else if (game->map->map[i][j] == '0')
+						mlx_put_pixel(game->raycasting->image, x, y, 0x111111FF);
+					else if (game->map->map[i][j] == 'D')
+						mlx_put_pixel(game->raycasting->image, x, y, 0xFFA500FF);
+					else if (game->map->map[i][j] == 'O')
+						mlx_put_pixel(game->raycasting->image, x, y, 0xCCCC00FF);
 			}
 		}
 		sy++;
@@ -107,11 +109,7 @@ void	update_minimap(t_game *game)
 	int	i;
 	int	j;
 
-	scale = game->map->height * 0.10;
-	if (scale > 5)
-		scale = 2;
-	else
-		scale = 5;
+	scale = calc_scale(game);
 	i = 0;
 	while (game->map->map[i])
 	{
@@ -125,4 +123,30 @@ void	update_minimap(t_game *game)
 	}
 	draw_enemies(game, scale);
 	draw_player_on_screen(game, scale);
+}
+
+static int	calc_scale(t_game *game)
+{
+	int	max_w;
+	int	row;
+	int	len;
+
+	max_w = 0;
+	row = 0;
+	while (game->map->map[row])
+	{
+		len = (int)ft_strlen(game->map->map[row]);
+		if (len > max_w)
+			max_w = len;
+		row++;
+	}
+	// Ajuste de escala: queremos caber ~200px de largura
+	if (max_w <= 0)
+		return (4);
+	len = 200 / max_w;
+	if (len < 2)
+		len = 2;
+	if (len > 12)
+		len = 12;
+	return (len);
 }

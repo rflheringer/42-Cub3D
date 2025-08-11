@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 10:17:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:33:10 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdio.h>
 # include <math.h>
 
+# define ENEMY_SKELL_FRAMES 9
+# define ENEMY_BOSS_FRAMES 3
 # define WIDTH 1620
 # define HEIGHT 880
 # define W_NAME "Catacombs 42"
@@ -155,6 +157,13 @@ typedef struct s_door
 	double	pos_x;
 	double	pos_y;
 }	t_door;
+
+typedef enum e_enemy_type
+{
+    ENEMY_NORMAL,
+    ENEMY_BOSS
+}	t_enemy_type;
+
 typedef struct s_enemy_list
 {
 	double				pos_x;
@@ -164,14 +173,18 @@ typedef struct s_enemy_list
 	int					cur_sprite;
 	double				move_delay;
 	double				frame_delay;
+	t_enemy_type		type;
+	int					frame_count;
+	mlx_texture_t		**tex_set;
 	struct s_enemy_list	*next;
 	struct s_enemy_list	*prev;
 }	t_enemy_list;
 
 typedef struct s_enemy
 {
-	mlx_image_t		*skell_images[9];
-	mlx_texture_t	*skell_texture[9];
+	mlx_image_t		*skell_images[ENEMY_SKELL_FRAMES];
+	mlx_texture_t	*skell_texture[ENEMY_SKELL_FRAMES];
+	mlx_texture_t	*boss_texture[ENEMY_BOSS_FRAMES];
 	double			move_speed;
 	t_enemy_list	*list;
 	int				texx;
@@ -274,6 +287,7 @@ void	update_lightning(t_game *game);
 // enemy_bonus
 void	manage_enemies(t_game *game);
 void	set_default_enemy(t_game *game);
+void	update_enemy_animation(t_enemy_list *e, double dt);
 void	set_enemy(t_game *game, int i, int j);
 void	calculate_enemie_position(t_game *game, t_enemy_list *enemy);
 
