@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 20:13:16 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:27:25 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	get_map(t_game *game, char **content, int *i)
 	game->map->map = ft_calloc(len + 1, sizeof(char *));
 	while (content[*i])
 	{
-		if (ft_findchar(content[*i], "01NSWEID"))
+		if (ft_findchar(content[*i], "01NSWEIDKP"))
 			first = 0;
 		if (first == 0)
 			if (only_spaces(content[*i]))
 				first = 2;
-		if (first == 2 && ft_findchar(content[*i], "01NSWEID"))
+		if (first == 2 && ft_findchar(content[*i], "01NSWEIDKP"))
 			shutdown_program(game, EXIT_INVALID_MAP);
 		game->map->map[j++] = ft_strdup(content[*i]);
 		(*i)++;
@@ -82,7 +82,7 @@ void	validate_map(t_game *game, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!ft_strchr(" 01NSWEID", map[i][j]))
+			if (!ft_strchr(" 01NSWEIDKP", map[i][j]))
 				shutdown_program(game, EXIT_UNEXPECTED_CHAR);
 			if (map[i][j] == '0')
 				if (!check_valid_zero(map, i, j))

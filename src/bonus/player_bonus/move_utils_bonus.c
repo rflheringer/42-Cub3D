@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 17:03:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:47:40 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ bool	right_move(t_game *game)
 		* game->player->move_speed;
 	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
 	{
+		if (game->map->map[(int)new_y][(int)new_x] == 'P')
+		{
+			game->player->hp += 3;
+			if (game->player->hp > 10)
+				game->player->hp = 10;
+			game->map->map[(int)new_y][(int)new_x] = '0';
+		}
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
@@ -59,6 +66,13 @@ bool	left_move(t_game *game)
 		* game->player->move_speed;
 	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
 	{
+		if (game->map->map[(int)new_y][(int)new_x] == 'P')
+		{
+			game->player->hp += 3;
+			if (game->player->hp > 10)
+				game->player->hp = 10;
+			game->map->map[(int)new_y][(int)new_x] = '0';
+		}
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
@@ -144,6 +158,26 @@ static void	clean_dead_fireballs(t_game *game)
 	}
 }
 
+static void	render_potion(t_game *game)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	while (game->map->map[i])
+	{
+		j = 0;
+		while (game->map->map[i][j])
+		{
+			if (game->map->map[i][j] == 'P')
+				calculate_enemie_position(game, (double)j + 0.5, (double)i + 0.5, game->texture->potion);
+			if (game->map->map[i][j] == 'K')
+				calculate_enemie_position(game, (double)j + 0.5, (double)i + 0.5, game->texture->key);
+			j++;
+		}
+		i++;
+	}
+}
 
 void	handle_movement(void *param)
 {
@@ -163,6 +197,7 @@ void	handle_movement(void *param)
 		mlx_delete_image(game->mlx, game->raycasting->image);
 	game->player->attack_delay += game->delta_time;
 	perform_raycasting(game);
+	render_potion(game);
 	manage_enemies(game);
 	update_fireballs(game);
 	clean_dead_fireballs(game);

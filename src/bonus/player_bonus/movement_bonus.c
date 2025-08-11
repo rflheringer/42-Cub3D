@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 12:14:57 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:44:46 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ static bool	up_move(t_game *game)
 			* game->player->move_speed);
 	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
 	{
+		if (game->map->map[(int)new_y][(int)new_x] == 'P')
+		{
+			game->player->hp += 3;
+			if (game->player->hp > 10)
+				game->player->hp = 10;
+			game->map->map[(int)new_y][(int)new_x] = '0';
+		}
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
@@ -43,6 +50,13 @@ static bool	down_move(t_game *game)
 		* game->player->move_speed;
 	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
 	{
+		if (game->map->map[(int)new_y][(int)new_x] == 'P')
+		{
+			game->player->hp += 3;
+			if (game->player->hp > 10)
+				game->player->hp = 10;
+			game->map->map[(int)new_y][(int)new_x] = '0';
+		}
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;

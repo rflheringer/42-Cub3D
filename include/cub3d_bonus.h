@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 17:01:54 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:35:22 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ typedef struct s_texture
 	uint32_t		ceiling_color_hex;
 	mlx_texture_t	*closed_door;
 	mlx_texture_t	*open_door;
+	mlx_texture_t	*potion;
+	mlx_texture_t	*key;
 	int				north;
 	int				south;
 	int				east;
