@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 10:17:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:23:59 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define W_NAME "Catacombs 42"
 # define FOV 1.0472
 # define R 0.05
+# define LIFE_MAX 10
 # define EXIT_TOO_MANY_ARGUMENTS 3
 # define EXIT_FEW_ARGUMENTS 4
 # define EXIT_ERROR_MEMORY_ALLOCATION 5
@@ -53,6 +54,7 @@ typedef struct s_player
 	bool	moved;
 	bool	open_close_door;
 	int		p;
+	int		life;
 	char	start_dir;
 	double	pos_x;
 	double	pos_y;
@@ -279,5 +281,8 @@ void	calculate_enemie_position(t_game *game, t_enemy_list *enemy);
 
 // utils_bonus
 double	get_delta_time(void);
+
+//life
+void	draw_life(t_game *game);
 
 #endif

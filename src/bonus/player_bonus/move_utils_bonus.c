@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 10:18:09 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:26:17 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,5 @@ void	handle_movement(void *param)
 	perform_raycasting(game);
 	manage_enemies(game);
 	update_minimap(game);
+	draw_life(game);
 }

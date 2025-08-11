@@ -43,6 +43,7 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/player_bonus/controls_bonus.c \
 				./src/bonus/player_bonus/move_utils_bonus.c \
 				./src/bonus/player_bonus/movement_bonus.c \
+				./src/bonus/player_bonus/life.c \
 				./src/bonus/raycasting_bonus/dda_bonus.c \
 				./src/bonus/raycasting_bonus/init_ray_bonus.c \
 				./src/bonus/raycasting_bonus/raycasting_bonus.c \

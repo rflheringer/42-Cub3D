@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_enemy_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 20:13:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:50:51 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	set_default_enemy(t_game *game)
 	if (ft_strnstr(game->map->file_name, "sewer", ft_strlen(game->map->file_name)))
 		load_skell_images(game, "assets/enemy/sea_dragon/sea_dragon_", 3);
 	else
-		load_skell_images(game, "assets/enemy/skeleton/skeleton_", 10);
+		load_skell_images(game, "assets/enemy/skeleton/skeleton_", 11);
 	game->enemy->move_speed = 0.2;
 }
