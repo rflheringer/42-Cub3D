@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:18:49 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 16:48:55 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:04:32 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_life(t_game *game)
     x = WIDTH - box_w - 14;
     put_rect(game->raycasting->image, x - 4, 10, box_w + 8, box_h + 8, 0x000000D0);
     put_rect(game->raycasting->image, x - 2, 12, box_w + 4, box_h + 4, 0x111111FF);
-    filled = game->player->life;
+    filled = game->player->hp;
     if (filled < 0)
         filled = 0;
     if (filled > LIFE_MAX)

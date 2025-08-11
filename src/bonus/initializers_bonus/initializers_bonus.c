@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/11 17:03:31 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:05:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	init_colors(t_game *game)
 		game->texture->floor_color_hex
 			= convert_rgb_string(game, game->texture->floor_color);
 	game->texture->closed_door = mlx_load_png("assets/map/door_2.png");
-	game->texture->open_door = mlx_load_png("assets/map/door_0.png");
+	// game->texture->open_door = mlx_load_png("assets/map/door_0.png");
 }
 
 static void	init_map_images(t_game *game)
@@ -76,7 +76,7 @@ static void	init_map_images(t_game *game)
 
 int32_t	init_cub3d(t_game *game)
 {
-	game->player->life = LIFE_MAX;
+	game->player->hp = LIFE_MAX;
 	game->mlx = mlx_init(WIDTH, HEIGHT, W_NAME, true);
 	game->image = ft_calloc(1, sizeof(t_image));
 	init_map_images(game);
