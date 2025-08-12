@@ -37,9 +37,9 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/parser_bonus/parser_bonus.c \
 				./src/bonus/parser_bonus/parser_colors_bonus.c \
 				./src/bonus/parser_bonus/parser_map_bonus.c \
-				./src/bonus/parser_bonus/parser_player_bonus.c \
 				./src/bonus/parser_bonus/parser_textures_bonus.c \
 				./src/bonus/parser_bonus/parser_utils_bonus.c \
+				./src/bonus/player_bonus/init_player_bonus.c \
 				./src/bonus/player_bonus/controls_bonus.c \
 				./src/bonus/player_bonus/move_utils_bonus.c \
 				./src/bonus/player_bonus/movement_bonus.c \
