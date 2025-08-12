@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/12 13:54:32 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:15:59 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ typedef struct s_image
 {
 	mlx_image_t		*game_over;
 	mlx_image_t		*game_win;
+	mlx_image_t		*hand;
+	mlx_image_t		*keys_sprite;
+	mlx_image_t		*keys_text;
 	mlx_image_t		*north_wall;
 	mlx_image_t		*south_wall;
 	mlx_image_t		*east_wall;
@@ -135,6 +138,7 @@ typedef struct s_texture
 	mlx_texture_t	*key;
 	mlx_texture_t	*game_over;
 	mlx_texture_t	*game_win;
+	mlx_texture_t	*hand;
 	int				north;
 	int				south;
 	int				east;

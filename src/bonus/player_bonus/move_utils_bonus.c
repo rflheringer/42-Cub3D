@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 14:13:09 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:20:29 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,34 @@ static void	render_potion_and_key(t_game *game)
 	}
 }
 
+static void	draw_hand(t_game *game)
+{
+	if (game->image->hand)
+		mlx_delete_image(game->mlx, game->image->hand);
+	game->texture->hand = mlx_load_png("assets/player/player_hand.png");
+	game->image->hand = mlx_texture_to_image(game->mlx, game->texture->hand);
+	mlx_resize_image(game->image->hand, 450, 200);
+	int instance = mlx_image_to_window(game->mlx, game->image->hand, 650, 696);
+	mlx_set_instance_depth(&game->image->hand->instances[instance], 1);
+}
+
+static void	draw_keys(t_game *game)
+{
+	char	*nb;
+
+	if (game->image->keys_text)
+		mlx_delete_image(game->mlx, game->image->keys_text);
+	if (game->image->keys_sprite)
+		mlx_delete_image(game->mlx, game->image->keys_sprite);
+    nb = ft_itoa(game->player->keys);
+	game->image->keys_sprite = mlx_texture_to_image(game->mlx, game->texture->key);
+	mlx_image_to_window(game->mlx, game->image->keys_sprite, 1536, 830);
+	mlx_set_instance_depth(&game->image->keys_sprite->instances[0], 1);
+    game->image->keys_text = mlx_put_string(game->mlx, nb, 1600, 850);
+	mlx_set_instance_depth(&game->image->keys_text->instances[0], 1);
+    free(nb);
+}
+
 void	handle_movement(void *param)
 {
 	t_game	*game;
@@ -210,6 +238,8 @@ void	handle_movement(void *param)
 	clean_dead_enemies(game);
 	update_minimap(game);
 	draw_life(game);
+	draw_hand(game);
+	draw_keys(game);
 	if (game->player->hp <= 0)
 		game->game_over = 1;
 	if (!game->enemy->list)

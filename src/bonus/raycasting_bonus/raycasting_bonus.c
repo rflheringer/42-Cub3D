@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 11:59:13 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:20:39 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	perform_raycasting(t_game *game)
 		x++;
 	}
 	mlx_image_to_window(game->mlx, game->raycasting->image, 0, 0);
+	mlx_set_instance_depth(&game->raycasting->image->instances[0], 0);
 }
