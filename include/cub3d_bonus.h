@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 18:01:36 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:12:50 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ typedef struct s_map
 
 typedef struct s_image
 {
+	mlx_image_t		*game_over;
+	mlx_image_t		*game_win;
 	mlx_image_t		*north_wall;
 	mlx_image_t		*south_wall;
 	mlx_image_t		*east_wall;
 	mlx_image_t		*west_wall;
-	mlx_image_t		*closed_door;
-	mlx_image_t		*open_door;
 }	t_image;
 
 typedef struct s_texture
@@ -132,6 +132,8 @@ typedef struct s_texture
 	mlx_texture_t	*open_door;
 	mlx_texture_t	*potion;
 	mlx_texture_t	*key;
+	mlx_texture_t	*game_over;
+	mlx_texture_t	*game_win;
 	int				north;
 	int				south;
 	int				east;
@@ -212,19 +214,12 @@ typedef struct s_lightning {
 	double		duration;
 }	t_lightning;
 
-typedef struct s_collectible
-{
-	mlx_image_t	*image;
-	double		pos_x;
-	double		pos_y;
-	int			is_collected;
-}	t_collectible;
-
 typedef struct s_game
 {
 	mlx_t			*mlx;
 	double			delta_time;
 	int				game_over;
+	int				game_win;
 	t_player		*player;
 	t_map			*map;
 	t_door			*door;
@@ -236,7 +231,6 @@ typedef struct s_game
 	t_enemy			*enemy;
 	t_attack		*fireballs;
 	t_lightning		*lightning;
-	t_collectible	*collectible;
 }	t_game;
 
 // Function prototypes //
@@ -312,6 +306,9 @@ double	get_delta_time(void);
 // fire
 void	create_fireball(t_game *game);
 void	update_fireballs(t_game *game);
+
+// update_game
+void	update_game_state(t_game *game);
 
 //life
 void	draw_life(t_game *game);

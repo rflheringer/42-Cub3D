@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 18:51:56 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:13:06 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,16 +185,10 @@ void	handle_movement(void *param)
 
 	game = (t_game *)param;
 	game->delta_time = get_delta_time();
-	if (game->game_over == 1)
-	{
-		// update_game_over(game);
-		game->game_over += 1;
-	}
-	if (game->game_over >= 1)
+	update_game_state(game);
+	if (game->game_over >= 1 || game->game_win >= 1)
 		return ;
 	get_move(game);
-	if (game->raycasting->image)
-		mlx_delete_image(game->mlx, game->raycasting->image);
 	game->player->attack_delay += game->delta_time;
 	perform_raycasting(game);
 	render_potion(game);
@@ -206,4 +200,6 @@ void	handle_movement(void *param)
 	draw_life(game);
 	if (game->player->hp <= 0)
 		game->game_over = 1;
+	if (!game->enemy->list)
+		game->game_win = 1;
 }

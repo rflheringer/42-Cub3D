@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:38:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/08 19:26:10 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:59:13 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	perform_raycasting(t_game *game)
 	if (!game || !game->mlx || !game->raycasting)
 		return ;
 	update_lightning(game);
+	if (game->raycasting->image)
+		mlx_delete_image(game->mlx, game->raycasting->image);
 	game->raycasting->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->raycasting->image)
 		return ;

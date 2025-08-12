@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 16:56:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:15:33 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ static void	key_release(mlx_key_data_t keydata, t_game *game)
 
 static void	key_press(mlx_key_data_t keydata, t_game *game)
 {
-	if (keydata.key == MLX_KEY_ESCAPE)
-		mlx_close_window(game->mlx);
-	else if (keydata.key == MLX_KEY_W)
+	if (keydata.key == MLX_KEY_W)
 		game->player->up = true;
 	else if (keydata.key == MLX_KEY_S)
 		game->player->down = true;
@@ -74,7 +72,7 @@ void	rotate_player_mouse(double xpos, double ypos, void *param)
 
 	(void)ypos;
 	game = (t_game *)param;
-	if (game->game_over)
+	if (game->game_over || game->game_win)
 		return ;
 	original_speed = game->player->rotation_speed;
 	if (xpos < WIDTH * 0.3)
@@ -97,7 +95,9 @@ void	keypress(mlx_key_data_t keydata, void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game->game_over)
+	if (keydata.key == MLX_KEY_ESCAPE)
+		mlx_close_window(game->mlx);
+	if (game->game_over || game->game_win)
 		return ;
 	if (keydata.action == MLX_PRESS && keydata.key == MLX_KEY_F)
 		open_close_door(game);
