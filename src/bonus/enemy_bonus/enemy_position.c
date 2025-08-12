@@ -6,13 +6,13 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 11:38:51 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 15:21:47 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:53:38 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture)
+void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height)
 {
 	double	sprite_x;
 	double	sprite_y;
@@ -94,7 +94,7 @@ void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_tex
 				int d; //256 e 128 fatores para evitar floats
 				d = y * 256 - HEIGHT * 128 + sprite_height * 128;
           		int texY;
-				texY = ((d * texture->height) / sprite_height - 6000) / 256;
+				texY = ((d * texture->height) / sprite_height - less_height) / 256;
 				// Validar bounds da textura
 				if (texY < 0) texY = 0;
 				if (texY >= (int)texture->height) texY = texture->height - 1;

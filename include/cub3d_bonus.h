@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/12 12:12:50 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:54:32 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_player
 {
 	int				p;
 	int				hp;
+	int				keys;
 	char			start_dir;
 	bool			up;
 	bool			down;
@@ -177,9 +178,12 @@ typedef struct s_raycasting
 
 typedef struct s_door
 {
-	double	pos_x;
-	double	pos_y;
+	double			pos_x;
+	double			pos_y;
+	bool			need_key;
+	struct s_door	*next;
 }	t_door;
+
 typedef struct s_enemy_list
 {
 	double				pos_x;
@@ -222,7 +226,7 @@ typedef struct s_game
 	int				game_win;
 	t_player		*player;
 	t_map			*map;
-	t_door			*door;
+	t_door			*doors;
 	t_image			*image;
 	t_texture		*texture;
 	t_raycasting	*raycasting;
@@ -297,8 +301,8 @@ void	update_lightning(t_game *game);
 // enemy_bonus
 void	manage_enemies(t_game *game);
 void	init_bonus_images(t_game *game);
-void	set_enemy(t_game *game, int i, int j);
-void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture);
+void	set_enemy_and_door(t_game *game, int i, int j);
+void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height);
 
 // utils_bonus
 double	get_delta_time(void);
@@ -310,7 +314,10 @@ void	update_fireballs(t_game *game);
 // update_game
 void	update_game_state(t_game *game);
 
-//life
+// life
 void	draw_life(t_game *game);
+
+// door
+void	create_door(t_game *game, int i, int j);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 17:33:18 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:43:24 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	create_enemy(t_game *game, int i, int j)
 {
 	t_enemy_list	*enemy;
 
-	if (game->map->map[i][j] != 'I')
-		shutdown_program(game, EXIT_UNEXPECTED_CHAR);
 	enemy = ft_calloc(1, sizeof(t_enemy_list));
 	enemy->pos_x = j + 0.5;
 	enemy->pos_y = i + 0.5;
@@ -44,9 +42,12 @@ static void	create_enemy(t_game *game, int i, int j)
 	add_enemy_list(game, enemy);
 }
 
-void	set_enemy(t_game *game, int i, int j)
+void	set_enemy_and_door(t_game *game, int i, int j)
 {
+	if (game->map->map[i][j] == 'I')
 		create_enemy(game, i, j);
+	if (game->map->map[i][j] == 'D')
+		create_door(game, i, j);
 }
 
 static void	load_bonus_images(t_game *game, char *base_path, int len)

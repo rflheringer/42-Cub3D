@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 12:13:06 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:53:16 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ bool	right_move(t_game *game)
 				game->player->hp = 10;
 			game->map->map[(int)new_y][(int)new_x] = '0';
 		}
+		if (game->map->map[(int)new_y][(int)new_x] == 'K')
+		{
+			game->player->keys += 1;
+			game->map->map[(int)new_y][(int)new_x] = '0';
+		}
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
@@ -71,6 +76,11 @@ bool	left_move(t_game *game)
 			game->player->hp += 3;
 			if (game->player->hp > 10)
 				game->player->hp = 10;
+			game->map->map[(int)new_y][(int)new_x] = '0';
+		}
+		if (game->map->map[(int)new_y][(int)new_x] == 'K')
+		{
+			game->player->keys += 1;
 			game->map->map[(int)new_y][(int)new_x] = '0';
 		}
 		game->player->old_x = game->player->pos_x;
@@ -158,7 +168,7 @@ static void	clean_dead_fireballs(t_game *game)
 	}
 }
 
-static void	render_potion(t_game *game)
+static void	render_potion_and_key(t_game *game)
 {
 	int	i;
 	int j;
@@ -170,9 +180,9 @@ static void	render_potion(t_game *game)
 		while (game->map->map[i][j])
 		{
 			if (game->map->map[i][j] == 'P')
-				calculate_enemie_position(game, (double)j + 0.5, (double)i + 0.5, game->texture->potion);
+				calculate_enemie_position(game, (double)j + 0.5, (double)i + 0.5, game->texture->potion, 8000);
 			if (game->map->map[i][j] == 'K')
-				calculate_enemie_position(game, (double)j + 0.5, (double)i + 0.5, game->texture->key);
+				calculate_enemie_position(game, (double)j + 0.5, (double)i + 0.5, game->texture->key, 8000);
 			j++;
 		}
 		i++;
@@ -191,7 +201,7 @@ void	handle_movement(void *param)
 	get_move(game);
 	game->player->attack_delay += game->delta_time;
 	perform_raycasting(game);
-	render_potion(game);
+	render_potion_and_key(game);
 	manage_enemies(game);
 	update_fireballs(game);
 	clean_dead_fireballs(game);

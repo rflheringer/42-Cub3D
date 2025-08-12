@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 18:44:15 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:54:02 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,11 +208,11 @@ void	manage_enemies(t_game *game)
 		if (nav->state != DEAD)
 			calculate_sprite_change(game, nav);
 		if (nav->state == ALERT)
-			calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->cur_sprite]);
+			calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->cur_sprite], 6000);
 		else if (nav->state == ATTACK)
-			calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->attack_sprite]);
+			calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->attack_sprite], 6000);
 		else if (nav->state == DYING)
-			calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->dying_sprite]);
+			calculate_enemie_position(game, nav->pos_x, nav->pos_y, game->enemy->skell_texture[nav->dying_sprite], 6000);
 		nav = nav->next;
 	}
 }
