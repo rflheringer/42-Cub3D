@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 15:20:29 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 19:10:02 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,31 @@ static void	clean_dead_fireballs(t_game *game)
 	}
 }
 
+static void	clean_dead_bullets(t_game *game)
+{
+	t_attack	*current;
+	t_attack	*next;
+	t_attack	*prev;
+
+	current = game->bullets;
+	prev = NULL;
+	while (current)
+	{
+		next = current->next;
+		if (current->state == DEAD)
+		{
+			if (prev)
+				prev->next = next;
+			else
+				game->bullets = next;
+			free(current);
+		}
+		else
+			prev = current;
+		current = next;
+	}
+}
+
 static void	render_potion_and_key(t_game *game)
 {
 	int	i;
@@ -219,6 +244,17 @@ static void	draw_keys(t_game *game)
     free(nb);
 }
 
+static void	clean_dead_boss(t_game *game)
+{
+	t_boss	*temp;
+
+	if (game->boss->state != DEAD)
+		return ;
+	temp = game->boss;
+	game->boss = NULL;
+	free(temp);
+}
+
 void	handle_movement(void *param)
 {
 	t_game	*game;
@@ -232,16 +268,25 @@ void	handle_movement(void *param)
 	game->player->attack_delay += game->delta_time;
 	perform_raycasting(game);
 	render_potion_and_key(game);
+	manage_boss(game);
 	manage_enemies(game);
 	update_fireballs(game);
+	update_bullets(game);
+	if (game->boss->hit_player)
+	{
+		game->player->hp -= 2;
+		game->boss->hit_player = false;
+	}
 	clean_dead_fireballs(game);
+	clean_dead_bullets(game);
 	clean_dead_enemies(game);
+	clean_dead_boss(game);
 	update_minimap(game);
 	draw_life(game);
 	draw_hand(game);
 	draw_keys(game);
 	if (game->player->hp <= 0)
 		game->game_over = 1;
-	if (!game->enemy->list)
+	if (!game->boss)
 		game->game_win = 1;
 }

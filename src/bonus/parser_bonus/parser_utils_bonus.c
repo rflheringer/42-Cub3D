@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:45:03 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 17:27:44 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:34:31 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	is_valid_line(char *content)
 	i = 0;
 	while (content[i])
 	{
-		if (!ft_strchr(" 01NSWEIDKP", content[i]))
+		if (!ft_strchr(" 01NSWEIDKPB", content[i]))
 			return (false);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 17:26:53 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:34:26 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	verify_map_separation(char *line, int i)
 		{
 			while (line[i] && line[i] != '\n')
 			{
-				if (!ft_strchr(" 01NSWEIDKP", line[i]))
+				if (!ft_strchr(" 01NSWEIDKPB", line[i]))
 					break ;
 				i++;
 			}

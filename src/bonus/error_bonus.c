@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/04 12:45:27 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:12:04 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	error_messages_plus(short error_code)
 		ft_printf_fd(2, "Error\nInvalid RGB color\n");
 	if (error_code == EXIT_INVALID_MAP)
 		ft_printf_fd(2, "Error\nInvalid map\n");
+	if (error_code == EXIT_TOO_MANY_BOSSES)
+		ft_printf_fd(2, "Error\nMore than one boss found on map");
 	if (error_code == EXIT_INVALID_START_POSITION)
 		ft_printf_fd(2, "Error\nInvalid start position\n");
 }

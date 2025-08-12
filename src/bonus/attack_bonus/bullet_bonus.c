@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fireball_bonus.c                                   :+:      :+:    :+:   */
+/*   bullet_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 19:24:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:53:29 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-static void	calculate_fireball_position(t_game *game, t_attack *fireball)
+static void	calculate_bullet_position(t_game *game, t_attack *bullet)
 {
 	double	sprite_x;
 	double	sprite_y;
@@ -20,18 +20,8 @@ static void	calculate_fireball_position(t_game *game, t_attack *fireball)
 	double	transform_x;
 	double	transform_y;
 
-	sprite_x = fireball->pos_x - game->player->pos_x;
-	sprite_y = fireball->pos_y - game->player->pos_y;
-
-	double distance = sqrt(sprite_x * sprite_x + sprite_y * sprite_y);
-    
-    // Apply visual offset when fireball is too close to player
-    if (distance < 0.4)
-    {
-        double visual_offset = 0.4 - distance;  // More offset when closer
-        sprite_x += fireball->dir_x * visual_offset;
-        sprite_y += fireball->dir_y * visual_offset;
-    }
+	sprite_x = bullet->pos_x - game->player->pos_x;
+	sprite_y = bullet->pos_y - game->player->pos_y;
 
 	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
 			- game->player->player_dir_x * game->player->camera_dir_y);
@@ -84,7 +74,7 @@ static void	calculate_fireball_position(t_game *game, t_attack *fireball)
 	if (draw_end_x >= WIDTH) 
 		draw_end_x = WIDTH - 1;
 	mlx_texture_t *texture;
-	texture = game->player->fireball_textures[fireball->current_frame];
+	texture = game->player->fireball_textures[bullet->current_frame];
 	int stripe;
 	stripe = draw_start_x;
 	while (stripe < draw_end_x)
@@ -127,10 +117,8 @@ static void	calculate_fireball_position(t_game *game, t_attack *fireball)
 	}
 }
 
-static int	fireball_move(t_game *game, double x, double y)
+static int	bullet_move(t_game *game, double x, double y)
 {
-	t_enemy_list	*tmp;
-
 	if (game->map->map[(int)floor(y + 0.1)][(int)floor(x + 0.1)] == '1'
 		|| game->map->map[(int)floor(y + 0.1)][(int)floor(x + 0.1)] == 'D')
 		return (1);
@@ -143,127 +131,68 @@ static int	fireball_move(t_game *game, double x, double y)
 	if (game->map->map[(int)floor(y - 0.1)][(int)floor(x - 0.1)] == '1'
 		|| game->map->map[(int)floor(y - 0.1)][(int)floor(x - 0.1)] == 'D')
 		return (1);
-	tmp = game->enemy->list;
-	while (tmp)
-	{
-		double dx = x - tmp->pos_x;
-		double dy = y - tmp->pos_y;
-		double distance = sqrt(dx * dx + dy * dy);
-		if ((tmp->state == ALERT || tmp->state == ATTACK) && distance < 0.3)
-		{
-			tmp->state = HITED;
-			return (2);
-		}
-		tmp = tmp->next;
-	}
-	double dx = x - game->boss->pos_x;
-	double dy = y - game->boss->pos_y;
+	double dx = x - game->player->pos_x;
+	double dy = y - game->player->pos_y;
 	double distance = sqrt(dx * dx + dy * dy);
-	if ((game->boss->state == ALERT || game->boss->state == ATTACK) && distance < 0.3)
-		return (3);
+	if (distance < 0.3)
+	{
+		game->boss->hit_player = true;
+		return (2);
+	}
 	return (0);
 }
 
-static t_enemy_list	*find_enemy_hited(t_game *game)
+static void	render_wall_hit(t_game *game, t_attack *bullet)
 {
-	t_enemy_list	*nav;
-
-	nav = game->enemy->list;
-	while (nav)
+	bullet->frame_delay += game->delta_time;
+	if (bullet->frame_delay > 0.1)
 	{
-		if (nav->state == HITED)
-			return (nav);
-		nav = nav->next;
-	}
-	return (NULL);
-}
-
-static void	render_wall_hit(t_game *game, t_attack *fireball)
-{
-	fireball->frame_delay += game->delta_time;
-	if (fireball->frame_delay > 0.1)
-	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
-		fireball->frame_delay = 0;
-		if (fireball->current_frame == 0)
+		bullet->current_frame = (bullet->current_frame + 1) % 5;
+		bullet->frame_delay = 0;
+		if (bullet->current_frame == 0)
 		{
-			fireball->state = DEAD;
+			bullet->state = DEAD;
 			return ;
 		}
 	}
-	calculate_fireball_position(game, fireball);
+	calculate_bullet_position(game, bullet);
 }
 
-static void	render_enemy_hit(t_game *game, t_attack *fireball)
+static void	render_player_hit(t_game *game, t_attack *bullet)
 {
-	t_enemy_list	*enemy;
-
-	fireball->frame_delay += game->delta_time;
-	enemy = find_enemy_hited(game);
-	if (enemy)
-		enemy->state = DYING;
-	if (fireball->frame_delay > 0.1)
+	bullet->frame_delay += game->delta_time;
+	if (bullet->frame_delay > 0.05)
 	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
-		fireball->frame_delay = 0;
-		if (fireball->current_frame == 0)
+		bullet->current_frame = (bullet->current_frame + 1) % 5;
+		bullet->frame_delay = 0;
+		if (bullet->current_frame == 0)
 		{
-			fireball->state = DEAD;
+			bullet->state = DEAD;
 			return ;
 		}
 	}
-	calculate_fireball_position(game, fireball);
+	calculate_bullet_position(game, bullet);
 }
 
-static void	render_boss_hit(t_game *game, t_attack *fireball)
+static void	render_bullets(t_game *game, t_attack *bullet)
 {
-	fireball->frame_delay += game->delta_time;
-	if (fireball->frame_delay > 0.1)
-	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
-		fireball->frame_delay = 0;
-		if (fireball->current_frame == 0)
-		{
-			fireball->state = DEAD;
-			return ;
-		}
-	}
-	calculate_fireball_position(game, fireball);
-}
-
-static void	render_fireballs(t_game *game, t_attack *fireball)
-{
-	if (fireball->state == DEAD)
+	if (bullet->state == DEAD)
 		return ;
-	if (fireball->next_tile == 1)
-		render_wall_hit(game, fireball);
-	else if (fireball->next_tile == 2)
-		render_enemy_hit(game, fireball);
-	else if (fireball->next_tile == 3)
-	{
-		render_boss_hit(game, fireball);
-		if (fireball->state == HITED)
-		{
-			fireball->state = DAMAGE;
-			game->boss->hp -= 10;
-		}
-		if (game->boss->hp <= 0 && game->boss->state != DYING)
-		{
-			game->boss->hp = 0;
-			game->boss->state = DYING;
-		}
-	}
-	else if (fireball->state == MOVING)
-		calculate_fireball_position(game, fireball);
+	if (bullet->next_tile == 1)
+		render_wall_hit(game, bullet);
+	else if (bullet->next_tile == 2)
+		render_player_hit(game, bullet);
+	else if (bullet->state == MOVING)
+		calculate_bullet_position(game, bullet);
 }
 
-void	update_fireballs(t_game *game)
+void	update_bullets(t_game *game)
 {
 	double		next_x;
 	double		next_y;
 	t_attack	*nav;
 
-	nav = game->fireballs;
+	nav = game->bullets;
 	while (nav)
 	{
 		nav->move_delay += game->delta_time;
@@ -271,7 +200,7 @@ void	update_fireballs(t_game *game)
 		{
 			next_x = nav->pos_x + nav->dir_x * 0.5;
 			next_y = nav->pos_y + nav->dir_y * 0.5;
-			nav->next_tile = fireball_move(game, next_x, next_y);
+			nav->next_tile = bullet_move(game, next_x, next_y);
 			if (nav->next_tile > 0)
 				nav->state = HITED;
 			else
@@ -280,38 +209,44 @@ void	update_fireballs(t_game *game)
 				nav->pos_y = next_y;
 			}
 		}
-		render_fireballs(game, nav);
+		render_bullets(game, nav);
 		nav = nav->next;
 	}
 }
 
-static void	add_fireball_list(t_game *game, t_attack *fireball)
+static void	add_bullet_list(t_game *game, t_attack *bullet)
 {
 	t_attack	*last;
 
-	if (game->fireballs == NULL)
-		game->fireballs = fireball;
+	if (game->bullets == NULL)
+		game->bullets = bullet;
 	else
 	{
-		last = game->fireballs;
+		last = game->bullets;
 		while (last->next)
 			last = last->next;
-		last->next = fireball;
+		last->next = bullet;
 	}
 }
 
-void	create_fireball(t_game *game)
+void	fire_projectile(t_game *game)
 {
-	t_attack	*fireball;
+	t_attack	*bullet;
+	double		inv_len;
+	double		dx;
+	double		dy;
 
-	fireball = ft_calloc(1, sizeof(t_attack));
-	fireball->pos_x = game->player->pos_x;
-	fireball->pos_y = game->player->pos_y;
-	fireball->dir_x = game->player->player_dir_x;
-	fireball->dir_y = game->player->player_dir_y;
-	fireball->state = MOVING;
-	fireball->move_delay = 0.21;
-	fireball->frame_delay = 0.0;
-	fireball->current_frame = 0;
-	add_fireball_list(game, fireball);
+	bullet = ft_calloc(1, sizeof(t_attack));
+	dx = game->player->pos_x - game->boss->pos_x;
+	dy = game->player->pos_y - game->boss->pos_y;
+	inv_len = 1.0 / game->boss->distance;
+	bullet->pos_x = game->boss->pos_x;
+	bullet->pos_y = game->boss->pos_y;
+	bullet->dir_x = dx * inv_len;
+	bullet->dir_y = dy * inv_len;
+	bullet->state = MOVING;
+	bullet->move_delay = 0.11;
+	bullet->frame_delay = 0.0;
+	bullet->current_frame = 0;
+	add_bullet_list(game, bullet);
 }

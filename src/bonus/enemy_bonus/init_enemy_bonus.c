@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:27:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 13:43:24 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:56:02 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	set_enemy_and_door(t_game *game, int i, int j)
 		create_enemy(game, i, j);
 	if (game->map->map[i][j] == 'D')
 		create_door(game, i, j);
+	if (game->map->map[i][j] == 'B')
+		create_boss(game, i, j);
 }
 
 static void	load_bonus_images(t_game *game, char *base_path, int len)
@@ -66,8 +68,8 @@ static void	load_bonus_images(t_game *game, char *base_path, int len)
 		ft_strlcat(enemy_path, num, sizeof(enemy_path));
 		ft_strlcat(enemy_path, ".png", sizeof(enemy_path));
 		free(num);
-		game->enemy->skell_texture[i] = mlx_load_png(enemy_path);
-		if (!game->enemy->skell_texture[i])
+		game->enemy->enemy_texture[i] = mlx_load_png(enemy_path);
+		if (!game->enemy->enemy_texture[i])
 			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 		i++;
 	}
@@ -96,12 +98,43 @@ static void	load_player_attack(t_game *game, char *base_path, int len)
 	}
 }
 
+static void	load_boss_images(t_game *game, char *path, int len)
+{
+	char	attack_path[100];
+	char	*num;
+	int		i;
+
+	i = 0;
+	game->boss->boss_text = ft_calloc(len, sizeof(mlx_texture_t *));
+	while (i < len)
+	{
+		num = ft_itoa(i);
+		if (!num)
+			shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
+		ft_strlcpy(attack_path, path, sizeof(attack_path));
+		ft_strlcat(attack_path, num, sizeof(attack_path));
+		ft_strlcat(attack_path, ".png", sizeof(attack_path));
+		free(num);
+		game->boss->boss_text[i] = mlx_load_png(attack_path);
+		if (!game->boss->boss_text[i])
+			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+		i++;
+	}
+}
+
 void	init_bonus_images(t_game *game)
 {
 	if (ft_strnstr(game->map->file_name, "sewer", ft_strlen(game->map->file_name)))
+	{
 		load_bonus_images(game, "assets/enemy/sea_dragon/sea_dragon_", 10);
+		
+	}
 	else
+	{
 		load_bonus_images(game, "assets/enemy/skeleton/skeleton_", 10);
+		// load_boss_images(game, "assets/enemy/boss_mage/boss_mage_", 6);
+	}
 	load_player_attack(game, "assets/player/fireball_", 5);
+	load_boss_images(game, "assets/enemy/boss_skeleton/boss_skeleton_", 10);
 	game->enemy->move_speed = 0.15;
 }

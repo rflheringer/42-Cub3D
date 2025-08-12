@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/12 15:15:59 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/12 19:00:12 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define EXIT_INVALID_TEXTURE_PATH 17
 # define EXIT_INVALID_RGB_COLOR 18
 # define EXIT_INVALID_MAP 19
+# define EXIT_TOO_MANY_BOSSES 20
 # define EXIT_INVALID_START_POSITION 21
 
 typedef enum e_state
@@ -51,6 +52,8 @@ typedef enum e_state
 	DYING,
 	DEAD,
 	HITED,
+	IDLE,
+	DAMAGE,
 }	t_state;
 
 typedef struct s_attack
@@ -188,6 +191,26 @@ typedef struct s_door
 	struct s_door	*next;
 }	t_door;
 
+typedef struct	s_boss
+{
+	int			b;
+	int			hp;
+	double		pos_x;
+	double		pos_y;
+	double		distance;
+	t_state		state;
+	int			cur_sprite;
+	int			dying_sprite;
+	int			attack_sprite;
+	bool		hit_player;
+	double		move_speed;
+	double		move_delay;
+	double		attack_delay;
+	double		death_delay;
+	double		frame_delay;
+	mlx_texture_t	**boss_text;
+}	t_boss;
+
 typedef struct s_enemy_list
 {
 	double				pos_x;
@@ -206,7 +229,7 @@ typedef struct s_enemy_list
 
 typedef struct s_enemy
 {
-	mlx_texture_t	*skell_texture[10];
+	mlx_texture_t	*enemy_texture[10];
 	double			move_speed;
 	t_enemy_list	*list;
 	int				texx;
@@ -236,7 +259,9 @@ typedef struct s_game
 	t_raycasting	*raycasting;
 	t_wall			*wall;
 	t_ray			*ray;
+	t_boss			*boss;
 	t_enemy			*enemy;
+	t_attack		*bullets;
 	t_attack		*fireballs;
 	t_lightning		*lightning;
 }	t_game;
@@ -323,5 +348,11 @@ void	draw_life(t_game *game);
 
 // door
 void	create_door(t_game *game, int i, int j);
+
+// init_boss
+void	create_boss(t_game *game, int i, int j);
+void	manage_boss(t_game *game);
+void	fire_projectile(t_game *game);
+void	update_bullets(t_game *game);
 
 #endif
