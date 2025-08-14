@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 15:50:23 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:27:06 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,6 +351,9 @@ void	manage_enemies(t_game *game);
 void	init_bonus_images(t_game *game);
 void	set_enemy_and_door(t_game *game, int i, int j);
 void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height);
+void	sort_enemies(t_game *game, t_enemy_list *nav);
+void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy);
+void	sort_enemies(t_game *game, t_enemy_list *nav);
 
 // minimap_bonus
 void	draw_enemies(t_game *game);

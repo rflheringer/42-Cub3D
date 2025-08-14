@@ -48,10 +48,12 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/raycasting_bonus/init_ray_bonus.c \
 				./src/bonus/raycasting_bonus/raycasting_bonus.c \
 				./src/bonus/raycasting_bonus/raycasting_utils_bonus.c \
-				./src/bonus/enemy_bonus/init_enemy_bonus.c \
-				./src/bonus/enemy_bonus/enemy_move_bonus.c \
+				./src/bonus/enemy_bonus/enemy_images_bonus.c \
+				./src/bonus/enemy_bonus/enemy_init_bonus.c \
+				./src/bonus/enemy_bonus/enemy_manage_bonus.c \
 				./src/bonus/enemy_bonus/enemy_utils_bonus.c \
-				./src/bonus/enemy_bonus/enemy_position.c \
+				./src/bonus/enemy_bonus/enemy_position_bonus.c \
+				./src/bonus/enemy_bonus/enemy_sort_bonus.c \
 				./src/bonus/minimap_bonus/minimap_bonus.c \
 				./src/bonus/minimap_bonus/minimap_utils_bonus.c \
 				./src/bonus/minimap_bonus/draw_fov_bonus.c \
