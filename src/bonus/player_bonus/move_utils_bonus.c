@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 19:10:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:22:25 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,11 +277,11 @@ void	handle_movement(void *param)
 		game->player->hp -= 2;
 		game->boss->hit_player = false;
 	}
+	update_minimap(game);
 	clean_dead_fireballs(game);
 	clean_dead_bullets(game);
 	clean_dead_enemies(game);
 	clean_dead_boss(game);
-	update_minimap(game);
 	draw_life(game);
 	draw_hand(game);
 	draw_keys(game);
