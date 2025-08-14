@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 20:01:55 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:52:10 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,9 +371,11 @@ void	calculate_variables(t_game *game, int len, int scale);
 // utils_bonus
 double	get_delta_time(void);
 
-// fire
+// fireball
 void	create_fireball(t_game *game);
 void	update_fireballs(t_game *game);
+void	render_fireballs(t_game *game, t_attack *fireball);
+void	calculate_fireball_position(t_game *game, t_attack *fireball);
 
 // update_game
 void	update_game_state(t_game *game);
@@ -390,5 +392,9 @@ void	create_boss(t_game *game, int i, int j);
 void	manage_boss(t_game *game);
 void	fire_projectile(t_game *game);
 void	update_bullets(t_game *game);
+void	boss_move(t_game *game, double dx, double dy);
+void	calculate_boss_position(t_game *game, double pos_x, double pos_y,
+			mlx_texture_t *texture, int less_height);
+void	calculate_bullet_position(t_game *game, t_attack *bullet);
 
 #endif

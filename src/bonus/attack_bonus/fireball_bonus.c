@@ -6,13 +6,13 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 19:24:01 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:50:44 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-static void	calculate_fireball_position(t_game *game, t_attack *fireball)
+void	calculate_fireball_position(t_game *game, t_attack *fireball)
 {
 	double	sprite_x;
 	double	sprite_y;
@@ -124,164 +124,6 @@ static void	calculate_fireball_position(t_game *game, t_attack *fireball)
 			}
 		}
 		stripe++;
-	}
-}
-
-static int	fireball_move(t_game *game, double x, double y)
-{
-	t_enemy_list	*tmp;
-
-	if (game->map->map[(int)floor(y + 0.1)][(int)floor(x + 0.1)] == '1'
-		|| game->map->map[(int)floor(y + 0.1)][(int)floor(x + 0.1)] == 'D')
-		return (1);
-	if (game->map->map[(int)floor(y + 0.1)][(int)floor(x - 0.1)] == '1'
-		|| game->map->map[(int)floor(y + 0.1)][(int)floor(x - 0.1)] == 'D')
-		return (1);
-	if (game->map->map[(int)floor(y - 0.1)][(int)floor(x + 0.1)] == '1'
-		|| game->map->map[(int)floor(y - 0.1)][(int)floor(x + 0.1)] == 'D')
-		return (1);
-	if (game->map->map[(int)floor(y - 0.1)][(int)floor(x - 0.1)] == '1'
-		|| game->map->map[(int)floor(y - 0.1)][(int)floor(x - 0.1)] == 'D')
-		return (1);
-	tmp = game->enemy->list;
-	while (tmp)
-	{
-		double dx = x - tmp->pos_x;
-		double dy = y - tmp->pos_y;
-		double distance = sqrt(dx * dx + dy * dy);
-		if ((tmp->state == ALERT || tmp->state == ATTACK) && distance < 0.3)
-		{
-			tmp->state = HITED;
-			return (2);
-		}
-		tmp = tmp->next;
-	}
-	double dx = x - game->boss->pos_x;
-	double dy = y - game->boss->pos_y;
-	double distance = sqrt(dx * dx + dy * dy);
-	if ((game->boss->state == ALERT || game->boss->state == ATTACK) && distance < 0.3)
-		return (3);
-	return (0);
-}
-
-static t_enemy_list	*find_enemy_hited(t_game *game)
-{
-	t_enemy_list	*nav;
-
-	nav = game->enemy->list;
-	while (nav)
-	{
-		if (nav->state == HITED)
-			return (nav);
-		nav = nav->next;
-	}
-	return (NULL);
-}
-
-static void	render_wall_hit(t_game *game, t_attack *fireball)
-{
-	fireball->frame_delay += game->delta_time;
-	if (fireball->frame_delay > 0.1)
-	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
-		fireball->frame_delay = 0;
-		if (fireball->current_frame == 0)
-		{
-			fireball->state = DEAD;
-			return ;
-		}
-	}
-	calculate_fireball_position(game, fireball);
-}
-
-static void	render_enemy_hit(t_game *game, t_attack *fireball)
-{
-	t_enemy_list	*enemy;
-
-	fireball->frame_delay += game->delta_time;
-	enemy = find_enemy_hited(game);
-	if (enemy)
-		enemy->state = DYING;
-	if (fireball->frame_delay > 0.1)
-	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
-		fireball->frame_delay = 0;
-		if (fireball->current_frame == 0)
-		{
-			fireball->state = DEAD;
-			return ;
-		}
-	}
-	calculate_fireball_position(game, fireball);
-}
-
-static void	render_boss_hit(t_game *game, t_attack *fireball)
-{
-	fireball->frame_delay += game->delta_time;
-	if (fireball->frame_delay > 0.1)
-	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
-		fireball->frame_delay = 0;
-		if (fireball->current_frame == 0)
-		{
-			fireball->state = DEAD;
-			return ;
-		}
-	}
-	calculate_fireball_position(game, fireball);
-}
-
-static void	render_fireballs(t_game *game, t_attack *fireball)
-{
-	if (fireball->state == DEAD)
-		return ;
-	if (fireball->next_tile == 1)
-		render_wall_hit(game, fireball);
-	else if (fireball->next_tile == 2)
-		render_enemy_hit(game, fireball);
-	else if (fireball->next_tile == 3)
-	{
-		render_boss_hit(game, fireball);
-		if (fireball->state == HITED)
-		{
-			fireball->state = DAMAGE;
-			game->boss->hp -= 10;
-		}
-		if (game->boss->hp <= 0 && game->boss->state != DYING)
-		{
-			game->boss->hp = 0;
-			game->boss->state = DYING;
-		}
-	}
-	else if (fireball->state == MOVING)
-		calculate_fireball_position(game, fireball);
-}
-
-void	update_fireballs(t_game *game)
-{
-	double		next_x;
-	double		next_y;
-	t_attack	*nav;
-
-	nav = game->fireballs;
-	while (nav)
-	{
-		nav->move_delay += game->delta_time;
-		if (nav->state == MOVING && nav->move_delay > 0.2)
-		{
-			next_x = nav->pos_x + nav->dir_x * 0.5;
-			next_y = nav->pos_y + nav->dir_y * 0.5;
-			nav->next_tile = fireball_move(game, next_x, next_y);
-			if (nav->next_tile > 0)
-				nav->state = HITED;
-			else
-			{
-				nav->pos_x = next_x;
-				nav->pos_y = next_y;
-			}
-		}
-		render_fireballs(game, nav);
-		nav = nav->next;
 	}
 }
 
