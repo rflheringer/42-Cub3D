@@ -52,6 +52,7 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/enemy_bonus/enemy_init_bonus.c \
 				./src/bonus/enemy_bonus/enemy_manage_bonus.c \
 				./src/bonus/enemy_bonus/enemy_utils_bonus.c \
+				./src/bonus/enemy_bonus/enemy_move_bonus.c \
 				./src/bonus/enemy_bonus/enemy_position_bonus.c \
 				./src/bonus/enemy_bonus/enemy_sort_bonus.c \
 				./src/bonus/minimap_bonus/minimap_bonus.c \

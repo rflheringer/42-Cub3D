@@ -6,90 +6,11 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 11:38:51 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 18:25:02 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:45:38 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
-
-static bool	can_enemy_move_to(t_game *game, double x, double y, t_enemy_list *current_enemy)
-{
-	t_enemy_list	*tmp;
-
-	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == '1'
-		|| game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == 'D')
-		return (false);
-	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x - 0.2)] == '1'
-		|| game->map->map[(int)floor(y + 0.2)][(int)floor(x - 0.2)] == 'D')
-		return (false);
-	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x + 0.2)] == '1'
-		|| game->map->map[(int)floor(y - 0.2)][(int)floor(x + 0.2)] == 'D')
-		return (false);
-	if (game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == '1'
-		|| game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == 'D')
-		return (false);
-	tmp = game->enemy->list;
-	while (tmp)
-	{
-		if (tmp != current_enemy)
-		{
-			double dx = x - tmp->pos_x;
-			double dy = y - tmp->pos_y;
-			double distance = sqrt(dx * dx + dy * dy);
-			if (distance < 0.6)
-				return (false);
-		}
-		tmp = tmp->next;
-	}
-	return (true);
-}
-
-void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
-{
-	double	inv_len;
-	double	dirx;
-	double	diry;
-	double	next_x;
-	double	next_y;
-
-	inv_len = 1.0 / enemy->distance;
-	dirx = dx * inv_len;
-	diry = dy * inv_len;
-	next_x = enemy->pos_x + dirx * game->enemy->move_speed;
-	next_y = enemy->pos_y + diry * game->enemy->move_speed;
-	
-	// Tentar movimento direto primeiro
-	if (can_enemy_move_to(game, next_x, next_y, enemy))
-	{
-		enemy->pos_x = next_x;
-		enemy->pos_y = next_y;
-		enemy->move_delay = 0;  // Reset delay quando consegue se mover
-		return ;
-	}
-
-	// Se não conseguir ir direto, tentar movimento perpendicular (contorno)
-	double alt_x1 = enemy->pos_x + diry * game->enemy->move_speed;
-	double alt_y1 = enemy->pos_y - dirx * game->enemy->move_speed;
-	if (can_enemy_move_to(game, alt_x1, alt_y1, enemy))
-	{
-		enemy->pos_x = alt_x1;
-		enemy->pos_y = alt_y1;
-		enemy->move_delay = 0;  // Reset delay quando consegue se mover
-		return ;
-	}
-	
-	// Tentar movimento perpendicular no sentido oposto
-	double alt_x2 = enemy->pos_x - diry * game->enemy->move_speed;
-	double alt_y2 = enemy->pos_y + dirx * game->enemy->move_speed;
-	if (can_enemy_move_to(game, alt_x2, alt_y2, enemy))
-	{
-		enemy->pos_x = alt_x2;
-		enemy->pos_y = alt_y2;
-		enemy->move_delay = 0;  // Reset delay quando consegue se mover
-	}
-	// Se chegou aqui, não conseguiu se mover em nenhuma direção
-	// O move_delay continua acumulando, evitando tentativas muito frequentes
-}
 
 void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height)
 {
