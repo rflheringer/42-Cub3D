@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:18:49 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 17:18:46 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:42:42 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,10 @@
 #define HEART_W 11
 #define HEART_H 9
 
-static const uint8_t	g_heart_mask[HEART_H][HEART_W] = 
-{
-	{0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
-	{0 ,1 ,1 ,1 ,1 ,0 ,1 ,1 ,1 ,1 ,0},
-	{1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1},
-	{0 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,0},
-	{0 ,0 ,1 ,1 ,1 ,1 ,1 ,1 ,1 ,0 ,0},
-	{0 ,0 ,0 ,1 ,1 ,1 ,1 ,1 ,0 ,0 ,0},
-	{0 ,0 ,0 ,0 ,1 ,1 ,1 ,0 ,0 ,0 ,0},
-	{0 ,0 ,0 ,0 ,0 ,1 ,0 ,0 ,0 ,0 ,0},
-	{0 ,0 ,0 ,0 ,0 ,1 ,0 ,0 ,0 ,0 ,0}
-};
-
 static void	put_rect(mlx_image_t *img, int x, int y, int w, int h, uint32_t c)
 {
-	int	i;
-	int	j;
+	int				i;
+	int				j;
 
 	if (!img || w <= 0 || h <= 0)
 		return ;
@@ -51,7 +38,7 @@ static void	put_rect(mlx_image_t *img, int x, int y, int w, int h, uint32_t c)
 	}
 }
 
-static int	has_fill_neighbor(int i, int j)
+static int	has_fill_neighbor(int i, int j, uint8_t heart_mask[HEART_H][HEART_W])
 {
 	int	delta_i;
 	int	delta_j;
@@ -70,7 +57,7 @@ static int	has_fill_neighbor(int i, int j)
 				jj = j + delta_j;
 				if (ii >= 0 && ii < HEART_W && jj >= 0 && jj < HEART_H)
 				{
-					if (g_heart_mask[jj][ii] == 1)
+					if (heart_mask[jj][ii] == 1)
 						return (1);
 				}
 			}
@@ -81,10 +68,21 @@ static int	has_fill_neighbor(int i, int j)
 
 static void	draw_heart_icon(mlx_image_t *img, int x, int y, int s, int filled)
 {
-	int	i;
-	int	j;
-	int	cx;
-	int	cy;
+	int				i;
+	int				j;
+	int				cx;
+	int				cy;
+	static uint8_t	heart_mask[HEART_H][HEART_W] = {
+	{0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+	{0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+	{0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+	{0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0},
+	{0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}
+	};
 
 	j = 0;
 	while (j < HEART_H)
@@ -92,7 +90,7 @@ static void	draw_heart_icon(mlx_image_t *img, int x, int y, int s, int filled)
 		i = 0;
 		while (i < HEART_W)
 		{
-			if (g_heart_mask[j][i] == 0 && has_fill_neighbor(i, j))
+			if (heart_mask[j][i] == 0 && has_fill_neighbor(i, j, heart_mask))
 			{
 				if (!(j == 0 && (i == 0 || i == 5 || i == HEART_W - 1)))
 				{
@@ -113,7 +111,7 @@ static void	draw_heart_icon(mlx_image_t *img, int x, int y, int s, int filled)
 			i = 0;
 			while (i < HEART_W)
 			{
-				if (g_heart_mask[j][i] == 1)
+				if (heart_mask[j][i] == 1)
 				{
 					cx = x + i * s;
 					cy = y + j * s;
