@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 17:24:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:20:35 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	calculate_bullet_position(t_game *game, t_attack *bullet)
 	int	floor_draw_end;
 	floor_draw_end = (HEIGHT / 2 + floor_height / 2);
 	double	scale_factor;
-	scale_factor = 0.7;
+	scale_factor = 1.5;
 	sprite_height = (int)(sprite_height * scale_factor);
 	int	draw_end_y;
 	draw_end_y = floor_draw_end;
@@ -65,7 +65,7 @@ static void	calculate_bullet_position(t_game *game, t_attack *bullet)
 	if (draw_end_x >= WIDTH) 
 		draw_end_x = WIDTH - 1;
 	mlx_texture_t *texture;
-	texture = game->player->fireball_textures[bullet->current_frame];
+	texture = game->boss->bullet_textures[bullet->current_frame];
 	int	stripe;
 	stripe = draw_start_x;
 	while (stripe < draw_end_x)
@@ -86,7 +86,7 @@ static void	calculate_bullet_position(t_game *game, t_attack *bullet)
 				int	d;
 				d = y * 256 - HEIGHT * 128 + sprite_height * 128;
           		int	texY;
-				texY = ((d * texture->height) / sprite_height) / 256;
+				texY = ((d * texture->height) / sprite_height - 2000) / 256;
 				if (texY < 0) texY = 0;
 				if (texY >= (int)texture->height) texY = texture->height - 1;
 				uint8_t *pixel;
@@ -105,9 +105,13 @@ static void	calculate_bullet_position(t_game *game, t_attack *bullet)
 
 static int	bullet_move(t_game *game, double x, double y)
 {
-	double dx = x - game->player->pos_x;
-	double dy = y - game->player->pos_y;
-	double distance = sqrt(dx * dx + dy * dy);
+	double	dx;
+	double	dy;
+	double	distance;
+
+	dx = x - game->player->pos_x;
+	dy = y - game->player->pos_y;
+	distance = sqrt(dx * dx + dy * dy);
 	if (distance < 0.3)
 	{
 		game->boss->hit_player = true;
@@ -133,7 +137,7 @@ static void	render_wall_hit(t_game *game, t_attack *bullet)
 	bullet->frame_delay += game->delta_time;
 	if (bullet->frame_delay > 0.1)
 	{
-		bullet->current_frame = (bullet->current_frame + 1) % 5;
+		bullet->current_frame = (bullet->current_frame + 1) % 4;
 		bullet->frame_delay = 0;
 		if (bullet->current_frame == 0)
 		{
@@ -149,7 +153,7 @@ static void	render_player_hit(t_game *game, t_attack *bullet)
 	bullet->frame_delay += game->delta_time;
 	if (bullet->frame_delay > 0.05)
 	{
-		bullet->current_frame = (bullet->current_frame + 1) % 5;
+		bullet->current_frame = (bullet->current_frame + 1) % 4;
 		bullet->frame_delay = 0;
 		if (bullet->current_frame == 0)
 		{

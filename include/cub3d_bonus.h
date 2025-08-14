@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 18:27:06 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:01:55 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct s_fov
 	int	maxx;
 	int	miny;
 	int	maxy;
-} 	t_fov;
+}	t_fov;
 
 typedef struct s_image
 {
@@ -211,24 +211,25 @@ typedef struct s_door
 	struct s_door	*next;
 }	t_door;
 
-typedef struct	s_boss
+typedef struct s_boss
 {
-	int			b;
-	int			hp;
-	double		pos_x;
-	double		pos_y;
-	double		distance;
-	t_state		state;
-	int			cur_sprite;
-	int			dying_sprite;
-	int			attack_sprite;
-	bool		hit_player;
-	double		move_speed;
-	double		move_delay;
-	double		attack_delay;
-	double		death_delay;
-	double		frame_delay;
-	mlx_texture_t	**boss_text;
+	int				b;
+	int				hp;
+	double			pos_x;
+	double			pos_y;
+	double			distance;
+	t_state			state;
+	int				cur_sprite;
+	int				dying_sprite;
+	int				attack_sprite;
+	bool			hit_player;
+	double			move_speed;
+	double			move_delay;
+	double			attack_delay;
+	double			death_delay;
+	double			frame_delay;
+	mlx_texture_t	*boss_text[10];
+	mlx_texture_t	*bullet_textures[4];
 }	t_boss;
 
 typedef struct s_enemy_list
@@ -323,12 +324,16 @@ int32_t	init_cub3d(t_game *game);
 bool	rot_left(t_game *game);
 bool	rot_right(t_game *game);
 void	get_move(t_game *game);
+void	call_clean_and_draw_functions(t_game *game);
+void	draw_hand(t_game *game);
+void	draw_keys(t_game *game);
+void	check_key_and_potion(t_game *game, int x, int y);
 
 // movement utils
 bool	left_move(t_game *game);
 bool	right_move(t_game *game);
 void	handle_movement(void *param);
-bool	can_move_to(char **map, double x, double y, t_enemy_list *enemy_list);
+bool	can_move_to(t_game *game, double x, double y, t_enemy_list *enemy_list);
 
 // raycasting
 void	perform_raycasting(t_game *game);
@@ -378,6 +383,7 @@ void	draw_life(t_game *game);
 
 // door
 void	create_door(t_game *game, int i, int j);
+void	can_open_or_close_door(t_game *game);
 
 // boss_bonus
 void	create_boss(t_game *game, int i, int j);

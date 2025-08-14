@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_boss_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:27:59 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 17:09:02 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:22:27 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	calculate_boss_position(t_game *game, double pos_x, double pos_y,
 	int	floor_draw_end;
 	floor_draw_end = (HEIGHT / 2 + floor_height / 2);
 	double	scale_factor;
-	scale_factor = 1.0;
+	scale_factor = 1.4;
 	sprite_height = (int)(sprite_height * scale_factor);
 	int	draw_end_y;
 	draw_end_y = floor_draw_end;
@@ -118,7 +118,6 @@ void	create_boss(t_game *game, int i, int j)
 	game->boss->attack_sprite = 3;
 	game->boss->dying_sprite = 7;
 	game->boss->move_speed = 0.2;
-	game->boss->boss_text = NULL;
 	game->boss->hit_player = false;
 }
 
@@ -270,18 +269,18 @@ static void	calculate_sprite_change(t_game *game)
 
 void	manage_boss(t_game *game)
 {
-	if (game->boss == NULL || game->boss->boss_text == NULL)
+	if (game->boss == NULL || !game->boss->boss_text[0])
 		return ;
 	calculate_distance_to_player(game);
 	if (game->boss->state != DEAD)
 		calculate_sprite_change(game);
 	if (game->boss->state == ALERT)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
-			game->boss->boss_text[game->boss->cur_sprite], 6500);
+			game->boss->boss_text[game->boss->cur_sprite], 2500);
 	else if (game->boss->state == ATTACK)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
-			game->boss->boss_text[game->boss->attack_sprite], 6500);
+			game->boss->boss_text[game->boss->attack_sprite], 2500);
 	else if (game->boss->state == DYING)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
-			game->boss->boss_text[game->boss->dying_sprite], 6500);
+			game->boss->boss_text[game->boss->dying_sprite], 2500);
 }

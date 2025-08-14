@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:14:11 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 18:15:15 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:02:33 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	load_boss_images(t_game *game, char *path, int len)
 	int		i;
 
 	i = 0;
-	game->boss->boss_text = ft_calloc(len, sizeof(mlx_texture_t *));
 	while (i < len)
 	{
 		num = ft_itoa(i);
@@ -77,6 +76,29 @@ static void	load_boss_images(t_game *game, char *path, int len)
 		free(num);
 		game->boss->boss_text[i] = mlx_load_png(attack_path);
 		if (!game->boss->boss_text[i])
+			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+		i++;
+	}
+}
+
+static void	load_boss_attack(t_game *game, char *path, int len)
+{
+	char	attack_path[100];
+	char	*num;
+	int		i;
+
+	i = 0;
+	while (i < len)
+	{
+		num = ft_itoa(i);
+		if (!num)
+			shutdown_program(game, EXIT_ERROR_MEMORY_ALLOCATION);
+		ft_strlcpy(attack_path, path, sizeof(attack_path));
+		ft_strlcat(attack_path, num, sizeof(attack_path));
+		ft_strlcat(attack_path, ".png", sizeof(attack_path));
+		free(num);
+		game->boss->bullet_textures[i] = mlx_load_png(attack_path);
+		if (!game->boss->bullet_textures[i])
 			shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 		i++;
 	}
@@ -94,6 +116,7 @@ void	init_bonus_images(t_game *game)
 		load_bonus_images(game, "assets/enemy/skeleton/skeleton_", 10);
 	}
 	load_player_attack(game, "assets/player/fireball_", 5);
+	load_boss_attack(game, "assets/enemy/boss_attack/boss_attack_", 4);
 	load_boss_images(game, "assets/enemy/boss_skeleton/boss_skeleton_", 10);
 	game->enemy->move_speed = 0.15;
 }

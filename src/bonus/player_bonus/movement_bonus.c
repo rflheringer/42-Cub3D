@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 14:45:01 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:02:44 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,9 @@ static bool	up_move(t_game *game)
 			* game->player->move_speed);
 	new_y = game->player->pos_y + (game->player->player_dir_y
 			* game->player->move_speed);
-	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
+	if (can_move_to(game, new_x, new_y, game->enemy->list))
 	{
-		if (game->map->map[(int)new_y][(int)new_x] == 'P')
-		{
-			game->player->hp += 3;
-			if (game->player->hp > 10)
-				game->player->hp = 10;
-			game->map->map[(int)new_y][(int)new_x] = '0';
-		}
-		if (game->map->map[(int)new_y][(int)new_x] == 'K')
-		{
-			game->player->keys += 1;
-			game->map->map[(int)new_y][(int)new_x] = '0';
-		}
+		check_key_and_potion(game, new_x, new_y);
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
@@ -53,20 +42,9 @@ static bool	down_move(t_game *game)
 		* game->player->move_speed;
 	new_y = game->player->pos_y - game->player->player_dir_y
 		* game->player->move_speed;
-	if (can_move_to(game->map->map, new_x, new_y, game->enemy->list))
+	if (can_move_to(game, new_x, new_y, game->enemy->list))
 	{
-		if (game->map->map[(int)new_y][(int)new_x] == 'P')
-		{
-			game->player->hp += 3;
-			if (game->player->hp > 10)
-				game->player->hp = 10;
-			game->map->map[(int)new_y][(int)new_x] = '0';
-		}
-		if (game->map->map[(int)new_y][(int)new_x] == 'K')
-		{
-			game->player->keys += 1;
-			game->map->map[(int)new_y][(int)new_x] = '0';
-		}
+		check_key_and_potion(game, new_x, new_y);
 		game->player->old_x = game->player->pos_x;
 		game->player->old_y = game->player->pos_y;
 		game->player->pos_x = new_x;
