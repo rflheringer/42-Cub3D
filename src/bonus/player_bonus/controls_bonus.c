@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/12 13:52:46 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:10:26 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,35 +87,37 @@ static t_door	*find_the_door(t_game *game, double check_x, double check_y)
 static void	open_close_door(t_game *game)
 {
 	t_door	*door;
-	int		check_x;
-	int		check_y;
-	double	distance = 1.0;
+	int		chc_x;
+	int		chc_y;
+	double	dist;
 
+	dist = 1.0;
 	if (!game->doors)
 		return ;
-	check_x = (int)floor(game->player->pos_x
-				+ game->player->player_dir_x * distance);
-	check_y = (int)floor(game->player->pos_y
-				+ game->player->player_dir_y * distance);
-	if (check_x < 0 || check_y < 0 || check_y >= game->map->height)
-		return;
-	if (!game->map->map[check_y]
-		|| check_x >= (int)ft_strlen(game->map->map[check_y]))
-		return;
-	door = find_the_door(game, check_x, check_y);
+	chc_x = (int)floor(game->player->pos_x
+			+ game->player->player_dir_x * dist);
+	chc_y = (int)floor(game->player->pos_y
+			+ game->player->player_dir_y * dist);
+	if (chc_x < 0 || chc_y < 0 || chc_y >= game->map->height)
+		return ;
+	if (!game->map->map[chc_y]
+		|| chc_x >= (int)ft_strlen(game->map->map[chc_y]))
+		return ;
+	door = find_the_door(game, chc_x, chc_y);
 	if (!door)
 		return ;
-	if (game->map->map[check_y][check_x] == 'D' && door->need_key && game->player->keys)
+	if (game->map->map[chc_y][chc_x] == 'D'
+			&& door->need_key && game->player->keys)
 	{
 		if (game->player->keys)
 			game->player->keys -= 1;
 		door->need_key = false;
-		game->map->map[check_y][check_x] = 'O';
+		game->map->map[chc_y][chc_x] = 'O';
 	}
-	else if (game->map->map[check_y][check_x] == 'D' && !door->need_key)
-		game->map->map[check_y][check_x] = 'O';
-	else if (game->map->map[check_y][check_x] == 'O')
-		game->map->map[check_y][check_x] = 'D';
+	else if (game->map->map[chc_y][chc_x] == 'D' && !door->need_key)
+		game->map->map[chc_y][chc_x] = 'O';
+	else if (game->map->map[chc_y][chc_x] == 'O')
+		game->map->map[chc_y][chc_x] = 'D';
 }
 
 void	rotate_player_mouse(double xpos, double ypos, void *param)
