@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_boss_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:27:59 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 19:21:32 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:09:02 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
 
-void	calculate_boss_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height)
+void	calculate_boss_position(t_game *game, double pos_x, double pos_y,
+		mlx_texture_t *texture, int less_height)
 {
 	double	sprite_x;
 	double	sprite_y;
@@ -28,44 +29,36 @@ void	calculate_boss_position(t_game *game, double pos_x, double pos_y, mlx_textu
 			- game->player->player_dir_x * sprite_y);
 	transform_y = inv_det * (-game->player->camera_dir_y * sprite_x
 			+ game->player->camera_dir_x * sprite_y);
-	// Se está atrás da câmera, não renderizar
 	if (transform_y <= 0)
 		return ;
-	// CORREÇÃO: sprite_screen_x sem multiplicação extra
-	int sprite_screen_x;
+	int	sprite_screen_x;
 	sprite_screen_x = (int)((WIDTH / 2) * (1 + transform_x / transform_y));
-	// CORREÇÃO: usar HEIGHT para manter proporção
-	int sprite_height;
+	int	sprite_height;
 	sprite_height = (int)fabs(HEIGHT / transform_y);
-	double dist_proj_plane;
+	double	dist_proj_plane;
 	dist_proj_plane =  (WIDTH / 2.0) / tan(FOV / 2.0);
-	int floor_height;
+	int	floor_height;
 	floor_height = (int)((1.0 / transform_y) * dist_proj_plane);
-	int floor_draw_end;
+	int	floor_draw_end;
 	floor_draw_end = (HEIGHT / 2 + floor_height / 2);
-	// Fator de escala para diminuir o tamanho do sprite (0.7 = 70% do tamanho original)
-	double scale_factor;
+	double	scale_factor;
 	scale_factor = 1.0;
 	sprite_height = (int)(sprite_height * scale_factor);
-	// Calcular onde o chão aparece na perspectiva (mesma lógica das paredes)
-	// Sprite "em pé" no chão - base toca onde o chão seria desenhado
-	// int draw_end_y = sprite_height / 2 + HEIGHT / 2;
-	int draw_end_y;
+	int	draw_end_y;
 	draw_end_y = floor_draw_end;
 	int drawStartY;
 	drawStartY = (-sprite_height / 2 + HEIGHT / 2);
-	if (drawStartY < 0) 
+	if (drawStartY < 0)
 		drawStartY = 0;
-	if (draw_end_y >= HEIGHT) 
+	if (draw_end_y >= HEIGHT)
 		draw_end_y = HEIGHT - 1;
-	// Calcular largura e posições X
 	int sprite_width;
 	sprite_width = (int)fabs(HEIGHT / transform_y);
-	sprite_width = (int)(sprite_width * scale_factor); // Aplicar mesmo fator de escala
+	sprite_width = (int)(sprite_width * scale_factor);
 	int draw_start_x;
 	draw_start_x = -sprite_width / 2 + sprite_screen_x;
 	int originaldraw_start_x;
-	originaldraw_start_x = draw_start_x; // Guardar posição original para texX
+	originaldraw_start_x = draw_start_x;
 	if (draw_start_x < 0) 
 		draw_start_x = 0;
 	int draw_end_x;
@@ -76,7 +69,6 @@ void	calculate_boss_position(t_game *game, double pos_x, double pos_y, mlx_textu
 	stripe = draw_start_x;
 	while (stripe < draw_end_x)
 	{
-		// Cálculo de texX como no Lode - usando posição original
 		int texX;
 		texX = (int)(256 * (stripe - originaldraw_start_x)
 			* texture->width / sprite_width) / 256;
@@ -90,21 +82,21 @@ void	calculate_boss_position(t_game *game, double pos_x, double pos_y, mlx_textu
 			y = drawStartY;
 			while (y < draw_end_y)
 			{
-				// Cálculo de texY como no Lode para evitar floats
-				int d; //256 e 128 fatores para evitar floats
+				int d;
 				d = y * 256 - HEIGHT * 128 + sprite_height * 128;
           		int texY;
-				texY = ((d * texture->height) / sprite_height - less_height) / 256;
-				// Validar bounds da textura
-				if (texY < 0) texY = 0;
-				if (texY >= (int)texture->height) texY = texture->height - 1;
-				
+				texY = ((d * texture->height) / sprite_height
+					- less_height) / 256;
+				if (texY < 0)
+					texY = 0;
+				if (texY >= (int)texture->height)
+					texY = texture->height - 1;
 				uint8_t *pixel;
 				pixel = &texture->pixels[(texture->width * texY + texX)
 						* texture->bytes_per_pixel];
 				uint32_t color;
-				color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
-				// Verificar transparência (assumindo que alpha = 0 é transparente)
+				color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2]
+					<< 8) | pixel[3];
 				if (pixel[3] > 0)
 					mlx_put_pixel(game->raycasting->image, stripe, y, color);
 				y++;
@@ -130,10 +122,32 @@ void	create_boss(t_game *game, int i, int j)
 	game->boss->hit_player = false;
 }
 
+static bool	can_boss_move_utils(t_enemy_list *tmp, int x, int y)
+{
+	double			dx;
+	double			dy;
+	double			distance;
+
+	while (tmp)
+	{
+		dx = x - tmp->pos_x;
+		dy = y - tmp->pos_y;
+		distance = sqrt(dx * dx + dy * dy);
+		if (distance < 1)
+			return (false);
+		tmp = tmp->next;
+	}
+	return (true);
+}
+
 static bool	can_boss_move_to(t_game *game, double x, double y)
 {
 	t_enemy_list	*tmp;
+	double			x_r;
+	double			y_r;
 
+	x_r = x;
+	y_r = y;
 	if (game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == '1'
 		|| game->map->map[(int)floor(y + 0.2)][(int)floor(x + 0.2)] == 'D')
 		return (false);
@@ -147,15 +161,7 @@ static bool	can_boss_move_to(t_game *game, double x, double y)
 		|| game->map->map[(int)floor(y - 0.2)][(int)floor(x - 0.2)] == 'D')
 		return (false);
 	tmp = game->enemy->list;
-	while (tmp)
-	{
-		double dx = x - tmp->pos_x;
-		double dy = y - tmp->pos_y;
-		double distance = sqrt(dx * dx + dy * dy);
-		if (distance < 1)
-			return (false);
-		tmp = tmp->next;
-	}
+	can_boss_move_utils(tmp, x_r, y_r);
 	return (true);
 }
 
@@ -172,38 +178,34 @@ static void	boss_move(t_game *game, double dx, double dy)
 	diry = dy * inv_len;
 	next_x = game->boss->pos_x + dirx * game->boss->move_speed;
 	next_y = game->boss->pos_y + diry * game->boss->move_speed;
-	
-	// Tentar movimento direto primeiro
 	if (can_boss_move_to(game, next_x, next_y))
 	{
 		game->boss->pos_x = next_x;
 		game->boss->pos_y = next_y;
-		game->boss->move_delay = 0;  // Reset delay quando consegue se mover
+		game->boss->move_delay = 0;
 		return ;
 	}
-
-	// Se não conseguir ir direto, tentar movimento perpendicular (contorno)
-	double alt_x1 = game->boss->pos_x + diry * game->boss->move_speed;
-	double alt_y1 = game->boss->pos_y - dirx * game->boss->move_speed;
+	double	alt_x1;
+	alt_x1 = game->boss->pos_x + diry * game->boss->move_speed;
+	double	alt_y1;
+	alt_y1 = game->boss->pos_y - dirx * game->boss->move_speed;
 	if (can_boss_move_to(game, alt_x1, alt_y1))
 	{
 		game->boss->pos_x = alt_x1;
 		game->boss->pos_y = alt_y1;
-		game->boss->move_delay = 0;  // Reset delay quando consegue se mover
+		game->boss->move_delay = 0;
 		return ;
 	}
-	
-	// Tentar movimento perpendicular no sentido oposto
-	double alt_x2 = game->boss->pos_x - diry * game->boss->move_speed;
-	double alt_y2 = game->boss->pos_y + dirx * game->boss->move_speed;
+	double	alt_x2;
+	alt_x2 = game->boss->pos_x - diry * game->boss->move_speed;
+	double	alt_y2;
+	alt_y2 = game->boss->pos_y + dirx * game->boss->move_speed;
 	if (can_boss_move_to(game, alt_x2, alt_y2))
 	{
 		game->boss->pos_x = alt_x2;
 		game->boss->pos_y = alt_y2;
-		game->boss->move_delay = 0;  // Reset delay quando consegue se mover
+		game->boss->move_delay = 0;
 	}
-	// Se chegou aqui, não conseguiu se mover em nenhuma direção
-	// O move_delay continua acumulando, evitando tentativas muito frequentes
 }
 
 static void	calculate_distance_to_player(t_game *game)
@@ -226,9 +228,11 @@ static void	calculate_distance_to_player(t_game *game)
 		game->boss->state = ATTACK;
 	else if (game->boss->distance <= 18.0)
 		game->boss->state = ALERT;
-	if (game->boss->state == ALERT && game->boss->distance > 8.0 && game->boss->move_delay > 0.1)
+	if (game->boss->state == ALERT && game->boss->distance > 8.0
+		&& game->boss->move_delay > 0.1)
 		boss_move(game, dx, dy);
-	else if (game->boss->state == ALERT && game->boss->distance <= 15.0 && game->boss->attack_delay > 3.0)
+	else if (game->boss->state == ALERT && game->boss->distance <= 15.0
+		&& game->boss->attack_delay > 3.0)
 		game->boss->state = ATTACK;
 }
 
@@ -272,9 +276,12 @@ void	manage_boss(t_game *game)
 	if (game->boss->state != DEAD)
 		calculate_sprite_change(game);
 	if (game->boss->state == ALERT)
-		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y, game->boss->boss_text[game->boss->cur_sprite], 6500);
+		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
+			game->boss->boss_text[game->boss->cur_sprite], 6500);
 	else if (game->boss->state == ATTACK)
-		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y, game->boss->boss_text[game->boss->attack_sprite], 6500);
+		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
+			game->boss->boss_text[game->boss->attack_sprite], 6500);
 	else if (game->boss->state == DYING)
-		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y, game->boss->boss_text[game->boss->dying_sprite], 6500);
+		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
+			game->boss->boss_text[game->boss->dying_sprite], 6500);
 }
