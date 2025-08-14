@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/12 19:00:12 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:50:23 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,26 @@ typedef struct s_map
 	char	*file_name;
 	int		height;
 }	t_map;
+
+typedef struct s_fov
+{
+	int	cx;
+	int	cy;
+	int	xl;
+	int	yl;
+	int	xr;
+	int	yr;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+	int	minx;
+	int	maxx;
+	int	miny;
+	int	maxy;
+} 	t_fov;
 
 typedef struct s_image
 {
@@ -267,7 +287,6 @@ typedef struct s_game
 }	t_game;
 
 // Function prototypes //
-void	update_minimap(t_game *game);
 
 // Parser
 void	parser(t_game *game, char *file);
@@ -316,11 +335,11 @@ void	perform_raycasting(t_game *game);
 void	init_ray(t_game *game, int x);
 void	calculate_wall(t_game *game);
 
-//controls
+// controls
 void	keypress(mlx_key_data_t keydata, void *param);
 void	rotate_player_mouse(double xpos, double ypos, void *param);
 
-//dda
+// dda
 void	perform_dda(t_game *game, int x);
 
 // lightning_bonus
@@ -332,6 +351,14 @@ void	manage_enemies(t_game *game);
 void	init_bonus_images(t_game *game);
 void	set_enemy_and_door(t_game *game, int i, int j);
 void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height);
+
+// minimap_bonus
+void	draw_enemies(t_game *game);
+void	update_minimap(t_game *game);
+void	calculate_player_fov(t_game *game, int scale);
+int		cyy(t_game *game, int scale);
+int		cxx(t_game *game, int scale);
+void	calculate_variables(t_game *game, int len, int scale);
 
 // utils_bonus
 double	get_delta_time(void);
@@ -349,7 +376,7 @@ void	draw_life(t_game *game);
 // door
 void	create_door(t_game *game, int i, int j);
 
-// init_boss
+// boss_bonus
 void	create_boss(t_game *game, int i, int j);
 void	manage_boss(t_game *game);
 void	fire_projectile(t_game *game);

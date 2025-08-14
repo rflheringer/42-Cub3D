@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 18:53:29 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:03:56 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,14 @@ static void	calculate_bullet_position(t_game *game, t_attack *bullet)
 
 static int	bullet_move(t_game *game, double x, double y)
 {
+	double dx = x - game->player->pos_x;
+	double dy = y - game->player->pos_y;
+	double distance = sqrt(dx * dx + dy * dy);
+	if (distance < 0.3)
+	{
+		game->boss->hit_player = true;
+		return (2);
+	}
 	if (game->map->map[(int)floor(y + 0.1)][(int)floor(x + 0.1)] == '1'
 		|| game->map->map[(int)floor(y + 0.1)][(int)floor(x + 0.1)] == 'D')
 		return (1);
@@ -131,14 +139,6 @@ static int	bullet_move(t_game *game, double x, double y)
 	if (game->map->map[(int)floor(y - 0.1)][(int)floor(x - 0.1)] == '1'
 		|| game->map->map[(int)floor(y - 0.1)][(int)floor(x - 0.1)] == 'D')
 		return (1);
-	double dx = x - game->player->pos_x;
-	double dy = y - game->player->pos_y;
-	double distance = sqrt(dx * dx + dy * dy);
-	if (distance < 0.3)
-	{
-		game->boss->hit_player = true;
-		return (2);
-	}
 	return (0);
 }
 
