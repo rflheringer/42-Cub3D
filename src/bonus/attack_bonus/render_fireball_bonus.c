@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:45:14 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 20:52:41 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:56:50 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	render_wall_hit(t_game *game, t_attack *fireball)
 	fireball->frame_delay += game->delta_time;
 	if (fireball->frame_delay > 0.1)
 	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
+		fireball->current_frame = (fireball->current_frame + 1) % 4;
 		fireball->frame_delay = 0;
 		if (fireball->current_frame == 0)
 		{
@@ -53,7 +53,7 @@ static void	render_enemy_hit(t_game *game, t_attack *fireball)
 		enemy->state = DYING;
 	if (fireball->frame_delay > 0.1)
 	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
+		fireball->current_frame = (fireball->current_frame + 1) % 4;
 		fireball->frame_delay = 0;
 		if (fireball->current_frame == 0)
 		{
@@ -70,7 +70,7 @@ static void	render_boss_hit(t_game *game, t_attack *fireball)
 	fireball->frame_delay += game->delta_time;
 	if (fireball->frame_delay > 0.1)
 	{
-		fireball->current_frame = (fireball->current_frame + 1) % 5;
+		fireball->current_frame = (fireball->current_frame + 1) % 4;
 		fireball->frame_delay = 0;
 		if (fireball->current_frame == 0)
 		{

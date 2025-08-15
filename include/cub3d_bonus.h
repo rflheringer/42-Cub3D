@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/15 17:32:14 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:56:25 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_player
 	double			hit_x;
 	double			hit_y;
 	double			attack_delay;
-	mlx_texture_t	*fireball_textures[5];
+	mlx_texture_t	*fireball_textures[4];
 }	t_player;
 
 typedef struct s_map

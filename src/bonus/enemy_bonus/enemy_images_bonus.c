@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:14:11 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/15 16:08:20 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:58:01 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,13 @@ void	init_bonus_images(t_game *game)
 	else
 	{
 		load_bonus_images(game, "assets/enemy/skeleton/skeleton_", 10);
+		if (game->boss)
+		{
+			load_boss_attack(game, "assets/player/fireball_", 4);
+			load_boss_images(game,
+				"assets/enemy/boss_mage/boss_mage_", 10);
+		}
 	}
-	load_player_attack(game, "assets/player/fireball_", 5);
+	load_player_attack(game, "assets/player/fireball_", 4);
 	game->enemy->move_speed = 0.15;
 }

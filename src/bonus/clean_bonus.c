@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:24:26 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/15 17:39:46 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:57:17 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	delete_texture(t_game *game)
 		mlx_delete_texture(game->texture->game_win);
 	if (game->texture->hand)
 		mlx_delete_texture(game->texture->hand);
-	delete_texture_array(game->player->fireball_textures, 5);
+	delete_texture_array(game->player->fireball_textures, 4);
 	delete_texture_array(game->enemy->enemy_texture, 10);
 	free_texture_path(game);
 }
