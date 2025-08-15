@@ -417,7 +417,7 @@ void	fire_projectile(t_game *game);
 void	update_bullets(t_game *game);
 void	boss_move(t_game *game, double dx, double dy);
 void	calculate_boss_position(t_game *game, double pos_x, double pos_y,
-		mlx_texture_t *texture, int less_height);
+		mlx_texture_t *texture);
 void	calculate_bullet_position(t_game *game, t_attack *bullet,
 		mlx_texture_t *texture);
 
