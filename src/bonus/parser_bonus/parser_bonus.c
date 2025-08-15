@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:44:48 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 17:34:26 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:49:42 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@ void	parser(t_game *game, char *file)
 	validate_textures(game, game->texture->west_path);
 	validate_textures(game, game->texture->east_path);
 	validate_colors(game);
+	validate_game(game);
 }

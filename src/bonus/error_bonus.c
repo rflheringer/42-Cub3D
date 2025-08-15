@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/12 17:12:04 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:01:39 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,23 @@ static void	error_messages_plus(short error_code)
 	if (error_code == EXIT_INVALID_MAP)
 		ft_printf_fd(2, "Error\nInvalid map\n");
 	if (error_code == EXIT_TOO_MANY_BOSSES)
-		ft_printf_fd(2, "Error\nMore than one boss found on map");
+		ft_printf_fd(2, "Error\nMore than one boss found on map\n");
 	if (error_code == EXIT_INVALID_START_POSITION)
 		ft_printf_fd(2, "Error\nInvalid start position\n");
+	if (error_code == EXIT_MISSING_BOSS)
+		ft_printf_fd(2, "Error\nNo boss was found\n");
+	if (error_code == EXIT_MISSING_ENEMY)
+		ft_printf_fd(2, "Error\nNo enemy was found\n");
 }
 
 void	error_messages(short error_code)
 {
+	if (error_code == EXIT_TOO_MANY_ARGUMENTS)
+		ft_printf_fd(2, "Error\nToo many arguments\n");
+	if (error_code == EXIT_FEW_ARGUMENTS)
+		ft_printf_fd(2, "Error\nToo few arguments\n");
+	if (error_code == EXIT_ERROR_MEMORY_ALLOCATION)
+		ft_printf_fd(2, "Error\nMemory allocation failed\n");
 	if (error_code == EXIT_INVALID_EXTENSION)
 		ft_printf_fd(2, "Error\nInvalid file extension\n");
 	if (error_code == EXIT_INVALID_FILE)

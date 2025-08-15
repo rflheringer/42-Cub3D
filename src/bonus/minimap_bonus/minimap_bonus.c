@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:26:34 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 15:58:06 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:44:13 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static void	draw_boss_on_screen(t_game *game)
 	int	sx;
 	int	sy;
 
+	if (game->boss == NULL)
+		return ;
 	sy = 0;
 	while (sy < game->raycasting->scale)
 	{

@@ -6,11 +6,21 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/12 17:34:29 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:19:51 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d_bonus.h"
+
+void	validate_game(t_game *game)
+{
+	if (game->boss->b > 1)
+		shutdown_program(game, EXIT_TOO_MANY_BOSSES);
+	if (game->boss->b < 1)
+		shutdown_program(game, EXIT_MISSING_BOSS);
+	if (!game->enemy->list)
+		shutdown_program(game, EXIT_MISSING_ENEMY);
+}
 
 static int	ft_count_map(t_game *game, char **content, int i)
 {
@@ -84,7 +94,7 @@ void	validate_map(t_game *game, char **map)
 		{
 			if (!ft_strchr(" 01NSWEIDKPB", map[i][j]))
 				shutdown_program(game, EXIT_UNEXPECTED_CHAR);
-			if (map[i][j] == '0')
+			if (ft_strchr("0NSWEIDKPB", map[i][j]))
 				if (!check_valid_zero(map, i, j))
 					shutdown_program(game, EXIT_MAP_NOT_CLOSED);
 			if (ft_strchr("NSWE", map[i][j]))

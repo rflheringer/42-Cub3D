@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:27:59 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/15 15:34:42 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:11:21 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	create_boss(t_game *game, int i, int j)
 {
 	if (!game->boss || game->boss->b == 1)
 		shutdown_program(game, EXIT_TOO_MANY_BOSSES);
-	game->boss->b = 1;
+	game->boss->b += 1;
 	game->boss->hp = 60;
 	game->boss->pos_x = j + 0.5;
 	game->boss->pos_y = i + 0.5;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializers_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/15 14:13:05 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:20:18 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	init_map_images(t_game *game)
 
 int32_t	init_cub3d(t_game *game)
 {
-	game->player->hp = LIFE_MAX;
 	game->mlx = mlx_init(WIDTH, HEIGHT, W_NAME, true);
 	game->image = ft_calloc(1, sizeof(t_image));
 	game->ui = ft_calloc(1, sizeof(t_life_ui));
@@ -88,9 +87,6 @@ int32_t	init_cub3d(t_game *game)
 	game->wall = ft_calloc(1, sizeof(t_wall));
 	game->raycasting = ft_calloc(1, sizeof(t_raycasting));
 	game->raycasting->buffer = ft_calloc(WIDTH, sizeof(double));
-	perform_raycasting(game);
-	manage_enemies(game);
-	update_minimap(game);
 	mlx_key_hook(game->mlx, &keypress, game);
 	mlx_cursor_hook(game->mlx, &rotate_player_mouse, game);
 	mlx_loop_hook(game->mlx, &handle_movement, game);

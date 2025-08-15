@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_move_bonus.c                                 :+:      :+:    :+:   */
+/*   enemy_manage_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 18:25:14 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:37:21 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	manage_enemies(t_game *game)
 {
 	t_enemy_list	*nav;
 
-	if (game->enemy->list == NULL)
+	if (!game->enemy->list)
 		return ;
 	calculate_distance(game);
 	sort_enemies(game, game->enemy->list);

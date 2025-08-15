@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_player_bonus.c                              :+:      :+:    :+:   */
+/*   init_player_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:05:29 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/11 16:42:41 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:51:38 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	get_player_position(t_game *game, char **map, int i, int j)
 	game->player->pos_x = j + 0.5;
 	game->player->pos_y = i + 0.5;
 	game->player->p++;
-	game->player->hp = 10;
+	game->player->hp = LIFE_MAX;
 	set_field_of_vision(game, i, j);
 }

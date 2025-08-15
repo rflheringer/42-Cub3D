@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/15 14:10:43 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:08:00 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define EXIT_INVALID_MAP 19
 # define EXIT_TOO_MANY_BOSSES 20
 # define EXIT_INVALID_START_POSITION 21
+# define EXIT_MISSING_BOSS 22
+# define EXIT_MISSING_ENEMY 23
 
 typedef struct s_life_ui
 {
@@ -330,6 +332,7 @@ void	get_text_color_and_map(t_game *game, char **content);
 void	validate_textures(t_game *game, char *path);
 
 // Parser map
+void	validate_game(t_game *game);
 void	validate_map(t_game *game, char **map);
 void	get_map(t_game *game, char **content, int *i);
 
@@ -394,7 +397,7 @@ void	sort_enemies(t_game *game, t_enemy_list *nav);
 
 // render
 void	calculate_enemie_position(t_game *game, double pos_x, double pos_y,
-		mlx_texture_t *texture);
+			mlx_texture_t *texture);
 void	put_x_on_screen(t_game *game, t_render *rend, mlx_texture_t *texture);
 void	calculate_sprite(t_render *rend);
 
@@ -414,7 +417,7 @@ void	create_fireball(t_game *game);
 void	update_fireballs(t_game *game);
 void	render_fireballs(t_game *game, t_attack *fireball);
 void	calculate_fireball_position(t_game *game, t_attack *fireball,
-		mlx_texture_t *texture);
+			mlx_texture_t *texture);
 
 // update_game
 void	update_game_state(t_game *game);
@@ -438,8 +441,8 @@ void	fire_projectile(t_game *game);
 void	update_bullets(t_game *game);
 void	boss_move(t_game *game, double dx, double dy);
 void	calculate_boss_position(t_game *game, double pos_x, double pos_y,
-		mlx_texture_t *texture);
+			mlx_texture_t *texture);
 void	calculate_bullet_position(t_game *game, t_attack *bullet,
-		mlx_texture_t *texture);
+			mlx_texture_t *texture);
 
 #endif
