@@ -128,6 +128,21 @@ typedef struct s_fov
 	int	maxy;
 }	t_fov;
 
+typedef struct s_render
+{
+	double	transform_x;
+	double	transform_y;
+	int		tex_x;
+	int		draw_end_y;
+	int		less_height;
+	int		draw_start_y;
+	int		draw_start_x;
+	int		sprite_width;
+	int		sprite_height;
+	int		sprite_screen_x;
+	int		original_start_x;
+}	t_render;
+
 typedef struct s_image
 {
 	mlx_image_t		*game_over;
@@ -355,10 +370,15 @@ void	update_lightning(t_game *game);
 void	manage_enemies(t_game *game);
 void	init_bonus_images(t_game *game);
 void	set_enemy_and_door(t_game *game, int i, int j);
-void	calculate_enemie_position(t_game *game, double pos_x, double pos_y, mlx_texture_t *texture, int less_height);
 void	sort_enemies(t_game *game, t_enemy_list *nav);
 void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy);
 void	sort_enemies(t_game *game, t_enemy_list *nav);
+
+// render
+void	calculate_enemie_position(t_game *game, double pos_x, double pos_y,
+		mlx_texture_t *texture);
+void	put_x_on_screen(t_game *game, t_render *rend, mlx_texture_t *texture);
+void	calculate_sprite(t_render *rend);
 
 // minimap_bonus
 void	draw_enemies(t_game *game);

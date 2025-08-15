@@ -12,6 +12,62 @@
 
 #include "../../../include/cub3d_bonus.h"
 
+static void	calculate_potion_position(t_game *game, double pos_x, double pos_y,
+	mlx_texture_t *texture)
+{
+	t_render	*rend;
+	double		sprite_x;
+	double		sprite_y;
+	double		inv_det;
+
+	rend = ft_calloc(1, sizeof(t_render));
+	rend->less_height = 12000;
+	sprite_x = pos_x - game->player->pos_x;
+	sprite_y = pos_y - game->player->pos_y;
+	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
+			- game->player->player_dir_x * game->player->camera_dir_y);
+	rend->transform_x = inv_det * (game->player->player_dir_y * sprite_x
+			- game->player->player_dir_x * sprite_y);
+	rend->transform_y = inv_det * (-game->player->camera_dir_y * sprite_x
+			+ game->player->camera_dir_x * sprite_y);
+	if (rend->transform_y <= 0)
+		return ;
+	rend->sprite_height = (int)fabs(HEIGHT / rend->transform_y);
+	rend->sprite_screen_x = (int)((WIDTH / 2) * (1 + rend->transform_x
+				/ rend->transform_y));
+	calculate_sprite(rend);
+	put_x_on_screen(game, rend, texture);
+	free(rend);
+}
+
+static void	calculate_key_position(t_game *game, double pos_x, double pos_y,
+	mlx_texture_t *texture)
+{
+	t_render	*rend;
+	double		sprite_x;
+	double		sprite_y;
+	double		inv_det;
+
+	rend = ft_calloc(1, sizeof(t_render));
+	rend->less_height = 10000;
+	sprite_x = pos_x - game->player->pos_x;
+	sprite_y = pos_y - game->player->pos_y;
+	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
+			- game->player->player_dir_x * game->player->camera_dir_y);
+	rend->transform_x = inv_det * (game->player->player_dir_y * sprite_x
+			- game->player->player_dir_x * sprite_y);
+	rend->transform_y = inv_det * (-game->player->camera_dir_y * sprite_x
+			+ game->player->camera_dir_x * sprite_y);
+	if (rend->transform_y <= 0)
+		return ;
+	rend->sprite_height = (int)fabs(HEIGHT / rend->transform_y);
+	rend->sprite_screen_x = (int)((WIDTH / 2) * (1 + rend->transform_x
+				/ rend->transform_y));
+	calculate_sprite(rend);
+	put_x_on_screen(game, rend, texture);
+	free(rend);
+}
+
 static void	render_potion_and_key(t_game *game)
 {
 	int	i;
@@ -24,11 +80,11 @@ static void	render_potion_and_key(t_game *game)
 		while (game->map->map[i][j])
 		{
 			if (game->map->map[i][j] == 'P')
-				calculate_enemie_position(game, (double)j + 0.5,
-					(double)i + 0.5, game->texture->potion, 14500);
+				calculate_potion_position(game, (double)j + 0.5,
+					(double)i + 0.5, game->texture->potion);
 			if (game->map->map[i][j] == 'K')
-				calculate_enemie_position(game, (double)j + 0.5,
-					(double)i + 0.5, game->texture->key, 10000);
+				calculate_key_position(game, (double)j + 0.5,
+					(double)i + 0.5, game->texture->key);
 			j++;
 		}
 		i++;
