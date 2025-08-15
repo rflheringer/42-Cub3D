@@ -11,7 +11,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Diretórios
-PROGRAM="./cub3D"
+PROGRAM="./cub3D_bonus"
 INVALID_MAPS_DIR="./maps/invalid"
 
 # Contador de testes

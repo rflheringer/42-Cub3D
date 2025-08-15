@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/15 16:20:18 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:26:46 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,20 @@ static uint32_t	convert_rgb_string(t_game *game, char *rgb_str)
 	return (get_color_with_alpha(r, g, b, 255));
 }
 
-static void	init_colors(t_game *game)
+static void	init_map_images(t_game *game)
 {
+	game->texture->south_wall = mlx_load_png(game->texture->south_path);
+	if (!game->texture->south_wall)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	game->texture->north_wall = mlx_load_png(game->texture->north_path);
+	if (!game->texture->north_wall)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	game->texture->east_wall = mlx_load_png(game->texture->east_path);
+	if (!game->texture->east_wall)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
+	game->texture->west_wall = mlx_load_png(game->texture->west_path);
+	if (!game->texture->west_wall)
+		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
 	if (game->texture->ceiling_color)
 		game->texture->ceiling_color_hex
 			= convert_rgb_string(game, game->texture->ceiling_color);
@@ -45,34 +57,6 @@ static void	init_colors(t_game *game)
 	game->texture->closed_door = mlx_load_png("assets/map/door_2.png");
 	game->texture->potion = mlx_load_png("assets/collectables/pot.png");
 	game->texture->key = mlx_load_png("assets/collectables/key.png");
-}
-
-static void	init_map_images(t_game *game)
-{
-	game->texture->south_wall = mlx_load_png(game->texture->south_path);
-	if (!game->texture->south_wall)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	game->image->south_wall = mlx_texture_to_image(game->mlx,
-			game->texture->south_wall);
-	game->texture->north_wall = mlx_load_png(game->texture->north_path);
-	if (!game->texture->north_wall)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	game->image->north_wall = mlx_texture_to_image(game->mlx,
-			game->texture->north_wall);
-	game->texture->east_wall = mlx_load_png(game->texture->east_path);
-	if (!game->texture->east_wall)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	game->image->east_wall = mlx_texture_to_image(game->mlx,
-			game->texture->east_wall);
-	game->texture->west_wall = mlx_load_png(game->texture->west_path);
-	if (!game->texture->west_wall)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	game->image->west_wall = mlx_texture_to_image(game->mlx,
-			game->texture->west_wall);
-	if (!game->image->north_wall || !game->image->south_wall
-		|| !game->image->east_wall || !game->image->west_wall)
-		shutdown_program(game, EXIT_INVALID_TEXTURE_PATH);
-	init_colors(game);
 }
 
 int32_t	init_cub3d(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/15 16:08:00 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:32:14 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,6 @@ typedef struct s_image
 	mlx_image_t		*hand;
 	mlx_image_t		*keys_sprite;
 	mlx_image_t		*keys_text;
-	mlx_image_t		*north_wall;
-	mlx_image_t		*south_wall;
-	mlx_image_t		*east_wall;
-	mlx_image_t		*west_wall;
 }	t_image;
 
 typedef struct s_texture
@@ -190,7 +186,6 @@ typedef struct s_texture
 	char			*ceiling_color;
 	uint32_t		ceiling_color_hex;
 	mlx_texture_t	*closed_door;
-	mlx_texture_t	*open_door;
 	mlx_texture_t	*potion;
 	mlx_texture_t	*key;
 	mlx_texture_t	*game_over;
@@ -349,9 +344,12 @@ void	get_player_position(t_game *game, char **map, int i, int j);
 // Parser colors
 void	validate_colors(t_game *game);
 
-// error_manager
+// error
 void	error_messages(short error_code);
+
+// clean
 void	shutdown_program(t_game *game, short error_code);
+void	delete_texture_array(mlx_texture_t **texture_array, int len);
 
 // init_manager
 int32_t	init_cub3d(t_game *game);
@@ -444,5 +442,10 @@ void	calculate_boss_position(t_game *game, double pos_x, double pos_y,
 			mlx_texture_t *texture);
 void	calculate_bullet_position(t_game *game, t_attack *bullet,
 			mlx_texture_t *texture);
+
+// free
+void	clean_fire_list(t_attack *list);
+void	clean_door_list(t_game *game);
+void	clean_enemy_list(t_game *game);
 
 #endif

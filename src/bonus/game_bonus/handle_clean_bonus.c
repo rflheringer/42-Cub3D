@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:46:24 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 19:51:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:30:36 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static void	clean_dead_boss(t_game *game)
 
 	if (game->boss->state != DEAD)
 		return ;
+	delete_texture_array(game->boss->boss_text, 10);
+	delete_texture_array(game->boss->bullet_textures, 4);
 	temp = game->boss;
 	game->boss = NULL;
 	free(temp);

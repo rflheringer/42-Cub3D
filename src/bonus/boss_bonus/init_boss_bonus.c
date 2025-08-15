@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:27:59 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/15 16:11:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:19:48 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	calculate_distance_to_player(t_game *game)
 	game->boss->distance = sqrt(dx * dx + dy * dy);
 	if (game->boss->state == DYING)
 		return ;
-	if (game->boss->distance <= 18.0 && game->boss->attack_delay > 0.4)
+	if (game->boss->distance <= 18.0 && game->boss->attack_delay > 1.0)
 		game->boss->state = ATTACK;
 	else if (game->boss->distance <= 20.0)
 		game->boss->state = ALERT;
@@ -36,7 +36,7 @@ static void	calculate_distance_to_player(t_game *game)
 		&& game->boss->move_delay > 0.1)
 		boss_move(game, dx, dy);
 	else if (game->boss->state == ALERT && game->boss->distance <= 16.0
-		&& game->boss->attack_delay > 0.5)
+		&& game->boss->attack_delay > 1.0)
 		game->boss->state = ATTACK;
 }
 

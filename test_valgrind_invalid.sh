@@ -12,7 +12,7 @@ PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
 
 # Configurações
-PROGRAM="./cub3D"
+PROGRAM="./cub3D_bonus"
 INVALID_MAPS_DIR="./maps/invalid"
 SUPPRESSION_FILE="./suppression.sup"
 LOG_DIR="./logs"

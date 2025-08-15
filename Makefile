@@ -32,6 +32,7 @@ SRCS		=	./src/mandatory/main.c \
 SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/error_bonus.c \
 				./src/bonus/clean_bonus.c \
+				./src/bonus/free_bonus.c \
 				./src/bonus/initializers_bonus/initializers_bonus.c \
 				./src/bonus/initializers_bonus/lightning_bonus.c \
 				./src/bonus/parser_bonus/parser_bonus.c \

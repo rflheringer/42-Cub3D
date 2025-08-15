@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:45:07 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 19:50:39 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:03:54 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static void	calculate_potion_position(t_game *game, double pos_x, double pos_y,
 	rend->transform_y = inv_det * (-game->player->camera_dir_y * rend->sprite_x
 			+ game->player->camera_dir_x * rend->sprite_y);
 	if (rend->transform_y <= 0)
+	{
+		free(rend);
 		return ;
+	}
 	rend->sprite_height = (int)fabs(HEIGHT / rend->transform_y);
 	rend->sprite_screen_x = (int)((WIDTH / 2) * (1 + rend->transform_x
 				/ rend->transform_y));
@@ -55,7 +58,10 @@ static void	calculate_key_position(t_game *game, double pos_x, double pos_y,
 	rend->transform_y = inv_det * (-game->player->camera_dir_y * rend->sprite_x
 			+ game->player->camera_dir_x * rend->sprite_y);
 	if (rend->transform_y <= 0)
+	{
+		free(rend);
 		return ;
+	}
 	rend->sprite_height = (int)fabs(HEIGHT / rend->transform_y);
 	rend->sprite_screen_x = (int)((WIDTH / 2) * (1 + rend->transform_x
 				/ rend->transform_y));
