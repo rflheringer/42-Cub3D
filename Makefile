@@ -41,9 +41,6 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/parser_bonus/parser_utils_bonus.c \
 				./src/bonus/player_bonus/init_player_bonus.c \
 				./src/bonus/player_bonus/controls_bonus.c \
-				./src/bonus/player_bonus/handle_clean_bonus.c \
-				./src/bonus/player_bonus/handle_game_bonus.c \
-				./src/bonus/player_bonus/handle_utils_bonus.c \
 				./src/bonus/player_bonus/move_utils_bonus.c \
 				./src/bonus/player_bonus/movement_bonus.c \
 				./src/bonus/player_bonus/life_bonus.c \
@@ -72,15 +69,17 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/boss_bonus/init_boss_bonus.c \
 				./src/bonus/boss_bonus/move_boss_bonus.c \
 				./src/bonus/boss_bonus/render_boss_bonus.c \
-				./src/bonus/utils_bonus/update_game_bonus.c
-				
+				./src/bonus/game_bonus/handle_clean_bonus.c \
+				./src/bonus/game_bonus/handle_game_bonus.c \
+				./src/bonus/game_bonus/handle_utils_bonus.c \
+				./src/bonus/game_bonus/update_game_bonus.c
 
 OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 OBJS_BONUS	=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_BONUS:.c=.o)))
 
 VPATH			=	./src ./src/parser ./src/player ./src/raycasting
-VPATH_BONUS		=	./src/bonus ./src/bonus/parser_bonus ./src/bonus/player_bonus ./src/bonus/raycasting_bonus ./src/bonus/initializers_bonus ./src/bonus/minimap_bonus ./src/bonus/enemy_bonus/ ./src/bonus/attack_bonus ./src/bonus/utils_bonus/ ./src/bonus/boss_bonus/ ./src/bonus/door_bonus/
+VPATH_BONUS		=	./src/bonus ./src/bonus/parser_bonus ./src/bonus/player_bonus ./src/bonus/raycasting_bonus ./src/bonus/initializers_bonus ./src/bonus/minimap_bonus ./src/bonus/enemy_bonus/ ./src/bonus/attack_bonus ./src/bonus/game_bonus/ ./src/bonus/boss_bonus/ ./src/bonus/door_bonus/
 
 all: libmlx libft ${NAME}
 
