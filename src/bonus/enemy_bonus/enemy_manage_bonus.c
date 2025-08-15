@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:37:18 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/15 15:37:21 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 18:37:34 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ static void	calculate_distance(t_game *game)
 	nav = game->enemy->list;
 	while (nav)
 	{
-		calculate_distance_to_player(game, nav);
+		if (nav->state != DEAD)
+			calculate_distance_to_player(game, nav);
+		else if (nav->state == DEAD)
+			nav->distance = 0.0;
 		nav = nav->next;
 	}
 }

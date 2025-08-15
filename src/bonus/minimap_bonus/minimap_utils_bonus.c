@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 12:53:26 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 15:57:48 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 18:39:28 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	draw_enemies(t_game *game)
 		return ;
 	while (enemy)
 	{
-		draw_enemies_on_screen(game, enemy);
+		if (enemy->state != DEAD)
+			draw_enemies_on_screen(game, enemy);
 		enemy = enemy->next;
 	}
 }

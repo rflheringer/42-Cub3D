@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:45:12 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 18:49:27 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 18:40:05 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	check_enemies(t_game *game, double x, double y, t_enemy_list *cur)
 	tmp = game->enemy->list;
 	while (tmp)
 	{
-		if (tmp != cur)
+		if (tmp != cur && tmp->state != DEAD)
 		{
 			dx = x - tmp->pos_x;
 			dy = y - tmp->pos_y;
@@ -91,6 +91,8 @@ void	enemy_move(t_game *game, t_enemy_list *enemy, double dx, double dy)
 	double	next_x;
 	double	next_y;
 
+	if (enemy->state == DEAD)
+		return ;
 	inv_len = 1.0 / enemy->distance;
 	dirx = dx * inv_len;
 	diry = dy * inv_len;
