@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/cub3d_bonus.h"
+#include "../../../include/cub3d_bonus.h"
 
 static void	change_enemy_attack(t_game *game, t_enemy_list *enemy)
 {
@@ -72,7 +72,7 @@ static void	calculate_distance(t_game *game)
 
 	nav = game->enemy->list;
 	while (nav)
-	{	
+	{
 		calculate_distance_to_player(game, nav);
 		nav = nav->next;
 	}
@@ -93,13 +93,13 @@ void	manage_enemies(t_game *game)
 			calculate_sprite_change(game, nav);
 		if (nav->state == ALERT)
 			calculate_enemie_position(game, nav->pos_x, nav->pos_y,
-				game->enemy->enemy_texture[nav->cur_sprite], 6000);
+				game->enemy->enemy_texture[nav->cur_sprite]);
 		else if (nav->state == ATTACK)
 			calculate_enemie_position(game, nav->pos_x, nav->pos_y,
-				game->enemy->enemy_texture[nav->attack_sprite], 6000);
+				game->enemy->enemy_texture[nav->attack_sprite]);
 		else if (nav->state == DYING)
 			calculate_enemie_position(game, nav->pos_x, nav->pos_y,
-				game->enemy->enemy_texture[nav->dying_sprite], 6000);
+				game->enemy->enemy_texture[nav->dying_sprite]);
 		nav = nav->next;
 	}
 }

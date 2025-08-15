@@ -54,7 +54,8 @@ static void	render_wall_hit(t_game *game, t_attack *bullet)
 			return ;
 		}
 	}
-	calculate_bullet_position(game, bullet);
+	calculate_bullet_position(game, bullet,
+		game->boss->bullet_textures[bullet->current_frame]);
 }
 
 static void	render_player_hit(t_game *game, t_attack *bullet)
@@ -70,7 +71,8 @@ static void	render_player_hit(t_game *game, t_attack *bullet)
 			return ;
 		}
 	}
-	calculate_bullet_position(game, bullet);
+	calculate_bullet_position(game, bullet,
+		game->boss->bullet_textures[bullet->current_frame]);
 }
 
 static void	render_bullets(t_game *game, t_attack *bullet)
@@ -82,7 +84,8 @@ static void	render_bullets(t_game *game, t_attack *bullet)
 	else if (bullet->next_tile == 2)
 		render_player_hit(game, bullet);
 	else if (bullet->state == MOVING)
-		calculate_bullet_position(game, bullet);
+		calculate_bullet_position(game, bullet,
+			game->boss->bullet_textures[bullet->current_frame]);
 }
 
 void	update_bullets(t_game *game)

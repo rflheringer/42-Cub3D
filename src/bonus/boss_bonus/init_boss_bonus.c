@@ -84,13 +84,13 @@ void	manage_boss(t_game *game)
 		calculate_sprite_change(game);
 	if (game->boss->state == ALERT)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
-			game->boss->boss_text[game->boss->cur_sprite], 2500);
+			game->boss->boss_text[game->boss->cur_sprite]);
 	else if (game->boss->state == ATTACK)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
-			game->boss->boss_text[game->boss->attack_sprite], 2500);
+			game->boss->boss_text[game->boss->attack_sprite]);
 	else if (game->boss->state == DYING)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
-			game->boss->boss_text[game->boss->dying_sprite], 2500);
+			game->boss->boss_text[game->boss->dying_sprite]);
 }
 
 void	create_boss(t_game *game, int i, int j)
