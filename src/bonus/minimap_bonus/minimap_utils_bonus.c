@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/cub3d_bonus.h"
+#include "../../../include/cub3d_bonus.h"
 
 static void	draw_enemies_on_screen(t_game *game, t_enemy_list *enemy)
 {

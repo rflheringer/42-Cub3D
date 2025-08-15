@@ -61,7 +61,7 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/minimap_bonus/draw_fov_bonus.c \
 				./src/bonus/minimap_bonus/fov_utils_bonus.c \
 				./src/bonus/attack_bonus/create_bullet_bonus.c \
-				./src/bonus/attack_bonus/fireball_bonus.c \
+				./src/bonus/attack_bonus/create_fireball_bonus.c \
 				./src/bonus/attack_bonus/render_bullet_bonus.c \
 				./src/bonus/attack_bonus/render_fireball_bonus.c \
 				./src/bonus/attack_bonus/update_bullet_bonus.c \

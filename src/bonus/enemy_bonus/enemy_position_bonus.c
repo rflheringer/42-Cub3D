@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 11:38:51 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/15 11:19:07 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/15 11:44:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,18 @@ void	calculate_enemie_position(t_game *game, double pos_x, double pos_y,
 	mlx_texture_t *texture)
 {
 	t_render	*rend;
-	double		sprite_x;
-	double		sprite_y;
 	double		inv_det;
 
 	rend = ft_calloc(1, sizeof(t_render));
 	rend->less_height = 6000;
-	sprite_x = pos_x - game->player->pos_x;
-	sprite_y = pos_y - game->player->pos_y;
+	rend->sprite_x = pos_x - game->player->pos_x;
+	rend->sprite_y = pos_y - game->player->pos_y;
 	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
 			- game->player->player_dir_x * game->player->camera_dir_y);
-	rend->transform_x = inv_det * (game->player->player_dir_y * sprite_x
-			- game->player->player_dir_x * sprite_y);
-	rend->transform_y = inv_det * (-game->player->camera_dir_y * sprite_x
-			+ game->player->camera_dir_x * sprite_y);
+	rend->transform_x = inv_det * (game->player->player_dir_y * rend->sprite_x
+			- game->player->player_dir_x * rend->sprite_y);
+	rend->transform_y = inv_det * (-game->player->camera_dir_y * rend->sprite_x
+			+ game->player->camera_dir_x * rend->sprite_y);
 	if (rend->transform_y <= 0)
 		return ;
 	rend->sprite_height = (int)fabs(HEIGHT / rend->transform_y);

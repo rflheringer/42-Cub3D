@@ -39,7 +39,8 @@ static void	render_wall_hit(t_game *game, t_attack *fireball)
 			return ;
 		}
 	}
-	calculate_fireball_position(game, fireball);
+	calculate_fireball_position(game, fireball,
+		game->player->fireball_textures[fireball->current_frame]);
 }
 
 static void	render_enemy_hit(t_game *game, t_attack *fireball)
@@ -60,7 +61,8 @@ static void	render_enemy_hit(t_game *game, t_attack *fireball)
 			return ;
 		}
 	}
-	calculate_fireball_position(game, fireball);
+	calculate_fireball_position(game, fireball,
+		game->player->fireball_textures[fireball->current_frame]);
 }
 
 static void	render_boss_hit(t_game *game, t_attack *fireball)
@@ -76,7 +78,8 @@ static void	render_boss_hit(t_game *game, t_attack *fireball)
 			return ;
 		}
 	}
-	calculate_fireball_position(game, fireball);
+	calculate_fireball_position(game, fireball,
+		game->player->fireball_textures[fireball->current_frame]);
 }
 
 void	render_fireballs(t_game *game, t_attack *fireball)
@@ -102,5 +105,6 @@ void	render_fireballs(t_game *game, t_attack *fireball)
 		}
 	}
 	else if (fireball->state == MOVING)
-		calculate_fireball_position(game, fireball);
+		calculate_fireball_position(game, fireball,
+			game->player->fireball_textures[fireball->current_frame]);
 }
