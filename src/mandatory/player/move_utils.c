@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 19:13:34 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:20:02 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../../include/cub3d.h"
 
 bool	right_move(t_game *game)
 {

@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:41:18 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/14 16:55:16 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:13:05 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int32_t	init_cub3d(t_game *game)
 	game->player->hp = LIFE_MAX;
 	game->mlx = mlx_init(WIDTH, HEIGHT, W_NAME, true);
 	game->image = ft_calloc(1, sizeof(t_image));
+	game->ui = ft_calloc(1, sizeof(t_life_ui));
 	init_map_images(game);
 	init_lightning(game);
 	init_bonus_images(game);

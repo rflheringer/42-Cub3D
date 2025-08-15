@@ -6,11 +6,11 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:05:29 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/01 11:50:23 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:14:32 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../../include/cub3d.h"
 
 static void	set_north(t_game *game)
 {

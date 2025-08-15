@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:37:30 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/07/31 13:52:37 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:14:32 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../../include/cub3d.h"
 
 static int	ft_count_map(t_game *game, char **content, int i)
 {

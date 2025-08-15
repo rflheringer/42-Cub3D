@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 17:52:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 20:52:10 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:10:43 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define FOV 1.0472
 # define R 0.05
 # define LIFE_MAX 10
+# define HEART_W 11
+# define HEART_H 9
 # define EXIT_TOO_MANY_ARGUMENTS 3
 # define EXIT_FEW_ARGUMENTS 4
 # define EXIT_ERROR_MEMORY_ALLOCATION 5
@@ -43,6 +45,19 @@
 # define EXIT_INVALID_MAP 19
 # define EXIT_TOO_MANY_BOSSES 20
 # define EXIT_INVALID_START_POSITION 21
+
+typedef struct s_life_ui
+{
+	int	target_h;
+	int	margin;
+	int	gap;
+	int	scale_cell;
+	int	heart_w;
+	int	heart_h;
+	int	total_h;
+	int	x;
+	int	y0;
+}	t_life_ui;
 
 typedef enum e_state
 {
@@ -302,6 +317,7 @@ typedef struct s_game
 	t_attack		*bullets;
 	t_attack		*fireballs;
 	t_lightning		*lightning;
+	t_life_ui		*ui;
 }	t_game;
 
 // Function prototypes //
@@ -405,10 +421,15 @@ void	update_game_state(t_game *game);
 
 // life
 void	draw_life(t_game *game);
+void	heart_outline(mlx_image_t *img, int x, int y, int s);
 
 // door
 void	create_door(t_game *game, int i, int j);
 void	can_open_or_close_door(t_game *game);
+void	heart_fill(mlx_image_t *img, int x, int y, int s);	
+int		has_fill_neighbor(int i, int j);
+void	put_sq_red(mlx_image_t *img, int x, int y, int s);
+void	put_sq_blk(mlx_image_t *img, int x, int y, int s);
 
 // boss_bonus
 void	create_boss(t_game *game, int i, int j);

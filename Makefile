@@ -11,23 +11,23 @@ LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)/libft.a
 HEADERS			=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 HEADERS_BONUS	=	-I $(LIBFT)/Includes -I $(LIBMLX)/build
 
-SRCS		=	./src/main.c \
-				./src/parser/parser.c \
-				./src/parser/parser_player.c \
-				./src/parser/parser_textures.c \
-				./src/parser/parser_map.c \
-				./src/parser/parser_utils.c \
-				./src/parser/parser_colors.c \
-				./src/player/movement.c \
-				./src/player/controls.c \
-        		./src/error.c \
-				./src/raycasting/raycasting.c \
-				./src/raycasting/raycasting_utils.c \
-				./src/raycasting/dda.c \
-				./src/raycasting/init_ray.c \
-				./src/initializers.c \
-				./src/clean.c \
-				./src/player/move_utils.c
+SRCS		=	./src/mandatory/main.c \
+				./src/mandatory/parser/parser.c \
+				./src/mandatory/parser/parser_player.c \
+				./src/mandatory/parser/parser_textures.c \
+				./src/mandatory/parser/parser_map.c \
+				./src/mandatory/parser/parser_utils.c \
+				./src/mandatory/parser/parser_colors.c \
+				./src/mandatory/player/movement.c \
+				./src/mandatory/player/controls.c \
+        		./src/mandatory/error.c \
+				./src/mandatory/raycasting/raycasting.c \
+				./src/mandatory/raycasting/raycasting_utils.c \
+				./src/mandatory/raycasting/dda.c \
+				./src/mandatory/raycasting/init_ray.c \
+				./src/mandatory/initializers.c \
+				./src/mandatory/clean.c \
+				./src/mandatory/player/move_utils.c
 
 SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/error_bonus.c \
@@ -43,6 +43,7 @@ SRCS_BONUS	=	./src/bonus/main_bonus.c \
 				./src/bonus/player_bonus/controls_bonus.c \
 				./src/bonus/player_bonus/move_utils_bonus.c \
 				./src/bonus/player_bonus/movement_bonus.c \
+				./src/bonus/player_bonus/life_bonus_utils.c \
 				./src/bonus/player_bonus/life_bonus.c \
 				./src/bonus/raycasting_bonus/dda_bonus.c \
 				./src/bonus/raycasting_bonus/init_ray_bonus.c \
@@ -78,7 +79,7 @@ OBJ_DIR		=	objs
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 OBJS_BONUS	=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_BONUS:.c=.o)))
 
-VPATH			=	./src ./src/parser ./src/player ./src/raycasting
+VPATH			=	./src/mandatory ./src/mandatory/parser ./src/mandatory/player ./src/mandatory/raycasting
 VPATH_BONUS		=	./src/bonus ./src/bonus/parser_bonus ./src/bonus/player_bonus ./src/bonus/raycasting_bonus ./src/bonus/initializers_bonus ./src/bonus/minimap_bonus ./src/bonus/enemy_bonus/ ./src/bonus/attack_bonus ./src/bonus/game_bonus/ ./src/bonus/boss_bonus/ ./src/bonus/door_bonus/
 
 all: libmlx libft ${NAME}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   initializers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:09:01 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/04 16:10:03 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:18:15 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 static uint32_t	get_color_with_alpha(int r, int g, int b, int a)
 {

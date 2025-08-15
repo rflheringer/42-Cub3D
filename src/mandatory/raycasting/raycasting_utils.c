@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafaelheringer <rafaelheringer@student.    +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 11:53:54 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/02 00:56:07 by rafaelherin      ###   ########.fr       */
+/*   Updated: 2025/08/15 14:14:32 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../../include/cub3d.h"
 
 static void	calculate_wall_dimensions(t_game *game)
 {
