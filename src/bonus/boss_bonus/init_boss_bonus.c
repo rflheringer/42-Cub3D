@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:27:59 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 20:30:35 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:34:42 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	calculate_distance_to_player(t_game *game)
 	game->boss->distance = sqrt(dx * dx + dy * dy);
 	if (game->boss->state == DYING)
 		return ;
-	if (game->boss->distance <= 16.0 && game->boss->attack_delay > 0.5)
+	if (game->boss->distance <= 18.0 && game->boss->attack_delay > 0.4)
 		game->boss->state = ATTACK;
-	else if (game->boss->distance <= 18.0)
+	else if (game->boss->distance <= 20.0)
 		game->boss->state = ALERT;
 	if (game->boss->state == ALERT && game->boss->distance > 8.0
 		&& game->boss->move_delay > 0.1)
@@ -55,11 +55,13 @@ static void	boss_attack(t_game *game)
 
 static void	calculate_sprite_change(t_game *game)
 {
-	if (game->boss->state == ALERT || game->boss->state == ATTACK)
+	if (game->boss->state == ALERT || game->boss->state == ATTACK
+		|| game->boss->state == IDLE)
 		game->boss->frame_delay += game->delta_time;
 	else if (game->boss->state == DYING)
 		game->boss->death_delay += game->delta_time;
-	if (game->boss->frame_delay > 0.3 && game->boss->state == ALERT)
+	if (game->boss->frame_delay > 0.3 && (game->boss->state == ALERT
+			|| game->boss->state == IDLE))
 	{
 		game->boss->cur_sprite = (game->boss->cur_sprite + 1) % 3;
 		game->boss->frame_delay = 0;
@@ -82,7 +84,7 @@ void	manage_boss(t_game *game)
 	calculate_distance_to_player(game);
 	if (game->boss->state != DEAD)
 		calculate_sprite_change(game);
-	if (game->boss->state == ALERT)
+	if (game->boss->state == ALERT || game->boss->state == IDLE)
 		calculate_boss_position(game, game->boss->pos_x, game->boss->pos_y,
 			game->boss->boss_text[game->boss->cur_sprite]);
 	else if (game->boss->state == ATTACK)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fireball_bonus.c                                   :+:      :+:    :+:   */
+/*   create_fireball_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:25:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 20:50:44 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:17:08 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	calculate_fireball_position(t_game *game, t_attack *fireball,
 	double		inv_det;
 
 	rend = ft_calloc(1, sizeof(t_render));
-	rend->less_height = 6000;
+	rend->less_height = 3000;
 	calculate_min_distance(game, fireball, rend);
 	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
 			- game->player->player_dir_x * game->player->camera_dir_y);

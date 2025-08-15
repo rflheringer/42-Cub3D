@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_position_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 11:38:51 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/15 11:44:35 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:30:50 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	calculate_sprite(t_render *rend)
 	dist_proj_plane = (WIDTH / 2.0) / tan(FOV / 2.0);
 	floor_height = (int)((1.0 / rend->transform_y) * dist_proj_plane);
 	floor_draw_end = (HEIGHT / 2 + floor_height / 2);
-	scale_factor = 0.7;
+	scale_factor = 0.8;
 	rend->sprite_height = (int)(rend->sprite_height * scale_factor);
 	rend->draw_end_y = floor_draw_end;
 	rend->draw_start_y = (-rend->sprite_height / 2 + HEIGHT / 2);
@@ -98,7 +98,7 @@ void	calculate_enemie_position(t_game *game, double pos_x, double pos_y,
 	double		inv_det;
 
 	rend = ft_calloc(1, sizeof(t_render));
-	rend->less_height = 6000;
+	rend->less_height = 7000;
 	rend->sprite_x = pos_x - game->player->pos_x;
 	rend->sprite_y = pos_y - game->player->pos_y;
 	inv_det = 1.0 / (game->player->camera_dir_x * game->player->player_dir_y
