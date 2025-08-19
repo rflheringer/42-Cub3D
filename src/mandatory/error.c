@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 11:46:49 by rafaelherin       #+#    #+#             */
-/*   Updated: 2025/08/15 14:18:03 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:04:37 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ static void	error_messages_plus(short error_code)
 
 void	error_messages(short error_code)
 {
+	if (error_code == EXIT_TOO_MANY_ARGUMENTS)
+		ft_printf_fd(2, "Error\nToo many arguments\n");
+	if (error_code == EXIT_FEW_ARGUMENTS)
+		ft_printf_fd(2, "Error\nToo few arguments\n");
 	if (error_code == EXIT_INVALID_EXTENSION)
 		ft_printf_fd(2, "Error\nInvalid file extension\n");
 	if (error_code == EXIT_INVALID_FILE)
