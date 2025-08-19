@@ -6,7 +6,7 @@
 /*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 11:53:54 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/11 10:18:22 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:58:54 by rdel-fra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	select_wall_texture(t_game *game)
 	else
 	{
 		if (game->ray->ray_dir_y > 0)
-			game->wall->s_texture = game->texture->south_wall;
-		else
 			game->wall->s_texture = game->texture->north_wall;
+		else
+			game->wall->s_texture = game->texture->south_wall;
 	}
 }
 
