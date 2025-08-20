@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:37:21 by rdel-fra          #+#    #+#             */
-/*   Updated: 2025/08/14 20:02:17 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:11:15 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ bool	right_move(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed;
 
-	new_x = game->player->pos_x + game->player->player_dir_y
-		* game->player->move_speed;
-	new_y = game->player->pos_y - game->player->player_dir_x
-		* game->player->move_speed;
+	if (game->player->sprint)
+		speed = game->player->move_speed * 2.0;
+	else
+		speed = game->player->move_speed;
+	new_x = game->player->pos_x + game->player->player_dir_y * speed;
+	new_y = game->player->pos_y - game->player->player_dir_x * speed;
 	if (can_move_to(game, new_x, new_y, game->enemy->list))
 	{
 		check_key_and_potion(game, new_x, new_y);
@@ -53,11 +56,14 @@ bool	left_move(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed;
 
-	new_x = game->player->pos_x - game->player->player_dir_y
-		* game->player->move_speed;
-	new_y = game->player->pos_y + game->player->player_dir_x
-		* game->player->move_speed;
+	if (game->player->sprint)
+		speed = game->player->move_speed * 2.0;
+	else
+		speed = game->player->move_speed;
+	new_x = game->player->pos_x - game->player->player_dir_y * speed;
+	new_y = game->player->pos_y + game->player->player_dir_x * speed;
 	if (can_move_to(game, new_x, new_y, game->enemy->list))
 	{
 		check_key_and_potion(game, new_x, new_y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdel-fra <rdel-fra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 13:17:09 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/14 19:59:17 by rdel-fra         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:07:16 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void	key_release(mlx_key_data_t keydata, t_game *game)
 		game->player->rot_right = false;
 	else if (keydata.key == MLX_KEY_RIGHT)
 		game->player->rot_left = false;
+	else if (keydata.key == MLX_KEY_LEFT_SHIFT
+		|| keydata.key == MLX_KEY_RIGHT_SHIFT)
+		game->player->sprint = false;
 }
 
 static void	key_press(mlx_key_data_t keydata, t_game *game)
@@ -42,6 +45,9 @@ static void	key_press(mlx_key_data_t keydata, t_game *game)
 		game->player->rot_right = true;
 	else if (keydata.key == MLX_KEY_RIGHT)
 		game->player->rot_left = true;
+	else if (keydata.key == MLX_KEY_LEFT_SHIFT
+		|| keydata.key == MLX_KEY_RIGHT_SHIFT)
+		game->player->sprint = true;
 }
 
 void	rotate_player_mouse(double xpos, double ypos, void *param)

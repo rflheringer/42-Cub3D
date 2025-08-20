@@ -6,7 +6,7 @@
 /*   By: rheringe <rheringe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:45:53 by rheringe          #+#    #+#             */
-/*   Updated: 2025/08/15 14:14:32 by rheringe         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:09:41 by rheringe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ static bool	up_move(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed;
 
-	new_x = game->player->pos_x + (game->player->player_dir_x
-			* game->player->move_speed);
-	new_y = game->player->pos_y + (game->player->player_dir_y
-			* game->player->move_speed);
+	if (game->player->sprint)
+		speed = game->player->move_speed * 2.0;
+	else
+		speed = game->player->move_speed;
+	new_x = game->player->pos_x + (game->player->player_dir_x * speed);
+	new_y = game->player->pos_y + (game->player->player_dir_y * speed);
 	if (game->map->map[(int)new_y][(int)new_x] == '1')
 		return (false);
 	if (can_move_to(game->map->map, new_x, new_y))
@@ -36,11 +39,14 @@ static bool	down_move(t_game *game)
 {
 	double	new_x;
 	double	new_y;
+	double	speed;
 
-	new_x = game->player->pos_x - game->player->player_dir_x
-		* game->player->move_speed;
-	new_y = game->player->pos_y - game->player->player_dir_y
-		* game->player->move_speed;
+	if (game->player->sprint)
+		speed = game->player->move_speed * 2.0;
+	else
+		speed = game->player->move_speed;
+	new_x = game->player->pos_x - game->player->player_dir_x * speed;
+	new_y = game->player->pos_y - game->player->player_dir_y * speed;
 	if (game->map->map[(int)new_y][(int)new_x] == '1')
 		return (false);
 	if (can_move_to(game->map->map, new_x, new_y))
